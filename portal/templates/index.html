@@ -1,27 +1,234 @@
-<!DOCTYPE html>
- 
-<html lang="en">
- 
-<head>
+{% load staticfiles %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/style.css">
-    <link href="images/favicon.ico" rel="shortcut icon">
-    <title>Portal</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WassupHealth</title>
+    <link rel="stylesheet" href="{% static 'portal/css/foundation.css' %}" />
+	<link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
+    
+  </head>
+  <body>
+    
+    <div class="row">
+		
+		<div class="large-12 columns">
  
-<body>
+			<div class="fixed">
+			<nav class="top-bar" data-topbar>
+				<ul class="title-area">
+           
+					<li class="name">
+						<h1>
+							<a href="#">
+								<img src="{% static 'portal/img/Logo-small.png' %}">
+							</a>
+						</h1>
+					</li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+					
+				</ul>
  
-<div class="container">
-    {% for post in posts %}
-        <div class="post">
-        <h2>{{ post.title }}</h2>
-        <h3>Posted on {{ post.timestamp }} by {{ post.author }}</h3>
-        <p>{{ post.bodytext }}</p>
-        </div>
-        <hr />
-    {% endfor %}
-</div>
+				<section class="top-bar-section">
+				
+					<ul class="left">
+					
+						<li><a href="#" data-reveal-id="myModal">LOGIN</a></li>
+						
+						<li class="has-dropdown">
+							<a href="#">Categories</a>
+							<ul class="dropdown">
+								<li><a href="#">Fitness</a></li>
+								<li class="active"><a href="#">Diseases</a></li>
+							</ul>
+						</li>
+						
+						<li><a href="#">Forums</a></li>
+						<li><a href="#">Join Us</a></li>
+						<li><a href="#">Contact Us</a></li>
+						
+					</ul>
  
-</body>
+					<ul class="right">
+						<li class="search">
+							<form>
+								<input type="search">
+							</form>
+						</li>
+ 
+						<li class="has-button">
+							<a class="small button" href="#">Search</a>
+						</li>
+					</ul>
+				</section>
+			</nav>
+			</div>
+			
+		</div>
+		
+	</div>
+ 
+ 
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="hide-for-small">
+				<div id="featured">
+					<img src="{% static 'portal/img/healthcare.jpg' %}" alt="slide image">
+				</div>
+			</div>
+ 
+			<div class="row">
+				<div class="small-12 show-for-small"><br>
+					<img src="{% static 'portal/img/healthcare.jpg' %}"/>
+				</div>
+			</div>
+		</div>
+	</div><br>
+ 
+	<div class="row">
+  
+		<div class="large-9 columns" role="content">
+		
+		{% for post in posts %}
+		<article>
+ 
+			<h3><a href="#">{{ post.title }}</a></h3>
+			<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+ 
+			<div class="row">
+				<!--<div class="large-6 columns">
+					
+				</div>
+				<div class="large-6 columns">
+					<img src="http://placehold.it/400x240&text=[img]"/>
+				</div>-->
+				<p align = "justify">{{ post.bodytext }}</p>
+			</div>
+			
+		</article>
+ 		
+		<hr/>
+ 		{% endfor %}
+ 		
+		<!--<article>
+ 
+			<h3><a href="#">Blog Post Title</a></h3>
+			<h6>Written by <a href="#">John Smith</a> on August 12, 2012.</h6>
+ 
+			<div class="row">
+				<div class="large-6 columns">
+					<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p>
+					<p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+				</div>
+				<div class="large-6 columns">
+					<img src="http://placehold.it/400x240&text=[img]"/>
+				</div>
+			</div>
+ 
+			<p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+ 
+			<p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
+ 
+		</article>-->
+ 
+    </div>
+
+    <aside class="large-3 columns">
+ 
+		<div class="panel">
+			<h5>Categories</h5>
+			<ul class="side-nav">
+				<li><a href="#">News</a></li>
+				<li><a href="#">Code</a></li>
+				<li><a href="#">Design</a></li>
+				<li><a href="#">Fun</a></li>
+				<li><a href="#">Weasels</a></li>
+			</ul>
+		</div>
+		
+		<div class="panel">
+			<h5>Featured</h5>
+			<p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
+			<a href="#">Read More ?</a>
+		</div>
+ 
+    </aside>
+ 
      
+	</div>
+
+	<div id="myModal" class="reveal-modal remove-whitespace" data-reveal>
+		<div class="row">
+			<div class="large-6 columns auth-plain">
+				<div class="signup-panel left-solid">
+					<p class="welcome">Registered Users</p>
+					<form>
+						<div class="row collapse">
+							<div class="small-2  columns">
+								<span class="prefix"><i class="fi-torso-female"></i></span>
+							</div>
+							<div class="small-10  columns">
+								<input type="text" placeholder="username">
+							</div>
+						</div>
+						<div class="row collapse">
+							<div class="small-2 columns ">
+								<span class="prefix"><i class="fi-lock"></i></span>
+							</div>
+							<div class="small-10 columns ">
+								<input type="text" placeholder="password">
+							</div>
+						</div>
+					</form>
+					<a href="#" class="button ">Log In </a>
+				</div>
+			</div>
+
+			<div class="large-6 columns auth-plain">
+				<div class="signup-panel newusers">
+					<p class="welcome"> New User?</p>
+					<p>Register and put healthcare in your fingertips!</p><br>
+					<a href="#" class="button ">Sign Up</a></br>
+				</div>
+			</div>
+
+		</div>  
+		
+		<a class="close-reveal-modal">&#215;</a>
+		
+	</div> 
+	
+	<div class="row">
+		<div class="large-12 columns">
+		
+			<hr/>
+			<div class="row">
+				<div class="large-6 columns">
+					<p>Copyright to WassupHealth 2014</p>
+				</div>
+				<div class="large-6 columns">
+					<ul class="inline-list right">
+						<li><a href="#">Link 1</a></li>
+						<li><a href="#">Link 2</a></li>
+						<li><a href="#">Link 3</a></li>
+						<li><a href="#">Link 4</a></li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+	</div>  
+  
+		<script src="{% static 'portal/js/vendor/modernizr.js' %}"></script>
+		<script src="{% static 'portal/js/vendor/jquery.js' %}"></script>
+		<script src="{% static 'portal/js/foundation/foundation.js' %}"></script>
+		<script src="{% static 'portal/js/foundation/foundation.reveal.js' %}"></script>
+		<script>
+			$(document).foundation();
+		</script>
+		
+  </body>
+
 </html>
