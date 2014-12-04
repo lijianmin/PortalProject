@@ -12,11 +12,14 @@
 <body>
  
 <div class="container">
-    <h1>Article 1</h1>
-    <h2>{{ title }}</h2>
-    <h3>Posted on {{ date }} by {{ author }}</h3>
-    <p>{{ body }}</p>
- 
+    {% for post in posts %}
+        <div class="post">
+        <h2>{{ post.title }}</h2>
+        <h3>Posted on {{ post.timestamp }} by {{ post.author }}</h3>
+        <p>{{ post.bodytext }}</p>
+        </div>
+        <hr />
+    {% endfor %}
 </div>
  
 </body>

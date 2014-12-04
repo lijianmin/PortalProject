@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+import pymysql
+pymysql.install_as_MySQLdb()
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -36,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+ 	#'ckeditor',
     'portal',
 )
 
@@ -53,17 +57,18 @@ ROOT_URLCONF = 'wassuphealth.urls'
 
 WSGI_APPLICATION = 'wassuphealth.wsgi.application'
 
+#CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
+		'ENGINE': 'django.db.backends.mysql',
         'NAME': 'wassuphealth',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '',
+    	'HOST': 'localhost',
         'PORT': '3306',
     }
 }
