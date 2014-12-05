@@ -33,14 +33,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+	'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_wysiwyg',
     #'django.contrib.sites',
- 	#'ckeditor',
  	#'django.contrib.comments',
     'portal',
 )
@@ -93,6 +94,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+DJANGO_WYSIWYG_MEDIA_URL = '/uploads/'
+
 
 TEMPLATE_DIRS = (
 	"portal/templates",

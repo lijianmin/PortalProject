@@ -30,3 +30,20 @@ class category(models.Model):
 	
 	def __str__(self):
 		return self.category_name
+		
+class user(models.Model):
+	user_id = models.CharField(
+		max_length = 15
+	)
+	
+	email_address = models.CharField(
+		max_length = 100
+	)
+	
+	country = models.CharField(
+		max_length = 50
+	)
+	
+	home_address = models.CharField(
+		max_length = 300
+	)
