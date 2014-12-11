@@ -1,0 +1,23 @@
+/* Styles for site */
+
+.top-bar {
+  background-color: #28ABE3 !important;
+}
+
+.top-bar ul li a {
+  background-color: #28ABE3 !important;
+}
+
+.search{
+	
+}
+
+.category{
+	background-color: #EFEFEF;
+	border: 0;
+}
+
+.featured{
+	background-color: #EFEFEF;
+	border: 0;
+}

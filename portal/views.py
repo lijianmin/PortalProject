@@ -4,9 +4,12 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
 
-from portal.models import posts
+from portal.models import posts, category
 
 # Create your views here.
 def home(request):
-	entries = posts.objects.all()[:10]
-	return render(request, 'index.html', {'posts' : entries})
+	entries = posts.objects.values('title','timestamp','author')
+	categories = category.objects.all()[:10]
+	return render(request, 'index.html', {'posts' : entries, 'categories' : categories})
+	
+#def view_article(request):

@@ -4,7 +4,8 @@ from django.db import models
 from django import forms
 
 class PostsAdmin(admin.ModelAdmin):
-    change_form_template = 'portal/admin/change_form.html'
+	prepopulated_fields = {"title_slug": ("title",)}
+	change_form_template = 'portal/admin/change_form.html'
     
 # Register your models here.
 admin.site.register(posts, PostsAdmin)
