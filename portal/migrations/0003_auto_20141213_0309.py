@@ -7,12 +7,12 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('portal', '0004_delete_user'),
+        ('portal', '0002_category_category_slug'),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='posts',
-            name='title_slug',
+        migrations.RenameModel(
+            old_name='posts',
+            new_name='post',
         ),
     ]

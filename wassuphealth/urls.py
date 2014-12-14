@@ -4,8 +4,9 @@ from portal import views
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'portal.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+	url(r'^$', 'portal.views.home', name='home'),
+	url(r'^portal/viewcategory/(?P<slug>[^\.]+)', 'portal.views.view_category', name='view_category'),
+	url(r'^portal/viewarticle/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
     url(r'^admin/', include(admin.site.urls)),
 )
