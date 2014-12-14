@@ -1,77 +1,7 @@
+{% include 'header.html' %}
+
 {% load staticfiles %}
 
-<!doctype html>
-<html class="no-js" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WassupHealth</title>
-    <link rel="stylesheet" href="{% static 'portal/css/foundation.css' %}" />
-	<link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
-	<!--<link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />-->
-  </head>
-  <body>
-    
-    <div class="row">
-		
-		<div class="large-12 columns">
-			
-			<div class="contain-to-grid fixed">
-			<nav class="top-bar" data-topbar>
-				<ul class="title-area">
-           
-					<li class="name">
-						<h1>
-							<a href="{% url 'home' %}">
-								<b>Wassup</b>HEALTH
-							</a>
-						</h1>
-					</li>
-					<li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-					
-				</ul>
- 
-				<section class="top-bar-section">
-				
-					<ul class="left">
-					
-						<li><a href="#" data-reveal-id="myModal">LOGIN</a></li>
-						
-						<li class="has-dropdown">
-							<a href="#">Categories</a>
-							<ul class="dropdown">
-								{% for category in categories %}
-									<li><a href="#">{{ category.category_name }}</a></li>
-								{% endfor %}
-							</ul>
-						</li>
-						
-						<li><a href="#">Forums</a></li>
-						<li><a href="#">Join Us</a></li>
-						<li><a href="#">Contact Us</a></li>
-						
-					</ul>
- 
-					<ul class="right">
-						<li class="search">
-							<form>
-								<input type="search">
-							</form>
-						</li>
- 
-						<li class="has-button">
-							<a class="small button" href="#">Search</a>
-						</li>
-					</ul>
-				</section>
-			</nav>
-			</div>
-			
-		</div>
-		
-	</div>
- 
- 
 	<div class="row">
 		<div class="large-12 columns">
 			<div class="hide-for-small">
@@ -122,7 +52,7 @@
 			<h5>Categories</h5>
 			<ul class="side-nav">
 				{% for category in categories %}
-					<li><a href="#">{{ category.category_name }}</a></li>
+					<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -177,36 +107,8 @@
 		
 		<a class="close-reveal-modal">&#215;</a>
 		
-	</div> 
-	
-	<div class="row">
-		<div class="large-12 columns">
-		
-			<hr/>
-			<div class="row">
-				<div class="large-6 columns">
-					<p>Copyright to WassupHealth 2014</p>
-				</div>
-				<div class="large-6 columns">
-					<ul class="inline-list right">
-						<li><a href="#">Join Us</a></li>
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Legal</a></li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	</div>  
-  
-		<script src="{% static 'portal/js/vendor/modernizr.js' %}"></script>
-		<script src="{% static 'portal/js/vendor/jquery.js' %}"></script>
-		<script src="{% static 'portal/js/foundation/foundation.js' %}"></script>
-		<script src="{% static 'portal/js/foundation/foundation.reveal.js' %}"></script>
-		<script>
-			$(document).foundation();
-		</script>
-		
-  </body>
+	</div>
 
-</html>
+{% include 'auth.html' %} 
+	
+{% include 'footer.html' %}
