@@ -57,6 +57,8 @@ class category(models.Model):
 		auto_now_add=True
 	)
 
+	master_category = models.ForeignKey('portal.masterCategory')
+
 	def __str__(self):
 		return self.category_name
 	
@@ -67,3 +69,26 @@ class category(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_category', (), { 'slug': self.category_slug })
+
+# Master Category
+class masterCategory(models.Model):
+
+	master_category_name = models.CharField(
+		max_length = 150
+	)
+
+	master_category_slug = models.CharField(
+		max_length = 150,
+		db_index = True
+	)
+
+	def __str__(self):
+		return self.master_category_name
+
+	def save(self, *args, **kwargs):
+		self.master_category_slug = slugify(self.master_category_name)
+		super(masterCategory, self).save(*args, **kwargs)
+	
+	@models.permalink
+	def get_absolute_url(self):
+		return ('view_master_category', (), { 'slug': self.master_category_slug })

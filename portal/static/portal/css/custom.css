@@ -1,11 +1,15 @@
 /* Styles for site */
 
+.main-font {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
 .top-bar {
-  background-color: #28ABE3 !important;
+ 	background-color: #69D2E7 !important;
 }
 
 .top-bar ul li a {
-  background-color: #28ABE3 !important;
+  	background-color: #69D2E7 !important;
 }
 
 .search{
@@ -13,11 +17,15 @@
 }
 
 .category{
-	background-color: ##1FDA9A;
+	background-color: #F7EAC8;
 	border: 0;
 }
 
 .featured{
-	background-color: ##1FDA9A;
+	background-color: #F7EAC8;
 	border: 0;
 }
+
+.name{
+ 	background-color: #DB3340
+ }

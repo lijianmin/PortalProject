@@ -20,10 +20,20 @@ def view_article(request, slug):
 	})
 
 def view_category(request, slug):
+	
 	category_name = get_object_or_404(category, category_slug = slug)
+	
 	return render_to_response('view_category.html', {
 		'category': category_name,
 		'categories': category.objects.all()[:10],
 		'posts': post.objects.filter(category = category_name)
 	})
+
+def view_master_category(request, slug):
 	
+	master_category_name = get_object_or_404(master_category, master_category_slug = slug)
+
+	return render_to_response('view_master_category.html', {
+		'master_category': master_category_name,
+		'child_categories': category.objects.filter(master_category = master_category_name)[:10],
+	})

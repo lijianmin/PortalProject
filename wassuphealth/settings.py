@@ -97,7 +97,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DJANGO_WYSIWYG_FLAVOR = "yui_advanced"
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 #DJANGO_WYSIWYG_MEDIA_URL = '/uploads/ckeditor/'
 
 
