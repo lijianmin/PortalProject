@@ -9,24 +9,27 @@ from portal.models import post, category
 # Create your views here.
 def home(request):
 	#posts = post.objects.values('title','timestamp','author','bodytext', 'title_slug')
-	posts = post.objects.all()[:10]
-	categories = category.objects.all()[:10]
-	return render(request, 'index.html', {'posts' : posts, 'categories' : categories})
+	articles = post.objects.all()[:10]
+	health_threats = category.objects.filter(master_category = 1)
+	categories = category.objects.filter(master_category = 2)
+	return render(request, 'index.html', {'posts' : articles, 'categories' : categories, 'health_threats': health_threats})
 	
-def view_article(request, slug):
+def view_article(request, slug, id):
 	return render_to_response('view_article.html', {
-		'categories' : category.objects.all()[:10],
-		'post': get_object_or_404(post, title_slug = slug)
+		'health_threats' : category.objects.filter(master_category = 1),
+		'categories' : category.objects.filter(master_category = 2),
+		'post': get_object_or_404(post, pk = id)
 	})
 
-def view_category(request, slug):
+def view_category(request, slug, id):
 	
 	category_name = get_object_or_404(category, category_slug = slug)
 	
 	return render_to_response('view_category.html', {
 		'category': category_name,
-		'categories': category.objects.all()[:10],
-		'posts': post.objects.filter(category = category_name)
+		'health_threats' : category.objects.filter(master_category = 1),
+		'categories' : category.objects.filter(master_category = 2),
+		'posts': post.objects.filter(pk = id)
 	})
 
 def view_master_category(request, slug):

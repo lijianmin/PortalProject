@@ -34,7 +34,7 @@ class post(models.Model):
 	
 	@models.permalink
 	def get_absolute_url(self):
-		return ('view_article', (), { 'slug': self.title_slug })
+		return ('view_article', (), { 'slug': self.title_slug, 'id': self.id })
     	
 	def save(self, *args, **kwargs):
 		self.title_slug = slugify(self.title)
@@ -68,7 +68,7 @@ class category(models.Model):
 	
 	@models.permalink
 	def get_absolute_url(self):
-		return ('view_category', (), { 'slug': self.category_slug })
+		return ('view_category', (), { 'slug': self.category_slug, 'id': self.id })
 
 # Master Category
 class masterCategory(models.Model):

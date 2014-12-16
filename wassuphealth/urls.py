@@ -6,8 +6,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^blog/', include('blog.urls')),
 	url(r'^$', 'portal.views.home', name='home'),
-	url(r'^portal/viewmaster/(?P<slug>[^\.]+)', 'portal.views.view_master_category', name='view_master_category'),
-	url(r'^portal/viewcategory/(?P<slug>[^\.]+)', 'portal.views.view_category', name='view_category'),
-	url(r'^portal/viewarticle/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
+	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
+	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
+	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_article', name='view_article'),
     url(r'^admin/', include(admin.site.urls)),
 )
