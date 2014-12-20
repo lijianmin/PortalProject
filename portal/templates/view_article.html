@@ -57,6 +57,15 @@
 			</ul>
 		</div>
 		
+		<div class="panel category">
+			<h5>Health Threats</h5>
+			<ul class="side-nav">
+				{% for h in health_threats %}
+					<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+		
 		<div class="panel featured">
 			<h5>Featured</h5>
 			<p>Question mark?</p>

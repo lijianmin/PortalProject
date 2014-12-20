@@ -1,6 +1,32 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models import permalink
 from django.template.defaultfilters import slugify
+
+# User Model
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User)
+
+    # The additional attributes we wish to include.
+    country = models.CharField(
+    	max_length = 150
+    )
+
+    zip_code = models.CharField(
+    	max_length = 6
+    )
+
+    home_address = models.TextField()
+
+    mobile_no = models.CharField(
+    	max_length = 20
+    )
+
+    # Override the __unicode__() method to return out something meaningful!
+    def __str__(self):
+        return self.user.username
+
 
 # Post Model
 class post(models.Model):
@@ -19,8 +45,12 @@ class post(models.Model):
     	db_index = True,
     	unique = True
     )
-    
+
 	bodytext = models.TextField()
+
+	view_count = models.IntegerField(
+		default = 0
+	)
     
 	timestamp = models.DateTimeField(
 		auto_now_add=True
@@ -69,6 +99,7 @@ class category(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_category', (), { 'slug': self.category_slug, 'id': self.id })
+
 
 # Master Category
 class masterCategory(models.Model):

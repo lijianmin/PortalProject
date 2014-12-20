@@ -1,5 +1,5 @@
 from django.contrib import admin
-from portal.models import post, category, masterCategory
+from portal.models import post, category, masterCategory, UserProfile
 from django.db import models
 from django import forms
 
@@ -17,6 +17,7 @@ class MasterCategoryAdmin(admin.ModelAdmin):
 	prepopulated_fields = {"master_category_slug": ("master_category_name",)}
 
 # Register your models here.
+admin.site.register(UserProfile)
 admin.site.register(post, PostsAdmin)
 admin.site.register(category, CategoryAdmin)
 admin.site.register(masterCategory, MasterCategoryAdmin)
