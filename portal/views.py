@@ -1,10 +1,11 @@
 from django.shortcuts 				import get_object_or_404, render, render_to_response
-from django.http 					import HttpResponseRedirect
+from django.http 					import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers 		import reverse
 from django.views 					import generic
 from django.utils 					import timezone
 from django.core.context_processors import csrf
 from django.template 				import RequestContext
+from django.contrib.auth            import authenticate, login
 
 from portal.models 					import post, category
 from portal.forms 					import UserForm, UserProfileForm
@@ -19,15 +20,18 @@ def home(request):
 	categories = category.objects.filter(master_category = 2)
 	return render(request, 'index.html', {'posts' : articles, 'categories' : categories, 'health_threats': health_threats})
 	
+
 def view_article(request, slug, id):
 
 	article = get_object_or_404(post, pk = id)
 
 	return render_to_response('view_article.html', {
+        #'comments': Comments.objects.filter(pk = comments),
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
 		'post': article
 	})
+
 
 def view_category(request, slug, id):
 	
@@ -40,6 +44,7 @@ def view_category(request, slug, id):
 		'posts': post.objects.filter(category = id)
 	})
 
+
 def view_master_category(request, slug):
 	
 	master_category_name = get_object_or_404(master_category, master_category_slug = slug)
@@ -48,6 +53,7 @@ def view_master_category(request, slug):
 		'master_category': master_category_name,
 		'child_categories': category.objects.filter(master_category = master_category_name)[:10],
 	})
+
 
 def register(request):
 
@@ -105,3 +111,45 @@ def register(request):
     return render_to_response(
             'register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered}, RequestContext(request))
+
+
+def user_login(request):
+    # Like before, obtain the context for the user's request.
+    context = RequestContext(request)
+
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        # Gather the username and password provided by the user.
+        # This information is obtained from the login form.
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # Use Django's machinery to attempt to see if the username/password
+        # combination is valid - a User object is returned if it is.
+        user = authenticate(username=username, password=password)
+
+        # If we have a User object, the details are correct.
+        # If None (Python's way of representing the absence of a value), no user
+        # with matching credentials was found.
+        if user:
+            # Is the account active? It could have been disabled.
+            if user.is_active:
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
+                login(request, user)
+                return HttpResponseRedirect('/portal/')
+            else:
+                # An inactive account was used - no logging in!
+                return HttpResponse("Your Rango account is disabled.")
+        else:
+            # Bad login details were provided. So we can't log the user in.
+            print ("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+
+    # The request is not a HTTP POST, so display the login form.
+    # This scenario would most likely be a HTTP GET.
+    else:
+        # No context variables to pass to the template system, hence the
+        # blank dictionary object...
+        return render_to_response('login.html', {}, RequestContext(request))
+

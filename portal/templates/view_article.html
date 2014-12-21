@@ -39,6 +39,31 @@
 					{{ post.bodytext | safe }}
 				{% endblock %}
 			</div>
+
+			<div class="row">
+				 
+				 <div id="disqus_thread"></div>
+				 
+				 <script type="text/javascript">
+    				
+    				var disqus_shortname = 'wassuphealth'; 
+    				var disqus_identifier = '{{ post.title_slug }}';
+    				var disqus_title = '{{ post.title }}';
+    				var disqus_url = 'http://www.wassuphealth.com{{ post.get_absolute_url }}';
+
+    				/* * * DON'T EDIT BELOW THIS LINE * * */
+    				(function() {
+        				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    				})();
+
+				</script>
+
+				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+			
+			</div>
 			
 		</article>
  		
@@ -75,47 +100,6 @@
     </aside>
  
      
-	</div>
-
-	<div id="myModal" class="reveal-modal remove-whitespace" data-reveal>
-		<div class="row">
-			<div class="large-6 columns auth-plain">
-				<div class="signup-panel left-solid">
-					<p class="welcome">Registered Users</p>
-					<form>
-						<div class="row collapse">
-							<div class="small-2  columns">
-								<span class="prefix"><i class="fi-torso-female"></i></span>
-							</div>
-							<div class="small-10  columns">
-								<input type="text" placeholder="username">
-							</div>
-						</div>
-						<div class="row collapse">
-							<div class="small-2 columns ">
-								<span class="prefix"><i class="fi-lock"></i></span>
-							</div>
-							<div class="small-10 columns ">
-								<input type="text" placeholder="password">
-							</div>
-						</div>
-					</form>
-					<a href="#" class="button ">Log In </a>
-				</div>
-			</div>
-
-			<div class="large-6 columns auth-plain">
-				<div class="signup-panel newusers">
-					<p class="welcome"> New User?</p>
-					<p>Register and put healthcare in your fingertips!</p><br>
-					<a href="#" class="button ">Sign Up</a></br>
-				</div>
-			</div>
-
-		</div>  
-		
-		<a class="close-reveal-modal">&#215;</a>
-		
 	</div>
 
 {% include 'auth.html' %} 

@@ -1,10 +1,11 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.db.models import permalink
+from django.db 						import models
+from django.contrib.auth.models 	import User
+from django.db.models 				import permalink
 from django.template.defaultfilters import slugify
 
 # User Model
 class UserProfile(models.Model):
+
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
@@ -58,7 +59,9 @@ class post(models.Model):
     
     #strictly one category per post
 	category = models.ForeignKey('portal.category')
-    	
+
+	#comments_enabled = models.BooleanField(default=False)
+	
 	def __str__(self):
 		return self.title
 	

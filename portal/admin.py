@@ -1,7 +1,7 @@
-from django.contrib import admin
-from portal.models import post, category, masterCategory, UserProfile
-from django.db import models
-from django import forms
+from django.contrib 	import admin
+from portal.models 		import post, category, masterCategory, UserProfile
+from django.db 			import models
+from django 			import forms
 
 class PostsAdmin(admin.ModelAdmin):
 	#exclude = ['timestamp']
