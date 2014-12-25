@@ -31,6 +31,8 @@ class UserProfile(models.Model):
 
 # Post Model
 class post(models.Model):
+
+	#future article guid variable field
 	
 	author = models.CharField(
     	max_length = 30

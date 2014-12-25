@@ -11,5 +11,7 @@ urlpatterns = patterns('',
 	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
 	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_article', name='view_article'),
 	url(r'^register/$', 'portal.views.register', name='registration'),
+	url(r'^login/$', 'portal.views.user_login', name='login'),
+	url(r'^logout/$', 'portal.views.user_logout', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 )

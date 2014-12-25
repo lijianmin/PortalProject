@@ -5,7 +5,8 @@ from django.views 					import generic
 from django.utils 					import timezone
 from django.core.context_processors import csrf
 from django.template 				import RequestContext
-from django.contrib.auth            import authenticate, login
+from django.contrib.auth            import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from portal.models 					import post, category
 from portal.forms 					import UserForm, UserProfileForm
@@ -26,7 +27,7 @@ def view_article(request, slug, id):
 	article = get_object_or_404(post, pk = id)
 
 	return render_to_response('view_article.html', {
-        #'comments': Comments.objects.filter(pk = comments),
+        #'comments': Comments.objects.filter(pk = comments  ),
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
 		'post': article
@@ -115,14 +116,14 @@ def register(request):
 
 def user_login(request):
     # Like before, obtain the context for the user's request.
-    context = RequestContext(request)
+    #context = RequestContext(request)
 
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
         # Gather the username and password provided by the user.
         # This information is obtained from the login form.
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username', False)
+        password = request.POST.get('password', False)
 
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
@@ -137,10 +138,10 @@ def user_login(request):
                 # If the account is valid and active, we can log the user in.
                 # We'll send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/portal/')
+                return HttpResponseRedirect('/')
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse("Your portal account has been disabled. Please contact support.")
         else:
             # Bad login details were provided. So we can't log the user in.
             print ("Invalid login details: {0}, {1}".format(username, password))
@@ -151,5 +152,13 @@ def user_login(request):
     else:
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
-        return render_to_response('login.html', {}, RequestContext(request))
+        return render('index.html', {})
 
+# Use the login_required() decorator to ensure only those logged in can access the view.
+@login_required
+def user_logout(request):
+    # Since we know the user is logged in, we can now just log them out.
+    logout(request)
+
+    # Take the user back to the homepage.
+    return HttpResponseRedirect('/')

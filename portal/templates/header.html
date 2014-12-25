@@ -36,7 +36,17 @@
 				
 					<ul class="left">
 						
+						{% if user.is_authenticated %}
+						<li class="has-dropdown">
+							<a href="#">Welcome, {{ user.username }}!</a>
+							<ul class="dropdown">
+								<li><a href="#">Edit Profile</a></li>
+								<li><a href="{% url 'logout' %}">Logout</a></li>
+							</ul>
+						</li>
+						{% else %}
 						<li><a href="#" data-reveal-id="myModal">LOGIN</a></li>
+						{% endif %}
 
 						<li class="has-dropdown">
 							<a href="#">Health Threats</a>
@@ -57,8 +67,7 @@
 						</li>
 						
 						<li><a href="#">Forums</a></li>
-						<li><a href="#">Join Us</a></li>
-						<li><a href="#">Contact Us</a></li>
+						<li><a href="#">Help</a></li>
 						
 					</ul>
  
