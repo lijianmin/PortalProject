@@ -12,6 +12,10 @@ from portal.models 					import post, category
 from portal.forms 					import UserForm, UserProfileForm
 
 # Create your views here.
+@login_required
+def user_admin(request):
+    return render(request, 'user_admin.html')
+
 def home(request):
 	#posts = post.objects.values('title','timestamp','author','bodytext', 'title_slug')
 	articles = post.objects.all()[:10]
@@ -129,10 +133,12 @@ def user_login(request):
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
 
+        print(user)
+
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
-        if user:
+        if user is not None:
             # Is the account active? It could have been disabled.
             if user.is_active:
                 # If the account is valid and active, we can log the user in.

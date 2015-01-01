@@ -7,35 +7,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WassupHealth</title>
     <link rel="stylesheet" href="{% static 'portal/css/foundation.css' %}" />
-	<link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
-	<link rel="stylesheet" href="{% static 'portal/css/custom.css' %}" />
-  </head>
-  <body class="main-font">
-    
-    <div class="row">
-		
-		<div class="large-12 columns">
-			
-			<div class="contain-to-grid fixed" style="background-color: #69D2E7">
-			<nav class="top-bar" data-topbar>
+    <link rel="stylesheet" href="{% static 'portal/css/wassuphealth_custom.css' %}" />
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'portal/vendor/slick/slick.css' %}"/>
 
-				<ul class="title-area">
+  </head>
+  
+  <body class="main-font">
+     
+    <div class="row">
+
+      <section class="top-bar-section">
+
+        <ul class="left">
+          <br/>
+          <p>Tuesday, 29/12/2014 8.30PM.</p>
+        </ul>
+
+        <ul class="right">
+          <a href="{% url 'home' %}"><img src="{% static 'portal/img/logo_web.png' %}" /></a>
+        </ul>
+
+      </section>
+    </div>
+
+    <br/>
+
+    <div class="contain-to-grid">
+		
+		<nav class="top-bar" data-topbar role="navigation">	
+
+			<ul class="title-area">
            
-					<li class="name">
-						<h1>
-							<a href="{% url 'home' %}">
-								<b>Wassup</b>HEALTH
-							</a>
-						</h1>
-					</li>
-					<li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-					
-				</ul>
- 
-				<section class="top-bar-section">
+				<li class="toggle-topbar menu-icon">
+					<a href="#"><span>Menu</span></a>
+				</li>
+
+			</ul>
+
+			<section class="top-bar-section">
 				
-					<ul class="left">
+				<ul class="left">
 						
+						<li class="divider"></li>
+
 						{% if user.is_authenticated %}
 						<li class="has-dropdown">
 							<a href="#">Welcome, {{ user.username }}!</a>
@@ -48,6 +64,8 @@
 						<li><a href="#" data-reveal-id="myModal">LOGIN</a></li>
 						{% endif %}
 
+						<li class="divider"></li>
+
 						<li class="has-dropdown">
 							<a href="#">Health Threats</a>
 							<ul class="dropdown">
@@ -56,6 +74,8 @@
 								{% endfor %}
 							</ul>
 						</li>
+
+						<li class="divider"></li>
 
 						<li class="has-dropdown">
 							<a href="#">Articles</a>
@@ -66,19 +86,33 @@
 							</ul>
 						</li>
 						
+						<li class="divider"></li>
+						
 						<li><a href="#">Forums</a></li>
+						
+						<li class="divider"></li>
+
 						<li><a href="#">Help</a></li>
+
+						<li class="divider"></li>
 						
 					</ul>
  
 					<ul class="right">
-						<li class="search" style="background-color: #69D2E7">
+
+						<li class="divider"></li>
+
+						<li><a href="#">Human Body</a></li>
+
+						<li class="divider"></li>	
+
+						<li class="search">
 							<form>
-								<input type="search">
+								<input type="search" placeholder="Search Wassuphealth">
 							</form>
 						</li>
  
-						<li class="has-button" style="background-color: #69D2E7">
+						<li class="has-button">
 							<a class="small button" href="#">Search</a>
 						</li>
 					</ul>
@@ -89,3 +123,5 @@
 		</div>
 		
 	</div>
+
+	<br/>

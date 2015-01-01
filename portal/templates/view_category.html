@@ -1,22 +1,6 @@
 {% include 'header.html' %}
 
 {% load staticfiles %}
-
-	<div class="row">
-		<div class="large-12 columns">
-			<div class="hide-for-small">
-				<div id="featured">
-					<img src="{% static 'portal/img/healthcare02.jpg' %}" alt="slide image">
-				</div>
-			</div>
- 
-			<div class="row">
-				<div class="small-12 show-for-small"><br>
-					<img src="{% static 'portal/img/healthcare02.jpg' %}"/>
-				</div>
-			</div>
-		</div>
-	</div><br>
  
 	<div class="row">
   
@@ -31,6 +15,9 @@
 		
 			<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
 			<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+
+			{{ post.bodytext | safe | truncatechars_html:500 }}
+
 			
 		</article>
  		
@@ -41,8 +28,9 @@
 
     <aside class="large-4 columns">
  
-		<div class="panel category">
+		<div class="category">
 			<h5>Categories</h5>
+			<hr/>
 			<ul class="side-nav">
 				{% for category in categories %}
 					<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
@@ -50,20 +38,15 @@
 			</ul>
 		</div>
 
-		<div class="panel category">
+		<div class="category">
 			<h5>Health Threats</h5>
+			<hr/>
 			<ul class="side-nav">
 				{% for h in health_threats %}
 					<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>	
-
-		<div class="panel featured">
-			<h5>Featured</h5>
-			<p>Question mark?</p>
-			<a href="#">Read More ?</a>
-		</div>
  
     </aside>
  

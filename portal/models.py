@@ -62,7 +62,8 @@ class post(models.Model):
     #strictly one category per post
 	category = models.ForeignKey('portal.category')
 
-	#comments_enabled = models.BooleanField(default=False)
+	#enable/disable the Disqus comments system (per article via the admin)
+	comments_enabled = models.BooleanField(default=False)
 	
 	def __str__(self):
 		return self.title

@@ -13,5 +13,6 @@ urlpatterns = patterns('',
 	url(r'^register/$', 'portal.views.register', name='registration'),
 	url(r'^login/$', 'portal.views.user_login', name='login'),
 	url(r'^logout/$', 'portal.views.user_logout', name='logout'),
+	url(r'^useradmin/$', 'portal.views.user_admin', name='useradmin'),
     url(r'^admin/', include(admin.site.urls)),
 )

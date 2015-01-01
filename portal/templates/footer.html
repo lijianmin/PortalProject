@@ -1,43 +1,46 @@
 {% load staticfiles %}
 
-		<div class="large-12 columns" style="background-color: #FFA200; color: #FFF">
+        <div id="footer" class="large-12 columns" style="background-color: #53BBF4; color: #FFF">
+          <div class="row">
+            
+            <br/>
 
-			<br/>
+            <div class="large-6 columns">
+              <p>© Copyright to WassupHealth, 2014</p>
+            </div>
+            
+            <div class="large-3 columns">
+              <ul>
+                <li>About WassupHealth</li>
+                <li>Personal Data Protection Policy</li>
+                <li>Legal & Terms of Use</li>
+              </ul>
+            </div>
+          
+          </div>
+        </div>
+      
+      <script src="{% static 'portal/js/vendor/jquery.js' %}"></script>      
+      <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-			<div class="row">
-				<div class="large-6 columns">
-					<p>Copyright to WassupHealth 2014</p>
-				</div>
-				
-				<div class="large-3 columns">
-					<ul>
-						<li>Item 1</li>
-						<li>Item 2</li>
-						<li>Item 3</li>
-						<li>Item 4</li>
-						<li>Item 5</li>
-					</ul>
-				</div>
-				
-				<div class="large-3 columns">
-					<ul>
-						<li><a href="#">Join Us Today!</a></li>
-						<li><a href="#">About WassupHealth</a></li>
-						<li><a href="#">Legal & Terms of Use</a></li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
-	 
-  
-		<script src="{% static 'portal/js/vendor/modernizr.js' %}"></script>
-		<script src="{% static 'portal/js/vendor/jquery.js' %}"></script>
-		<script src="{% static 'portal/js/foundation/foundation.js' %}"></script>
-		<script src="{% static 'portal/js/foundation/foundation.reveal.js' %}"></script>
-		<script>
-			$(document).foundation();
-		</script>
+      <script src="{% static 'portal/js/vendor/modernizr.js' %}"></script>
+      <script src="{% static 'portal/js/foundation.min.js' %}"></script>
+      <script src="{% static 'portal/js/foundation/foundation.reveal.js' %}"></script>
+      <script src="{% static 'portal/js/foundation/foundation.topbar.js' %}"></script>
+      
+      <script type="text/javascript" src="{% static 'portal/vendor/slick/slick.min.js' %}"></script>
+
+      <script type="text/javascript">
+        $(document).foundation();
+
+        $(document).ready(function(){
+            $('.slider').slick({
+              dots: true,
+              accessibility: true,
+              arrows: true
+            });
+        });
+      </script>
 		
   </body>
 
