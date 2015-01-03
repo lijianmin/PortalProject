@@ -12,7 +12,7 @@
             <div class="large-3 columns">
               <ul>
                 <li>About WassupHealth</li>
-                <li>Personal Data Protection Policy</li>
+                <li><a href="{% url 'PDPA' %}">Personal Data Protection Policy</a></li>
                 <li>Legal & Terms of Use</li>
               </ul>
             </div>
@@ -37,6 +37,7 @@
             $('.slider').slick({
               dots: true,
               accessibility: true,
+              autoplay: true,
               arrows: true
             });
         });

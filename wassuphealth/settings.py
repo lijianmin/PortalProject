@@ -42,8 +42,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_wysiwyg',
     'debug_toolbar',
-    #'django.contrib.sites',
- 	#'django.contrib.comments',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'portal',
 )
 
@@ -55,8 +55,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+SITE_ID = 2
 
 ROOT_URLCONF = 'wassuphealth.urls'
 

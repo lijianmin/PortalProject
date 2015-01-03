@@ -64,6 +64,9 @@ class post(models.Model):
 
 	#enable/disable the Disqus comments system (per article via the admin)
 	comments_enabled = models.BooleanField(default=False)
+
+	#publish when you are confident enough
+	published = models.BooleanField(default=False)
 	
 	def __str__(self):
 		return self.title

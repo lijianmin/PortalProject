@@ -16,6 +16,14 @@
         background-color: #53BBF4 !important;
       }*/
 
+      .article-heading{
+        color:#008BBA;
+      }
+
+      body{
+        height: auto;
+      }
+
       h3, h4, h5, h6{
         font-family: 'Oxygen', sans-serif;
       }

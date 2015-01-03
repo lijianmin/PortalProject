@@ -1,29 +1,14 @@
 {% include 'header.html' %}
 
 {% load staticfiles %}
-
-	<div class="row">
-		<div class="large-12 columns">
-			<div class="hide-for-small">
-				<div id="featured">
-					<img src="{% static 'portal/img/healthcare02.jpg' %}" alt="slide image">
-				</div>
-			</div>
- 
-			<div class="row">
-				<div class="small-12 show-for-small"><br>
-					<img src="{% static 'portal/img/healthcare02.jpg' %}"/>
-				</div>
-			</div>
-		</div>
-	</div><br>
  
 	<div class="row">
-  
-		<div class="large-8 columns" role="content">
+  		
+  		<div class="large-4 columns">
+  		</div>
 
-		<article>
-		
+		<div class="large-6 columns" role="content">
+
 			{% if registered %}
 
 				<strong>Thank you for registering</strong>
@@ -31,8 +16,10 @@
 
 			{% else %}
 
-				<h3>Sign up for a WassupHealth Profile NOW!</h3>
-			
+				<h3>Register a Profile With Us NOW!</h3>
+				
+				<br/>
+
 				<form id="user_form" method="post" action="{% url 'registration' %}" enctype="multipart/form-data">
 						
 						{% csrf_token %}
@@ -40,19 +27,17 @@
 						{{ user_form.as_p }}
 						{{ profile_form.as_p }}
 
-						<input type="submit" name="submit" value="Register" />
+						<input class="button" type="submit" name="submit" value="Register Now" />
 
 				</form>
 
-				<br/>
-
-				<br/>
 
 			{% endif %}
-
-		</article>
 			
-    </div>
+    	</div>
+
+    	<div class="large-4 columns">
+  		</div>
 
 	</div>
 

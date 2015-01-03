@@ -6,19 +6,18 @@
   
 		<div class="large-8 columns" role="content">
 
+		<h3 class="article-heading">{{ post.title }}</h3>
+		<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+		<h6>Under: {{ post.category }}</h6>
+ 		<br/>
+
 		<article>
-		
-			<h3>{{ post.title }}</h3>
-			<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
-			<h6>Under: {{ post.category }}</h6>
- 			<br/>
 
-			<div class="row">
+			{% block content %}
+			{{ post.bodytext | safe }}
+			{% endblock %}
 
-				{% block content %}
-					{{ post.bodytext | safe }}
-				{% endblock %}
-			</div>
+			<br/>
 
 			{% if post.comments_enabled %}
 			<div class="row">
@@ -45,11 +44,13 @@
 				<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 			
 			</div>
+
 			{% else %}
 			<div class="row">
 				<p class="alert-box alert">Comments disabled for this article</p>
 			</div>
-			{% endif %}			
+			{% endif %}	
+
 		</article>
  		
 		<hr/>
@@ -68,16 +69,9 @@
 			<h4>Under the same category</h4>
 			<hr/>
 			<br/>
-		</div>
-		
-		<div class="category">
-			<h4>Health Threats</h4>
-			<hr/>
-			<ul class="side-nav">
-				{% for h in health_threats %}
-					<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
-				{% endfor %}
-			</ul>
+			{% for article in same_cat_articles %}
+				<p>{{ article.title }}</p>
+			{% endfor %}
 		</div>
 	
     </aside>

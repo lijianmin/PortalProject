@@ -8,7 +8,7 @@
     <title>WassupHealth</title>
     <link rel="stylesheet" href="{% static 'portal/css/foundation.css' %}" />
     <link rel="stylesheet" href="{% static 'portal/css/wassuphealth_custom.css' %}" />
-    <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/vendor/slick/slick.css' %}"/>
 
@@ -21,8 +21,8 @@
       <section class="top-bar-section">
 
         <ul class="left">
-          <br/>
-          <p>Tuesday, 29/12/2014 8.30PM.</p>
+        	<br/>
+        	<p>Tuesday, 29/12/2014 8.30PM.<br/><i>Have you done your exercise today?</i></p>
         </ul>
 
         <ul class="right">
@@ -34,7 +34,7 @@
 
     <br/>
 
-    <div class="contain-to-grid">
+    <div class="contain-to-grid sticky">
 		
 		<nav class="top-bar" data-topbar role="navigation">	
 
@@ -56,7 +56,7 @@
 						<li class="has-dropdown">
 							<a href="#">Welcome, {{ user.username }}!</a>
 							<ul class="dropdown">
-								<li><a href="#">Edit Profile</a></li>
+								<li><a href="{% url 'useradmin' %}">Your Account</a></li>
 								<li><a href="{% url 'logout' %}">Logout</a></li>
 							</ul>
 						</li>

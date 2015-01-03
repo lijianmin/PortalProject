@@ -5,11 +5,10 @@
      <div class="row">
         <div class="large-12 columns">
           <div class="slider">
-            <div><img src="http://placehold.it/1000x400&text=Slide Image 1"/></div>
-            <div><img src="http://placehold.it/1000x400&text=Slide Image 2"/></div>
-            <div><img src="http://placehold.it/1000x400&text=Slide Image 3"/></div>
-            <div><img src="http://placehold.it/1000x400&text=Slide Image 4"/></div>
-            <div><img src="http://placehold.it/1000x400&text=Slide Image 5"/></div>
+            <div><img src="{% static 'portal/img/healthcare_01.jpg' %}"/></div>
+            <div><img src="{% static 'portal/img/healthcare_02.jpg' %}"/></div>
+            <div><img src="{% static 'portal/img/healthcare_03.jpg' %}"/></div>
+            <div><img src="{% static 'portal/img/healthcare_04.jpg' %}"/></div>
           </div>
         </div>
       </div>
@@ -20,20 +19,42 @@
   
 		<div class="large-8 columns" role="content">
 		
-		{% for post in posts %}
-		<article>
-		
-			<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-			<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
-			<h6>Under: {{ post.category }}</h6>
-			<br/>
-			{{ post.bodytext | safe | truncatechars_html:500 }}
+		{% for article in articles %}
 
-		</article>
+			<article>
+		
+				<h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+				<h6>Posted on {{ article.timestamp }} by {{ article.author }}</h6>
+				<h6>Under: {{ article.category }}</h6>
+				<br/>
+				{{ article.bodytext | safe | truncatechars_html:500 }}
+
+			</article>
+
 		<br/>
 		<hr/>
  		{% endfor %}
- 
+
+ 		<div class="row">
+ 			
+ 			<ul class="small-block-grid-5">
+
+				{% if articles.has_previous %}
+ 					<li class="left">
+ 						<a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
+ 					</li>
+ 				{% endif %}
+
+ 				{% if articles.has_next %}
+					<li class="right">
+						<a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
+					</li>
+				{% endif %}
+
+ 			</ul>
+
+		</div>
+
     </div>
 
     <aside class="large-4 columns">
