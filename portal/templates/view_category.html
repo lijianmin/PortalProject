@@ -3,27 +3,46 @@
 {% load staticfiles %}
  
 	<div class="row">
+
+		<br/>
   
 		<div class="large-8 columns" role="content">
 		
-		<h3> Viewing Articles Under <b>{{ category }}</b> </h3>
+		<h1><b>{{ category }}</b> </h1>
 		
-		<br/>
-		
-		{% for post in posts %}
-		<article>
-		
-			<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-			<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+		{% if category.definition %}
+			<blockquote>{{ category.definition }}</blockquote>
+		{% endif %}
 
-			{{ post.bodytext | safe | truncatechars_html:500 }}
+		{% if posts %}
 
+			<br/>
+
+			<h5 class="subheader"><b>Articles in this category</b></h5>
+
+			{% for post in posts %}
+			<article>
+		
+				<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+				<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+
+				{{ post.bodytext | safe | truncatechars_html:500 }}	
 			
-		</article>
- 		
-		<hr/>
- 		{% endfor %}
+			</article>
+
+			<hr/>
+
+ 			{% endfor %}
  
+ 		{% else %}
+
+ 			<p>Oops. Nothing on this yet. We are committed to this section though! Check back again!</p>
+
+ 		{% endif %}
+ 		<br/>
+ 		<br/>
+ 		<br/>
+ 		
     </div>
 
     <aside class="large-4 columns">
@@ -36,7 +55,6 @@
  		
 		<div class="category">
 			<h5>Categories</h5>
-			<hr/>
 			<ul class="side-nav">
 				{% for category in categories %}
 					<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
@@ -46,7 +64,6 @@
 
 		<div class="category">
 			<h5>Health Threats</h5>
-			<hr/>
 			<ul class="side-nav">
 				{% for h in health_threats %}
 					<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>

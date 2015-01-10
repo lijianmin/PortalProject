@@ -39,12 +39,12 @@ class post(models.Model):
     )
     
 	title = models.CharField(
-    	max_length = 150,
+    	max_length = 200,
     	db_index = True
     )
 	
 	title_slug = models.SlugField(
-    	max_length = 50,
+    	max_length = 200,
     	db_index = True,
     	unique = True
     )
@@ -78,6 +78,13 @@ class post(models.Model):
 	def save(self, *args, **kwargs):
 		self.title_slug = slugify(self.title)
 		super(post, self).save(*args, **kwargs)
+
+
+from django.db.models.signals 		import pre_save
+from portal.signals						import create_redirect
+
+pre_save.connect(create_redirect, sender=post, dispatch_uid="001")
+
     
 # Category Model
 class category(models.Model):
@@ -97,6 +104,8 @@ class category(models.Model):
 	)
 
 	master_category = models.ForeignKey('portal.masterCategory')
+
+	definition = models.TextField(default="")
 
 	def __str__(self):
 		return self.category_name

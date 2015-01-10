@@ -3,13 +3,21 @@
 {% load staticfiles %}
 
 	<div class="row">
+		<br/>
+		<h1 align=center class="article-heading">{{ post.title }}</h1>
+		<p align=center>
+			Posted on {{ post.timestamp }} by {{ post.author }}
+			<br/>
+			Under: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+		</p>
+		<hr/>
+	</div>	
+	
+	<br/>
+
+	<div class="row">
   
 		<div class="large-8 columns" role="content">
-
-		<h3 class="article-heading">{{ post.title }}</h3>
-		<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
-		<h6>Under: {{ post.category }}</h6>
- 		<br/>
 
 		<article>
 
@@ -66,12 +74,13 @@
  		</div>
 
 		<div class="category">
-			<h4>Under the same category</h4>
+			<h5>Under the same category</h5>
 			<hr/>
-			<br/>
-			{% for article in same_cat_articles %}
-				<p>{{ article.title }}</p>
-			{% endfor %}
+			<ul class="side-nav">
+				{% for article in same_cat_articles %}
+					<li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+				{% endfor %}
+			</ul>
 		</div>
 	
     </aside>

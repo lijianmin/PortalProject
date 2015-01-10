@@ -7,6 +7,25 @@ class BaseAcceptanceTest(LiveServerTestCase):
 	def setUp(self):
 		self.client = Client()
 
+class SitemapTest(BaseAcceptanceTest):
+    def test_sitemap(self):
+        # Create a post
+        # post = postFactory()
+
+        # Create a flat page
+        # page = FlatPageFactory()
+
+        # Get sitemap
+        response = self.client.get('/sitemap.xml')
+        self.assertEquals(response.status_code, 200)
+
+        # Check post is present in sitemap
+        self.assertTrue('loren-ipsum-redirect' in response.content)
+
+        # Check page is present in sitemap
+        # self.assertTrue('/about/' in response.content)
+
+
 class FlatPageViewTest(BaseAcceptanceTest):
 	
 	def test_create_flat_page(self):

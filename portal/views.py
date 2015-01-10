@@ -20,7 +20,7 @@ def user_admin(request):
 	return render(request, 'user_admin.html', {'categories' : categories, 'health_threats': health_threats})
 
 def home(request):
-	#list of articles
+	#list of articles in reverse chronological order
 	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
 
 	#categories
@@ -40,33 +40,37 @@ def home(request):
 		#if page is out of the given range, deliver the last page
 		articles = paginator.page(paginator.num_pages)
 	
-	return render(request, 'index.html', {'articles' : articles, 'categories' : categories, 'health_threats': health_threats})
+	return render(
+		request, 
+		'index.html', 
+		{'articles' : articles, 'categories' : categories, 'health_threats': health_threats})
 	
 
 #need unit test case
 def view_article(request, slug, id):
 
+	#return post object
 	article = get_object_or_404(post, pk = id)
 
 	return render_to_response('view_article.html', {
 		#'comments': Comments.objects.filter(pk = comments  ),
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
-		'same_cat_articles' : post.objects.filter(category=1),
+		'same_cat_articles' : post.objects.filter(category = article.category.id),
 		'post': article
-	})
+	}, RequestContext(request))
 
 #need unit test case
 def view_category(request, slug, id):
 	
-	category_name = get_object_or_404(category, pk = id)
+	_category = get_object_or_404(category, pk = id)
 	
 	return render_to_response('view_category.html', {
-		'category': category_name,
+		'category': _category,
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
-		'posts': post.objects.filter(category = id)
-	})
+		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse()
+	}, RequestContext(request))
 
 #need unit test case
 def view_master_category(request, slug):

@@ -1,14 +1,35 @@
 {% include 'header.html' %}
 
 {% load staticfiles %}
+	
+	<br/>
+
+    <div class="row">
+    	<p align=center>
+    		<img src="http://placehold.it/720x100/?text=advertisement"/>
+    	</p>
+    
+    </div>
 
      <div class="row">
         <div class="large-12 columns">
-          <div class="slider">
-            <div><img src="{% static 'portal/img/healthcare_01.jpg' %}"/></div>
-            <div><img src="{% static 'portal/img/healthcare_02.jpg' %}"/></div>
-            <div><img src="{% static 'portal/img/healthcare_03.jpg' %}"/></div>
-            <div><img src="{% static 'portal/img/healthcare_04.jpg' %}"/></div>
+          	<div class="slider">
+          		<div class="slide slide--has-caption slick-slide">
+					<img src="{% static 'portal/img/healthcare_01.jpg' %}"/>
+					<div class="slide-caption">Any HTML here 1</div>
+				</div>
+            	<div class="slide slide--has-caption slick-slide">
+            		<img src="{% static 'portal/img/healthcare_02.jpg' %}"/>
+            		<div class="slide-caption">Any HTML here 2</div>
+            	</div>
+            	<div class="slide slide--has-caption slick-slide">
+            		<img src="{% static 'portal/img/healthcare_03.jpg' %}"/>
+            		<div class="slide-caption">Any HTML here 3</div>
+            	</div>
+            	<div class="slide slide--has-caption slick-slide">
+            		<img src="{% static 'portal/img/healthcare_04.jpg' %}"/>
+            		<div class="slide-caption">Any HTML here 4</div>
+            	</div>
           </div>
         </div>
       </div>

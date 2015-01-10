@@ -6,15 +6,13 @@
         font-family: 'Oxygen', sans-serif;
       }
 
-      /*.top-bar{
-        font-family: 'Oxygen', sans-serif;
-        background-color: #53BBF4 !important;
+      .top-bar{
+
       }
 
-      .top-bar-section ul li{
+      .top-bar, ul, li{
         font-family: 'Oxygen', sans-serif;
-        background-color: #53BBF4 !important;
-      }*/
+      }
 
       .article-heading{
         color:#008BBA;
@@ -24,7 +22,7 @@
         height: auto;
       }
 
-      h3, h4, h5, h6{
+      h1, h2, h3, h4, h5, h6{
         font-family: 'Oxygen', sans-serif;
       }
 
@@ -38,7 +36,7 @@
         background-color: #53BBF4 !important;
       }
 
-      .slide__caption {
+      .slide-caption {
         bottom: 10px;
         min-height: 50px;
         left: 10px;
@@ -53,5 +51,7 @@
         z-index: 2;
         opacity: 0.8;
       }
+
+
 
       

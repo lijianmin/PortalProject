@@ -29,6 +29,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ROBOTS_USE_SITEMAP = False
 
 # Application definition
 
@@ -42,8 +43,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_wysiwyg',
     'debug_toolbar',
+    'django.contrib.redirects',
     'django.contrib.sites',
     'django.contrib.flatpages',
+    'django.contrib.sitemaps',
+    #'rollyourown.seo',
+    'robots',
     'portal',
 )
 
@@ -56,6 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
@@ -106,4 +112,11 @@ DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 TEMPLATE_DIRS = (
 	"portal/templates",
+)
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
 )
