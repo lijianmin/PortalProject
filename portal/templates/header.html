@@ -17,15 +17,15 @@
   
   <body class="main-font">
      
-    <div class="row">
+    <div class="contain-to-grid" style="background-color: #FFF; color: #000;">
 
     	<br/>
     	
-      <section class="top-bar-section sticky">
+      <section class="top-bar-section row">
 
         <ul class="left">
         	<br/>
-        	<p>Tuesday, 29/12/2014 8.30PM.<br/><i>Have you done your exercise today?</i></p>
+        	<p>Today is {% now "jS F Y" %}<br/><i>Have you done your exercise today?</i></p>
         </ul>
 
         <ul class="right">
@@ -33,9 +33,10 @@
         </ul>
 
       </section>
-    </div>
 
-    <br/>
+    	<br/>
+
+    </div>
 
     <div class="contain-to-grid sticky">
 		
@@ -62,27 +63,22 @@
 							</ul>
 						</li>
 						{% else %}
-						<li><a href="#" data-reveal-id="myModal">LOGIN</a></li>
+						<li><a href="#" data-reveal-id="myModal">Login/Register</a></li>
 						{% endif %}
 
 						<li class="has-dropdown">
-							<a href="#">Health Threats</a>
+							<a href="#">Sections</a>
 							<ul class="dropdown">
 								{% for h in health_threats %}
 									<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
 								{% endfor %}
-							</ul>
-						</li>
 
-						<li class="has-dropdown">
-							<a href="#">Articles</a>
-							<ul class="dropdown">
 								{% for category in categories %}
 									<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
 								{% endfor %}
 							</ul>
 						</li>
-						
+
 						<li><a href="#">Forums</a></li>
 						
 						<li><a href="#">Help</a></li>

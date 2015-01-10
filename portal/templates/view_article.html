@@ -1,12 +1,14 @@
 {% include 'header.html' %}
 
+{% load humanize %}
+
 {% load staticfiles %}
 
 	<div class="row">
 		<br/>
-		<h1 align=center class="article-heading">{{ post.title }}</h1>
-		<p align=center>
-			Posted on {{ post.timestamp }} by {{ post.author }}
+		<h1 align=left class="article-heading">{{ post.title }}</h1>
+		<p align=left>
+			Posted by {{ post.author }} since {{ post.timestamp | naturaltime }} 
 			<br/>
 			Under: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
 		</p>

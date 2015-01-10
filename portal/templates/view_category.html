@@ -1,5 +1,7 @@
 {% include 'header.html' %}
 
+{% load humanize %}
+
 {% load staticfiles %}
  
 	<div class="row">
@@ -24,7 +26,7 @@
 			<article>
 		
 				<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-				<h6>Posted on {{ post.timestamp }} by {{ post.author }}</h6>
+				<h6>Posted on {{ post.author }} since {{ post.timestamp | naturaltime }}</h6>
 
 				{{ post.bodytext | safe | truncatechars_html:500 }}	
 			

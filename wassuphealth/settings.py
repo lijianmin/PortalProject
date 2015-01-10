@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
     #'rollyourown.seo',
     'robots',
     'portal',
@@ -114,9 +115,3 @@ TEMPLATE_DIRS = (
 	"portal/templates",
 )
 
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    )),
-)

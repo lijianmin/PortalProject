@@ -81,7 +81,7 @@ class post(models.Model):
 
 
 from django.db.models.signals 		import pre_save
-from portal.signals						import create_redirect
+from portal.signals					import create_redirect
 
 pre_save.connect(create_redirect, sender=post, dispatch_uid="001")
 

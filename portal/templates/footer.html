@@ -1,6 +1,6 @@
 {% load staticfiles %}
 
-        <div id="footer" class="large-12 columns" style="background-color: #53BBF4; color: #FFF;">
+        <div id="footer" class="large-12 columns" style="background-color: #69D2E7; color: #FFF;">
           <div class="row">
             
             <br/>
@@ -11,9 +11,9 @@
             
             <div class="large-3 columns">
               <ul>
-                <li>About WassupHealth</li>
+                <li><a href="{% url 'about-wassuphealth' %}">About WassupHealth</a></li>
                 <li><a href="{% url 'PDPA' %}">Personal Data Protection Policy</a></li>
-                <li>Legal & Terms of Use</li>
+                <li><a href="{% url 'legal-terms-of-use' %}">Legal & Terms of Use</a></li>
               </ul>
             </div>
           

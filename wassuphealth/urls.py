@@ -24,5 +24,7 @@ urlpatterns = patterns('',
 	url(r'^useradmin/$', 'portal.views.user_admin', name='useradmin'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('django.contrib.flatpages.urls')),
-    url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA')
+    url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
+	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),
+    url(r'^legal/terms-of-use/$', 'flatpage', {'url': '/legal/terms-of-use'}, name='legal-terms-of-use'),
 )
