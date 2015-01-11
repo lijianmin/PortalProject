@@ -48,7 +48,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
     'django.contrib.humanize',
-    #'rollyourown.seo',
+    'django_extensions',
     'robots',
     'portal',
 )

@@ -7,6 +7,7 @@ class PostsAdmin(admin.ModelAdmin):
 	#exclude = ['timestamp']
 	prepopulated_fields = {"title_slug": ("title",)}
 	change_form_template = 'portal/admin/change_form.html'
+	readonly_fields = ('article_UUID',)
 
 class CategoryAdmin(admin.ModelAdmin):
 	#exclude = ['created_datetime']

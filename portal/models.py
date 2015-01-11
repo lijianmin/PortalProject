@@ -2,6 +2,7 @@ from django.db 						import models
 from django.contrib.auth.models 	import User
 from django.db.models 				import permalink
 from django.template.defaultfilters import slugify
+from django_extensions.db.fields 	import UUIDField
 
 # User Model
 class UserProfile(models.Model):
@@ -32,8 +33,9 @@ class UserProfile(models.Model):
 # Post Model
 class post(models.Model):
 
-	#future article guid variable field
-	
+	# Article UUID - internal to the portal only.
+	article_UUID = UUIDField(blank=True, null=True)
+
 	author = models.CharField(
     	max_length = 30
     )
@@ -105,7 +107,7 @@ class category(models.Model):
 
 	master_category = models.ForeignKey('portal.masterCategory')
 
-	definition = models.TextField(default="")
+	definition = models.TextField(blank=True)
 
 	def __str__(self):
 		return self.category_name

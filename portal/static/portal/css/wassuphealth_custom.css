@@ -2,12 +2,13 @@
         position: relative;
       }
 
-      .main-font{
-        font-family: 'Oxygen', sans-serif;
+      .company-masthead {
+        background-color: #BF1E2D;
+        color: #FFF
       }
 
-      .top-bar{
-
+      .main-font{
+        font-family: 'Oxygen', sans-serif;
       }
 
       .top-bar, ul, li{
@@ -15,7 +16,7 @@
       }
 
       .article-heading{
-        color:#008BBA;
+        color: #BF1E2D;
       }
 
       body{
@@ -36,6 +37,10 @@
         background-color: #53BBF4 !important;
       }
 
+      .footer-content {
+        font-size: 10px;
+      }
+
       .slide-caption {
         bottom: 10px;
         min-height: 50px;
@@ -52,6 +57,9 @@
         opacity: 0.8;
       }
 
+      .navigation-area {
+        font-family: 'Oxygen', sans-serif;
+      }
 
 
       
