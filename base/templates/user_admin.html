@@ -1,0 +1,70 @@
+{% include 'header.html' %}
+
+{% load staticfiles %}
+	
+	<br/>
+	<br/>
+	
+	<div class="row">
+   
+  	 	<div class="small-12 large-4 columns">
+ 
+			<div class="panel category">
+				<h5>Your Administration</h5>
+				<ul class="side-nav">
+					<li><a href="#">Account</a></li>
+					<li><a href="#">Profile</a></li>
+					<li><a href-"#">Your Health</a></li>
+					<li><a href="#">Customize Further</a></li>
+				</ul>
+			</div>
+
+			 <div class="category">
+ 				<img src="http://placehold.it/320x320&text=Advertisement"/>
+ 				<br/>
+ 				<br/>
+ 			</div>
+
+ 		</div>
+
+ 		<div class="small-12 large-7 columns" role="content">
+		
+			<div class="row">
+				<h4 class="article-heading" align="right">Your Account in General</h3>
+
+				<b>Username:</b> {{ profile.username }} <br/>
+				<b>Password:</b> "not to be revealed" <br/>
+				<b>Email Address:</b> {{ profile.email }} <br/>
+				<b>Joined:</b> {{ profile.date_joined }} <br/>
+ 				<b>Country:</b> {{ userinfo.country }} <br/>
+ 				<b>Address:</b> {{ userinfo.home_address }}
+
+			</div>
+
+			<br/>
+
+			<div class="row">
+				<h4 class="article-heading" align="right">Your Profile</h3>
+			</div>
+
+			<br/>
+
+			<div class="row">
+				<h4 class="article-heading" align="right">Your Health</h3>
+			</div>
+
+			<br/>
+
+			<div class="row">
+				<h4 class="article-heading" align="right">Customize</h3>
+			</div>
+
+			<br/>
+
+		</div>
+
+    </div>
+
+    <br/>
+
+{% include 'footer.html' %}

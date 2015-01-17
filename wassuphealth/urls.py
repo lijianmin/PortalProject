@@ -14,16 +14,26 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^robots\.txt$', include('robots.urls')),
     #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+    # Discussion Forums
+   	url(r'^forums/$', 'forums.views.main', name='forums'),
+	url(r'^forum/(\d+)/$', 'forums.views.forum', name='forum'),
+	url(r'^thread/(\d+)/$', 'forums.views.thread', name='thread'),
+
+    # Portal
 	url(r'^$', 'portal.views.home', name='home'),
 	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
 	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
 	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
-	url(r'^forums/$', 'portal.views.forums_admin', name='forums'),
+
+ 	# User Controls
 	url(r'^register/$', 'portal.views.register', name='registration'),
 	url(r'^login/$', 'portal.views.user_login', name='login'),
 	url(r'^logout/$', 'portal.views.user_logout', name='logout'),
 	url(r'^useradmin/$', 'portal.views.user_admin', name='useradmin'),
     url(r'^admin/', include(admin.site.urls)),
+    
+    # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),
     url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
 	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),

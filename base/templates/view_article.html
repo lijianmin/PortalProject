@@ -1,0 +1,95 @@
+{% include 'header.html' %}
+
+{% load humanize %}
+
+{% load staticfiles %}
+
+	<div class="row">
+		<br/>
+		<h1 align=left class="article-heading">{{ post.title }}</h1>
+		<p align=left>
+			Posted by {{ post.author }} since {{ post.timestamp | naturaltime }} | Date: {{ post.timestamp }}
+			<br/>
+			Under: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+		</p>
+		<hr/>
+	</div>	
+	
+	<br/>
+
+	<div class="row">
+  
+		<div class="large-8 columns" role="content">
+
+		<article>
+
+			{% block content %}
+			{{ post.bodytext | safe }}
+			{% endblock %}
+
+			<br/>
+
+			{% if post.comments_enabled %}
+			<div class="row">
+				 
+				 <div id="disqus_thread"></div>
+				 
+				 <script type="text/javascript">
+    				
+    				var disqus_shortname = 'wassuphealth'; 
+    				var disqus_identifier = '{{ post.article_UUID }}';
+    				var disqus_title = '{{ post.title }}';
+    				var disqus_url = 'http://www.wassuphealth.com{{ post.get_absolute_url }}';
+
+    				/* * * DON'T EDIT BELOW THIS LINE * * */
+    				(function() {
+        				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    				})();
+
+				</script>
+
+				<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+				<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+			
+			</div>
+
+			{% else %}
+			<div class="row">
+				<p class="alert-box alert">Comments disabled for this article</p>
+			</div>
+			{% endif %}	
+
+		</article>
+ 		
+		<hr/>
+
+    </div>
+
+    <aside class="large-4 columns">
+ 
+  		<div class="category">
+ 			<img src="http://placehold.it/320x320&text=Advertisement"/>
+ 			<br/>
+ 			<br/>
+ 		</div>
+
+		<div class="category">
+			<h5>Under the same category</h5>
+			<hr/>
+			<ul class="side-nav">
+				{% for article in same_cat_articles %}
+					<li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	
+    </aside>
+ 
+     
+	</div>
+
+{% include 'auth.html' %} 
+	
+{% include 'footer.html' %}

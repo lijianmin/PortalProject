@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_extensions',
     'robots',
+    'base',
     'portal',
     'forums',
 )

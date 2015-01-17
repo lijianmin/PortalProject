@@ -14,10 +14,6 @@ from portal.forms 					import UserForm, UserProfileForm
 from django.contrib.auth.models		import User
 
 # Create your views here.    
-
-def forums_admin(request):
-	return render(request, 'forums.html')
-	
 @login_required
 def user_admin(request):
 	health_threats = category.objects.filter(master_category = 1)
