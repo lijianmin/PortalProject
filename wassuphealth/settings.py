@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'robots',
     'portal',
+    'forums',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,6 +113,6 @@ DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 
 TEMPLATE_DIRS = (
-	"portal/templates",
+	"/templates/",
 )
 

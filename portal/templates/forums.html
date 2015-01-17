@@ -1,0 +1,83 @@
+{% include 'header.html' %}
+
+{% load staticfiles %}
+	
+	<br/>
+	<br/>
+	
+	<div class="row">
+   		
+   		<div class="small-12 large-8 columns">
+
+   			<h1 class="article-heading" align=left>Discussion Forums</h1>	
+  	 		
+  	 	</div>
+
+      {% if user.is_authenticated %}
+  	 	<div class="small-12 large-2 columns">
+        <br/>
+  	 		<a href="#" class="button tiny radius right">Start a Discussion</a>
+
+  	 	</div>
+
+      <div class="small-12 large-2 columns">
+        <br/>
+        <a href="#" class="button tiny radius right">View Your Topics</a>
+
+      </div>
+      {% else %}
+      <div class="small-12 large-4 columns">
+        <br/>
+        <p>Please login to start a topic or post replies</p>
+      </div>
+      {% endif %}
+
+  	 	<hr/>
+
+</div>
+
+<div class="row">
+
+    <div class="small-8 large-6 columns">
+      <h4 align=left>Questions on Greek Yoghurt</h4>
+      <p align=left>Posted by: Chee Soon Juan</p>
+    </div>
+
+    <div class="small-8 large-2 columns">
+      <h5 align=center><b>88</b></h5>
+      <h5 align=center>Replies</h5>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="small-8 large-6 columns">
+      <h4 align=left>Questions on Caesar Salad</h4>
+      <p align=left>Posted by: Gordon Ramsey</p>
+    </div>
+
+    <div class="small-8 large-2 columns">
+      <h5 align=center><b>88</b></h5>
+      <h5 align=center>Replies</h5>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="small-8 large-6 columns">
+      <h4 align=left>Chemotherapy vs Radiotherapy</h4>
+      <p align=left>Posted by: Bill Clinton</p>
+    </div>
+
+    <div class="small-8 large-2 columns">
+      <h5 align=center><b>88</b></h5>
+      <h5 align=center>Replies</h5>
+    </div>
+
+</div>
+
+<br/>
+
+{% include 'footer.html' %}

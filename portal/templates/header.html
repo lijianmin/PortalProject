@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{% static 'portal/css/foundation.css' %}" />
     <link rel="stylesheet" href="{% static 'portal/css/wassuphealth_custom.css' %}" />
     <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'portal/foundation-icons/foundation-icons.css' %}" />
     <link rel="stylesheet" href="{% static 'portal/css/modal.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'portal/vendor/slick/slick.css' %}"/>
 
@@ -79,7 +80,7 @@
 							</ul>
 						</li>
 
-						<li><a href="#">Forums</a></li>
+						<li><a href="{% url 'forums' %}">Forums</a></li>
 						
 						<li><a href="#">Help</a></li>
 

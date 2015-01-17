@@ -9,15 +9,22 @@ from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
-from portal.models 					import post, category
+from portal.models 					import post, category, UserProfile
 from portal.forms 					import UserForm, UserProfileForm
+from django.contrib.auth.models		import User
 
 # Create your views here.    
+
+def forums_admin(request):
+	return render(request, 'forums.html')
+	
 @login_required
 def user_admin(request):
 	health_threats = category.objects.filter(master_category = 1)
 	categories = category.objects.filter(master_category = 2)
-	return render(request, 'user_admin.html', {'categories' : categories, 'health_threats': health_threats})
+	profile = User.objects.get(username = request.user)
+	userinfo = UserProfile.objects.get()
+	return render(request, 'user_admin.html', {'categories' : categories, 'health_threats': health_threats, 'profile': profile, 'userinfo': userinfo})
 
 def home(request):
 	#list of articles in reverse chronological order
