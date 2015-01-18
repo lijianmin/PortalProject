@@ -1,0 +1,37 @@
+{% include 'header.html' %}
+
+{% load staticfiles %}
+	
+	<br/>
+	<br/>
+	
+	<div class="row">
+	<!-- Posts  -->
+
+		<div class="title">{{ title }}</div>
+		
+			<div id="list">
+
+    		{% for post in posts.object_list %}
+        		<div class="post">
+            		<span class="title">{{ post.title }}</span><br />
+            		by {{ post.creator }} | <span class="date">{{ post.created }}</span> <br /><br />
+            		{{ post.body }} <br />
+        		</div>
+    		{% endfor %}
+
+			</div>
+
+		</div>
+
+	</div>
+
+<!-- Next/Prev page links
+    ...
+-->
+
+<a class="button" href="#">Reply</a>
+
+<br/>
+
+{% include 'footer.html' %}

@@ -32,8 +32,6 @@
       </div>
       {% endif %}
 
-  	 	<hr/>
-
   </div>
 
 <!-- Forums  -->
@@ -52,12 +50,12 @@
         {% for f in forums %}
         <tr>
           <td {% if forloop.last %}class="last"{% endif %}>
-          <div class="title"> <a href="#"><h5>{{ f.title }}</h5></a></div></td>
+          <div class="title"> <a href="{% url 'forum' f.pk %}"><h5>{{ f.title }}</h5></a></div></td>
           <td {% if forloop.last %}class="last"{% endif %}>{{ f.num_posts }}</td>
           <td {% if forloop.last %}class="last"{% endif %}>
               {{ f.last_post.short | linebreaksbr }}</td>
           <td width="5%"{% if forloop.last %}class="last"{% endif %}>
-              <a class="button tiny" href="#">View</a>
+              <a class="button tiny" href="{% url 'forum' f.pk %}">View</a>
           </td>
         </tr>
 
