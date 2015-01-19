@@ -8,7 +8,7 @@
 	<div class="row">
 	<!-- Posts  -->
 		
-		<a href="{% url forum.views.forum forum_pk %}">&lt;&lt; back to list of topics</a>
+		<a href="{% url 'forum' forum_pk %}">&lt;&lt; back to list of topics</a>
 
 		<div class="title">{{ title }}</div>
 		
@@ -32,7 +32,7 @@
     ...
 -->
 
-<a class="button" href="{% url forums.views.post 'reply' pk %}">Reply</a>
+<a class="button" href="{% url 'post' 'reply' pk %}">Reply</a>
 
 <br/>
 

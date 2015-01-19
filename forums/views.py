@@ -52,7 +52,7 @@ def thread(request, pk):
     title = Thread.objects.get(pk=pk).title
     
     return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk,
-        title=title, media_url=MEDIA_URL))
+        title=title, media_url=""))
     
     t = Thread.objects.get(pk=pk)
     return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk, title=t.title,
@@ -62,6 +62,7 @@ def thread(request, pk):
 def post(request, ptype, pk):
     """Display a post form."""
     action = reverse("forums.views.%s" % ptype, args=[pk])
+    print(ptype)
     if ptype == 'new_thread':
         title = "Start New Topic"
         subject = ''
@@ -72,6 +73,7 @@ def post(request, ptype, pk):
     return render_to_response("forums/post.html", add_csrf(request, subject=subject,
         action=action, title=title))
 
+@login_required
 def new_thread(request, pk):
     """Start a new thread."""
     p = request.POST
@@ -81,6 +83,7 @@ def new_thread(request, pk):
         Post.objects.create(thread=thread, title=p["subject"], body=p["body"], creator=request.user)
     return HttpResponseRedirect(reverse("forums.views.forum", args=[pk]))
 
+@login_required
 def reply(request, pk):
     """Reply to a thread."""
     p = request.POST

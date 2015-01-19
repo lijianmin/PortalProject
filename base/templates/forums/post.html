@@ -3,34 +3,36 @@
 {% load staticfiles %}
 	
 	<br/>
-	<br/>
-	
+
 	<div class="row">
 	<!-- Posts  -->
 
-		<div class="title">{{ title }}</div>
-		
-			<div id="list">
+		<div class="small-12 large-8 columns">
 
-    		{% for post in posts.object_list %}
-        		<div class="post">
-            		<span class="title">{{ post.title }}</span><br />
-            		by {{ post.creator }} | <span class="date">{{ post.created }}</span> <br /><br />
-            		{{ post.body }} <br />
+    		<div class="main">
+        		
+        		<div id="reply">
+            	
+            		<div id="rtitle"><h3 class="article-heading">{{ title }}</h3></div>
+
+            		<br/>
+
+            		<form action="{{ action }}" method="POST"> {% csrf_token %}
+                		Subject: 
+                		<input type="text" name="subject" size="60" value="{{ subject }}" />
+
+                		Content:
+                		<textarea name="body" id="body" rows=15></textarea><br />
+               		 	<input type="submit" class="button small" value="Submit" id="submit" />
+            		</form>
+
         		</div>
-    		{% endfor %}
-
-			</div>
+    		
+    		</div>
 
 		</div>
 
 	</div>
-
-<!-- Next/Prev page links
-    ...
--->
-
-<a class="button" href="#">Reply</a>
 
 <br/>
 

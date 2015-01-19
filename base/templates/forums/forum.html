@@ -19,7 +19,7 @@
     {% endif %}
 
 
-<table border="0" cellpadding="4" width="100%">
+<table border="0" cellpadding="0" width="100%">
     <tr>
         <td>Topics</td>
         <td>Replies</td>
@@ -29,19 +29,20 @@
 
     {% for thread in threads.object_list %}
     <tr>
-        <td {% if forloop.last %}class="last"{% endif %}>
+        <td width="60%"{% if forloop.last %}class="last"{% endif %}>
         <div class="title"> <a href="{% url 'thread' thread.pk %}">{{ thread.title }}</a>
             </div></td>
         <td {% if forloop.last %}class="last"{% endif %}>{{ thread.num_replies }}</td>
         <td {% if forloop.last %}class="last"{% endif %}>
             {{ thread.last_post.short|linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{% url 'thread' thread.pk %}">VIEW</a>
+        <td width="5%"{% if forloop.last %}class="last"{% endif %}>
+            <a class="button tiny" href="{% url 'thread' thread.pk %}">VIEW</a>
         </td>
     </tr>
 
     {% endfor %}
 </table>
+<br/>
 </div>
 
 <!-- Next/Prev page links  -->
