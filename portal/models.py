@@ -4,6 +4,9 @@ from django.db.models 				import permalink
 from django.template.defaultfilters import slugify
 from django_extensions.db.fields 	import UUIDField
 
+# from PIL 							import Image as PImage
+# from os.path 						import join as pjoin
+
 # User Model
 class UserProfile(models.Model):
 
@@ -18,6 +21,10 @@ class UserProfile(models.Model):
     zip_code = models.CharField(
     	max_length = 6
     )
+
+    # profile_avatar = models.ImageField("Profile Pic", upload )
+
+    posts = models.IntegerField(default = 0)
 
     home_address = models.TextField()
 

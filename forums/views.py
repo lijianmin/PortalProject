@@ -49,11 +49,6 @@ def thread(request, pk):
     """Listing of posts in a thread."""
     posts = Post.objects.filter(thread=pk).order_by("created")
     posts = mk_paginator(request, posts, 15)
-    title = Thread.objects.get(pk=pk).title
-    
-    return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk,
-        title=title, media_url=""))
-    
     t = Thread.objects.get(pk=pk)
     return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk, title=t.title,
                                                        forum_pk=t.forum.pk))
