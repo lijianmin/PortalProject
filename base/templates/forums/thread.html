@@ -19,14 +19,14 @@
 			
 				</div>
 
-				<div class="large-2 columns">
+				<div class="large-3 columns">
 
 					<br/>
 
 					{% if user.is_authenticated %}
 						<a class="button tiny" href="{% url 'post' 'reply' pk %}">Reply to this thread</a>
 					{% else %}
-        				<p>Please login to reply</p>
+        				<p><i class="fi-alert"></i>&nbsp&nbspPlease login to reply</p>
     				{% endif %}
 				
 				</div>
@@ -48,7 +48,7 @@
             			{{ post.body }}
         			</div>
 
-        			<div class="large-2 columns" style="font-size: 14px;">
+        			<div class="large-3 columns" style="font-size: 14px;">
         				<b>{{ post.creator }}</b><br/>
         				Joined Date:{{ post.creator.date_joined}}
         			</div>

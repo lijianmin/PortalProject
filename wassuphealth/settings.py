@@ -108,6 +108,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 #DJANGO_WYSIWYG_MEDIA_URL = '/uploads/ckeditor/'

@@ -32,12 +32,12 @@
 			<div class="row">
 				<h4 class="article-heading" align="right">Your Account in General</h3>
 
-				<b>Username:</b> {{ profile.username }} <br/>
+				<b>Username:</b> {{ userinfo.username }} <br/>
 				<b>Password:</b> "not to be revealed" <br/>
-				<b>Email Address:</b> {{ profile.email }} <br/>
-				<b>Joined:</b> {{ profile.date_joined }} <br/>
- 				<b>Country:</b> {{ userinfo.country }} <br/>
- 				<b>Address:</b> {{ userinfo.home_address }}
+				<b>Email Address:</b> {{ userinfo.email }} <br/>
+				<b>Joined:</b> {{ userinfo.date_joined }} <br/>
+ 				<b>Country:</b> {{ profile.country }} <br/>
+ 				<b>Address:</b> {{ profile.home_address }}
 
 			</div>
 
@@ -45,6 +45,16 @@
 
 			<div class="row">
 				<h4 class="article-heading" align="right">Your Profile</h3>
+				<!--- Profile pic form -->
+				<form enctype="multipart/form-data" action="{% url 'useradmin' profile.pk %}"
+					{% csrf_token %}
+					{% if img %}
+						<p><img border="0" alt="Profile Pic" src="{{ img }}" /></p>
+					{% endif %}
+
+					Profile Pic: {{ pf.avatar }}
+					<input type="submit" value="Submit" id="submit" />
+				</form>
 			</div>
 
 			<br/>

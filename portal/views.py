@@ -8,19 +8,56 @@ from django.template 				import RequestContext
 from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
+from django.forms					import ModelForm
 
 from portal.models 					import post, category, UserProfile
 from portal.forms 					import UserForm, UserProfileForm
+
 from django.contrib.auth.models		import User
 
+from PIL 							import Image 	as PImage
+from os.path 						import join 	as pjoin
+
 # Create your views here.    
+class ProfileForm(ModelForm):
+	class Meta:
+		model = UserProfile
+		exclude = ["posts","user","home_address","mobile_no","zip_code","country"]
+
 @login_required
-def user_admin(request):
+def user_admin(request, pk):
 	health_threats = category.objects.filter(master_category = 1)
 	categories = category.objects.filter(master_category = 2)
-	profile = User.objects.get(username = request.user)
-	userinfo = UserProfile.objects.get()
-	return render(request, 'user_admin.html', {'categories' : categories, 'health_threats': health_threats, 'profile': profile, 'userinfo': userinfo})
+	
+	userinfo = User.objects.get(username = request.user)
+	profile = UserProfile.objects.get(user_id = request.user.pk)
+	img = None
+
+	if request.method == "POST":
+		pf = ProfileForm(request.POST, request.FILES, instance=profile)
+		if pf.is_valid():
+			print("here")
+			pf.save()
+
+			imfn = pjoin(MEDIA_ROOT, userinfo.avatar.name)
+			im = PImage.open(imfn)
+			im.thumbnail((160,160), PImage.ANTIALIAS)
+			im.save(imfn, "JPEG")
+	else:
+		pf = ProfileForm(instance=userinfo)
+
+	if profile.avatar:
+		img= "/media/" + profile.avatar.name
+
+	return render_to_response( 
+		'user_admin.html', {
+		'categories' : categories, 
+		'health_threats': health_threats, 
+		'profile': profile, 
+		'userinfo': userinfo, 
+		'pf':pf, 
+		'img':img }, 
+		RequestContext(request))
 
 def home(request):
 	#list of articles in reverse chronological order
