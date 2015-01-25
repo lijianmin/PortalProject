@@ -24,6 +24,7 @@ class ProfileForm(ModelForm):
 		model = UserProfile
 		exclude = ["posts","user","home_address","mobile_no","zip_code","country"]
 
+			
 @login_required
 def user_admin(request, pk):
 	health_threats = category.objects.filter(master_category = 1)
@@ -36,18 +37,18 @@ def user_admin(request, pk):
 	if request.method == "POST":
 		pf = ProfileForm(request.POST, request.FILES, instance=profile)
 		if pf.is_valid():
-			print("here")
 			pf.save()
-
 			imfn = pjoin(MEDIA_ROOT, userinfo.avatar.name)
 			im = PImage.open(imfn)
 			im.thumbnail((160,160), PImage.ANTIALIAS)
 			im.save(imfn, "JPEG")
-	else:
+	else:		
 		pf = ProfileForm(instance=userinfo)
 
 	if profile.avatar:
-		img= "/media/" + profile.avatar.name
+		img = profile.avatar.name
+
+	print(img)
 
 	return render_to_response( 
 		'user_admin.html', {

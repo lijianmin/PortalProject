@@ -74,6 +74,8 @@ ROOT_URLCONF = 'wassuphealth.urls'
 
 WSGI_APPLICATION = 'wassuphealth.wsgi.application'
 
+# MEDIA_ROOT = os.path.join(BASE_DIR)
+
 #CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Database
@@ -109,6 +111,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 #DJANGO_WYSIWYG_MEDIA_URL = '/uploads/ckeditor/'
