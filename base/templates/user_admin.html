@@ -45,13 +45,14 @@
 
 			<div class="row">
 				<h4 class="article-heading" align="right">Your Profile</h3>
-				
+
+				{% if img %}
+					<p><img border="0" src="{{ MEDIA_URL }}{{ img }}" /></p>
+				{% endif %}
+
 				<!--- Profile pic form -->
 				<form enctype="multipart/form-data" action="{% url 'useradmin' profile.pk %}" method="POST">
 					{% csrf_token %}
-					{% if img %}
-						<p><img border="0" alt="Profile Pic" src="{{ MEDIA_URL }}{{ img }}" /></p>
-					{% endif %}
 
 					Profile Pic: {{ pf.avatar }}
 					<input type="submit" value="Submit" id="submit" />

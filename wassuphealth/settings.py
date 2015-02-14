@@ -74,10 +74,6 @@ ROOT_URLCONF = 'wassuphealth.urls'
 
 WSGI_APPLICATION = 'wassuphealth.wsgi.application'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR)
-
-#CKEDITOR_UPLOAD_PATH = "uploads/"
-
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
@@ -88,7 +84,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'root',
     	'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '8889',
     }
 }
 
@@ -109,17 +105,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/Users/Jianmin/django_projects/healthportal/wassuphealth/media/'
 MEDIA_URL = '/media/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+print(MEDIA_ROOT)
+print(STATIC_ROOT)
 
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
-#DJANGO_WYSIWYG_MEDIA_URL = '/uploads/ckeditor/'
+
+STATICFILES_DIRS = (
+ '/Users/Jianmin/django_projects/healthportal/wassuphealth/media',)
 
 
 TEMPLATE_DIRS = (
 	"/templates/",
 )
 
+print ('Settings.py MEDIA_ROOT: ', MEDIA_ROOT)

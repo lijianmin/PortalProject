@@ -53,6 +53,10 @@ def thread(request, pk):
     return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk, title=t.title,
                                                        forum_pk=t.forum.pk))
 
+def increment_post_counter(request):
+    profile = request.user.userprofile
+    profile.posts += 1
+    profile.save()
 
 def post(request, ptype, pk):
     """Display a post form."""
@@ -76,6 +80,9 @@ def new_thread(request, pk):
         forum = Forum.objects.get(pk=pk)
         thread = Thread.objects.create(forum=forum, title=p["subject"], creator=request.user)
         Post.objects.create(thread=thread, title=p["subject"], body=p["body"], creator=request.user)
+    
+    increment_post_counter(request)
+
     return HttpResponseRedirect(reverse("forums.views.forum", args=[pk]))
 
 @login_required
@@ -86,4 +93,7 @@ def reply(request, pk):
         thread = Thread.objects.get(pk=pk)
         post = Post.objects.create(thread=thread, title=p["subject"], body=p["body"],
             creator=request.user)
+    
+    increment_post_counter(request)
+
     return HttpResponseRedirect(reverse("forums.views.thread", args=[pk]) + "?page=last")

@@ -9,7 +9,14 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'password', 'email')
 
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('mobile_no','country','home_address','zip_code')
+
+
+class AdminProfileForm(forms.ModelForm):
+	class Meta:
+		model = UserProfile
+		fields = ('avatar',)

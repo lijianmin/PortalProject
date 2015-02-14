@@ -7,6 +7,10 @@ from django_extensions.db.fields 	import UUIDField
 # from PIL 							import Image as PImage
 # from os.path 						import join as pjoin
 
+# two-factor authentication - explore that option by utilising a service
+# spruce up the forums	
+
+
 # User Model
 class UserProfile(models.Model):
 
@@ -28,7 +32,7 @@ class UserProfile(models.Model):
 
     home_address = models.TextField()
 
-    avatar = models.ImageField("Profile Pic", upload_to="media/avatars/", blank=True, null=True)
+    avatar = models.ImageField("Profile Pic", upload_to='images/', blank=True, null=True)
 
     mobile_no = models.CharField(
     	max_length = 20
@@ -37,7 +41,7 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
     def __str__(self):
         return self.user.username
-        
+    
 
 # Post Model -- Articles mainly...yea	
 class post(models.Model):

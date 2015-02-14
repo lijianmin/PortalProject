@@ -11,7 +11,7 @@ from django.core.paginator          import Paginator, EmptyPage, PageNotAnIntege
 from django.forms					import ModelForm
 
 from portal.models 					import post, category, UserProfile
-from portal.forms 					import UserForm, UserProfileForm
+from portal.forms 					import UserForm, UserProfileForm, AdminProfileForm
 
 from django.contrib.auth.models		import User
 
@@ -19,12 +19,6 @@ from PIL 							import Image 	as PImage
 from os.path 						import join 	as pjoin
 
 # Create your views here.    
-class ProfileForm(ModelForm):
-	class Meta:
-		model = UserProfile
-		exclude = ["posts","user","home_address","mobile_no","zip_code","country"]
-
-			
 @login_required
 def user_admin(request, pk):
 	health_threats = category.objects.filter(master_category = 1)
@@ -35,17 +29,19 @@ def user_admin(request, pk):
 	img = None
 
 	if request.method == "POST":
-		pf = ProfileForm(request.POST, request.FILES, instance=profile)
+		pf = AdminProfileForm(request.POST, request.FILES, instance=profile)
+		print(pf)
 		if pf.is_valid():
 			pf.save()
-			imfn = pjoin(MEDIA_ROOT, userinfo.avatar.name)
-			im = PImage.open(imfn)
-			im.thumbnail((160,160), PImage.ANTIALIAS)
-			im.save(imfn, "JPEG")
+			#imfn = pjoin("/Users/Jianmin/django_projects/healthportal/wassuphealth/media", profile.avatar.name)
+			#im = PImage.open(imfn)
+			#im.thumbnail((160,160), PImage.ANTIALIAS)
+			#im.save(imfn, "JPEG")
 	else:		
-		pf = ProfileForm(instance=userinfo)
+		pf = AdminProfileForm(instance=userinfo)
 
 	if profile.avatar:
+		print(profile.avatar)	
 		img = profile.avatar.name
 
 	print(img)

@@ -6,6 +6,7 @@ from django.conf.urls.static            import static
 #from django.contrib.sitemaps.views 		import sitemap
 #from portal.sitemap 					import PostSitemap
 from portal 							import views
+from django.contrib.staticfiles.urls    import staticfiles_urlpatterns
 
 #sitemaps = {
 #	'posts': PostSitemap,
@@ -44,5 +45,19 @@ urlpatterns = patterns('',
     url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
 	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),
     url(r'^legal/terms-of-use/$', 'flatpage', {'url': '/legal/terms-of-use'}, name='legal-terms-of-use'),
+)
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
+        # Media Files
+        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+                'document_root': settings.MEDIA_ROOT,
+            }),
+    )
+
+
+print ('urls.py MEDIA_URL: ' + settings.MEDIA_URL)
+print ('urls.py MEDIA_ROOT: ' + settings.MEDIA_ROOT)    

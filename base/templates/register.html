@@ -30,18 +30,19 @@
 
 		<div class="large-8 columns" role="content">
 
-			{% if registered %}
+			<div class="row">
+				{% if registered %}
 
-				<strong>Thank you for registering</strong>
-				<p><a href="{% url 'home' %}">Return home</a></p>
+					<strong>Thank you for registering</strong>
+					<p><a href="{% url 'home' %}">Return home</a></p>
 
-			{% else %}
+				{% else %}
 
-				<h2 class="article-heading">Register a Profile With Us NOW!</h2>
+					<h2 class="article-heading">Register a Profile With Us NOW!</h2>
 				
-				<hr/>
+					<hr/>
 
-				<form id="user_form" method="post" action="{% url 'registration' %}" enctype="multipart/form-data">
+					<form id="user_form" method="post" action="{% url 'registration' %}" enctype="multipart/form-data">
 						
 						{% csrf_token %}
 
@@ -50,10 +51,10 @@
 
 						<input class="button right" type="submit" name="submit" value="Register Now" />
 
-				</form>
+					</form>
 
-
-			{% endif %}
+				{% endif %}
+			</div>if
 
     	</div>
 
