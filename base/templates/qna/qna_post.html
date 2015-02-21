@@ -1,0 +1,51 @@
+{% include 'header.html' %}
+
+{% load humanize %}
+
+{% load staticfiles %}
+ 	<br/>
+ 	
+	<div class="row">
+
+        <br/>
+        <br/>
+
+		<h1 class="article-heading" align=left>What's up Health?</h1>
+
+        <p> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
+
+		<br/>
+
+        <div class="large-2 columns">
+        </div>
+
+		<div class="large-centered columns">
+
+			<div class="row collapse postfix-round">
+
+        		<div class="small-10 columns">    
+         	 		<!--<input type="text" name="question" placeholder="Ask a doctor a question">-->
+              {{ question }}
+        		</div>
+        	
+        		<div class="small-2 columns">
+          			<!--<a href="#" class="button postfix">GO!</a>-->
+        		</div>
+
+     		</div>
+
+     	</div>
+
+        <div class="large-2 columns">
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+	</div>
+
+{% include 'auth.html' %} 
+	
+{% include 'footer.html' %}
+

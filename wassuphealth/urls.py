@@ -3,7 +3,7 @@ from django.contrib 					import admin
 from django.conf                        import settings
 from django.conf.urls.static            import static
 
-#from django.contrib.sitemaps.views 		import sitemap
+#from django.contrib.sitemaps.views 	import sitemap
 #from portal.sitemap 					import PostSitemap
 from portal 							import views
 from django.contrib.staticfiles.urls    import staticfiles_urlpatterns
@@ -18,6 +18,10 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^robots\.txt$', include('robots.urls')),
     #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+    # QnA
+    url(r'^questions/$', 'QnA.views.main', name='questions_main'),
+    url(r'^questions/post/$', 'QnA.views.post_question', name='questions_post'),
 
     # Discussion Forums
    	url(r'^forums/$', 'forums.views.main', name='forums'),

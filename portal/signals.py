@@ -1,6 +1,6 @@
-from django.contrib.redirects.models import Redirect
-from django.contrib.sites.models import Site
-from portal.models import post
+from django.contrib.redirects.models  import Redirect
+from django.contrib.sites.models      import Site
+from portal.models                    import post
 
 def create_redirect(sender, instance, **kwargs):
   if sender == post:

@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'base',
     'portal',
     'forums',
+    'QnA',
 )
 
 MIDDLEWARE_CLASSES = (

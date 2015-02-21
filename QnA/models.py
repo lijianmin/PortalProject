@@ -1,4 +1,5 @@
-from django.db import models
+from django.db 						import models
+from django_extensions.db.fields 	import UUIDField
 
 # Create your models here.
 
@@ -22,3 +23,17 @@ from django.db import models
 # The same question will then be answered
 # User has the choice to close the question or else it will be routed to a pharmacist (need clarification) 
 
+#class Specialty(models.Model):
+
+class Question(models.Model):
+    
+    question_UUID = UUIDField(blank=True, null=True)
+
+    question = models.CharField(
+    	max_length = 300
+    )
+
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+    	return self.question
