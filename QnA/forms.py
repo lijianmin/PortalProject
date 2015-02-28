@@ -1,4 +1,4 @@
-from QnA.models 				import Question 
+from QnA.models 				import Question
 from django 					import forms
 
 class QuestionForm(forms.ModelForm):

@@ -15,13 +15,18 @@ from QnA.models						import Question
 from QnA.forms 						import QuestionForm
 
 # Create your views here.
-# MAIN - list all forums
+
+# def clinician_questionadmin - for retrieving the worklist of questions
+# def clinician_answer - for answering question
+
+# MAIN
 def main(request):
 
 	# A boolean value for telling the template whether the registration was successful.
 	# Set to False initially. Code changes value to True when registration succeeds.
 	posted = False
 
+	#qns = Question.objects.all().order_by("timestamp").reverse()
 	health_threats = category.objects.filter(master_category = 1)
 	categories = category.objects.filter(master_category = 2)
 
@@ -31,7 +36,7 @@ def main(request):
 		question_form = QuestionForm(data=request.POST)
 
 		if question_form.is_valid():
-			
+
 			Question = question_form.save()
 
 			# Update our variable to tell the template registration was successful.
@@ -45,17 +50,17 @@ def main(request):
 
 	else:
 		question_form = QuestionForm()
-		
+
 	# Render the template depending on the context.
 	return render_to_response(
 			'qna/qna_index.html',
-			{'question_form': question_form, 'posted': posted, 'categories' : categories, 'health_threats': health_threats}, 
+			{'question_form': question_form, 'posted': posted, 'categories' : categories, 'health_threats': health_threats},
 			RequestContext(request))
 
 
 def post_question(request):
-	
+
 	if request.method == 'POST':
 		question = request.POST.get('question', False)
-	
+
 	return render(request, 'qna/qna_post.html', { 'question': question })

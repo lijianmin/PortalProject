@@ -1,0 +1,86 @@
+{% include 'header.html' %}
+
+{% load staticfiles %}
+
+	<br/>
+	<br/>
+
+	<div class="row">
+
+  	 	<div class="small-12 large-4 columns">
+
+			<div class="panel category">
+				<h5>Your Administration</h5>
+				<ul class="side-nav">
+					<li><a href="#">Account</a></li>
+					<li><a href="#">Profile</a></li>
+					<li><a href-"#">Your Clinical Specialty</a></li>
+				</ul>
+			</div>
+
+			 <div class="category">
+ 				<img src="http://placehold.it/320x320&text=Advertisement"/>
+ 				<br/>
+ 				<br/>
+ 			</div>
+
+ 		</div>
+
+ 		<div class="small-12 large-7 columns" role="content">
+
+			<div class="row">
+
+      	<h4 class="article-heading" align="right">Your Profile</h3>
+
+				<b>Username:</b> {{ userinfo.username }} <br/>
+				<b>Password:</b> "not to be revealed" <br/>
+				<b>Email Address:</b> {{ userinfo.email }} <br/>
+				<b>Joined:</b> {{ userinfo.date_joined }} <br/>
+ 				<b>Country:</b> {{ profile.country }} <br/>
+ 				<b>Address:</b> {{ profile.home_address }}
+
+      </div>
+
+			<div class="row">
+
+				<h4 class="article-heading" align="right">Posted Questions</h3>
+
+				<p>Ask a Doctor</p>
+
+				    <table border="0" cellpadding="0">
+					<tr>
+						<td width="75%"><h6>Questions</h6></td>
+						<td width="25%"><h6>Time</h6></td>
+					</tr>
+
+					{% for q in qns %}
+
+					<tr>
+						<td {% if forloop.last %}class="last"{% endif %}>
+
+							<div class="title"><h5>{{ q.question }}</h5></div>
+
+						</td>
+
+						<td {% if forloop.last %}class="last"{% endif %}>
+
+							{{ q.timestamp }}
+
+						</td>
+
+					</tr>
+
+					{% endfor %}
+
+				</table>
+
+			</div>
+			<br/>
+
+		</div>
+
+    </div>
+
+    <br/>
+
+{% include 'footer.html' %}

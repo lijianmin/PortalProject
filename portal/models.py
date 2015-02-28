@@ -8,7 +8,7 @@ from django_extensions.db.fields 	import UUIDField
 # from os.path 						import join as pjoin
 
 # two-factor authentication - explore that option by utilising a service
-# spruce up the forums	
+# spruce up the forums
 
 
 # User Model
@@ -26,6 +26,8 @@ class UserProfile(models.Model):
     	max_length = 6
     )
 
+    # type of user: either clinician, pharmacist or general user ex. admin
+
     # profile_avatar = models.ImageField("Profile Pic", upload )
 
     posts = models.IntegerField(default = 0)
@@ -41,9 +43,9 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
     def __str__(self):
         return self.user.username
-    
 
-# Post Model -- Articles mainly...yea	
+
+# Post Model -- Articles mainly...yea
 class post(models.Model):
 
 	# Article UUID - internal to the portal only.
@@ -52,12 +54,12 @@ class post(models.Model):
 	author = models.CharField(
     	max_length = 30
     )
-    
+
 	title = models.CharField(
     	max_length = 200,
     	db_index = True
     )
-	
+
 	title_slug = models.SlugField(
     	max_length = 200,
     	db_index = True,
@@ -69,11 +71,11 @@ class post(models.Model):
 	view_count = models.IntegerField(
 		default = 0
 	)
-    
+
 	timestamp = models.DateTimeField(
 		auto_now_add=True
 	)
-    
+
     #strictly one category per post
 	category = models.ForeignKey('portal.category')
 
@@ -82,14 +84,14 @@ class post(models.Model):
 
 	#publish when you are confident enough
 	published = models.BooleanField(default=False)
-	
+
 	def __str__(self):
 		return self.title
-	
+
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_article', (), { 'slug': self.title_slug, 'id': self.id })
-    	
+
 	def save(self, *args, **kwargs):
 		self.title_slug = slugify(self.title)
 		super(post, self).save(*args, **kwargs)
@@ -100,20 +102,20 @@ from portal.signals					import create_redirect
 
 pre_save.connect(create_redirect, sender=post, dispatch_uid="001")
 
-    
+
 # Category Model
 class category(models.Model):
 
 	category_name = models.CharField(
 		max_length = 100
 	)
-	
+
 	category_slug = models.SlugField(
 		max_length = 100,
 		db_index = True,
 		unique = True
 	)
-		
+
 	created_datetime = models.DateTimeField(
 		auto_now_add=True
 	)
@@ -124,11 +126,11 @@ class category(models.Model):
 
 	def __str__(self):
 		return self.category_name
-	
+
 	def save(self, *args, **kwargs):
 		self.category_slug = slugify(self.category_name)
 		super(category, self).save(*args, **kwargs)
-	
+
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_category', (), { 'slug': self.category_slug, 'id': self.id })
@@ -152,7 +154,7 @@ class masterCategory(models.Model):
 	def save(self, *args, **kwargs):
 		self.master_category_slug = slugify(self.master_category_name)
 		super(masterCategory, self).save(*args, **kwargs)
-	
+
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_master_category', (), { 'slug': self.master_category_slug })

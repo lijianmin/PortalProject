@@ -15,13 +15,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}"/>
 
   </head>
-  
+
   <body class="main-font">
-     
+
     <div class="contain-to-grid company-masthead">
 
     	<br/>
-    	
+
       <section class="top-bar-section row">
 
         <ul class="left">
@@ -40,11 +40,11 @@
     </div>
 
     <div class="contain-to-grid sticky navigation-area">
-		
-		<nav class="top-bar" data-topbar role="navigation">	
+
+		<nav class="top-bar" data-topbar role="navigation">
 
 			<ul class="title-area">
-           
+
 				<li class="toggle-topbar menu-icon">
 					<a href="#"><span>Menu</span></a>
 				</li>
@@ -52,14 +52,18 @@
 			</ul>
 
 			<section class="top-bar-section">
-				
+
 				<ul class="left">
-						
+
 						{% if user.is_authenticated %}
 						<li class="has-dropdown">
 							<a href="#">Welcome, {{ user.username }}!</a>
 							<ul class="dropdown">
-								<li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
+                {% if user.group == "clinician" %}
+								  <li><a href="{% url 'clinicaladmin' %}">Control Panel</a></li>
+                {% else %}
+                  <li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
+                {% endif %}
 								<li><a href="{% url 'logout' %}">Logout</a></li>
 							</ul>
 						</li>
@@ -81,11 +85,11 @@
 						</li>
 
 						<li><a href="{% url 'forums' %}">Forums</a></li>
-						
+
 						<li><a href="#">Help</a></li>
 
 					</ul>
- 
+
 					<ul class="right">
 
 						<li><a href="#"><i class="fi-torso"></i></a></li>
@@ -95,7 +99,7 @@
 								<input type="search" placeholder="Search Wassuphealth">
 							</form>
 						</li>
- 
+
 						<li class="has-button">
 							<a class="small button" href="#">Search</a>
 						</li>
@@ -103,7 +107,7 @@
 				</section>
 			</nav>
 			</div>
-			
+
 		</div>
-		
+
 	</div>

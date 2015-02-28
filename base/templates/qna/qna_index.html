@@ -1,10 +1,10 @@
-{% include 'header.html' %}
+c{% include 'header.html' %}
 
 {% load humanize %}
 
 {% load staticfiles %}
  	<br/>
- 	
+
 	<div class="row">
 
         <br/>
@@ -23,27 +23,37 @@
 
 
 			<div class="row collapse postfix-round">
-		
-			{% if posted %}
-				
-				<p>Thank you for posting. A doctor will get back to you shortly</p>
-				
-			{% else %}
-          		<form id="question_form" method="post" action="{% url 'questions_main' %}" enctype="multipart/form-data">
-        	  
+
+        {% if user.is_authenticated %}
+
+			      {% if posted %}
+
+				      <p>Thank you for posting. A doctor will get back to you shortly</p>
+
+			      {% else %}
+
+            	<form id="question_form" method="post" action="{% url 'questions_main' %}" enctype="multipart/form-data">
+
             		{% csrf_token %}
 
-            		{{ question_form.as_p }} 
-                   	
+            		{{ question_form.as_p }}
+
         			<div class="small-2 columns">
               			<input class="button small" type="submit" name="submit" value="GO!" />
         			</div>
           		</form>
-          	{% endif %}
-          	
-     	</div>
+
+            {% endif %}
+
+        {% else %}
+
+              <p>Please login to post a question</p>
+
+        {% endif %}
 
      	</div>
+
+    </div>
 
         <div class="large-2 columns">
         </div>
@@ -54,7 +64,6 @@
 
 	</div>
 
-{% include 'auth.html' %} 
-	
-{% include 'footer.html' %}
+{% include 'auth.html' %}
 
+{% include 'footer.html' %}

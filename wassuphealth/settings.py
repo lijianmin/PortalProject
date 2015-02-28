@@ -34,6 +34,7 @@ ROBOTS_USE_SITEMAP = False
 # Application definition
 
 INSTALLED_APPS = (
+	'suit',
 	'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,8 +51,12 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_extensions',
     'robots',
-    'base',
+	'base',
     'portal',
+	'registration',
+	'authentication',
+	'useradmin',
+	'clinicaladmin',
     'forums',
     'QnA',
 )
@@ -112,9 +117,6 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-print(MEDIA_ROOT)
-print(STATIC_ROOT)
-
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 STATICFILES_DIRS = (
@@ -125,4 +127,8 @@ TEMPLATE_DIRS = (
 	"/templates/",
 )
 
-print ('Settings.py MEDIA_ROOT: ', MEDIA_ROOT)
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)

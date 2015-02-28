@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     url(r'^robots\.txt$', include('robots.urls')),
     #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
+    # Django-Admin
+    url(r'^admin/', include(admin.site.urls)),
+
     # QnA
     url(r'^questions/$', 'QnA.views.main', name='questions_main'),
     url(r'^questions/post/$', 'QnA.views.post_question', name='questions_post'),
@@ -37,18 +40,25 @@ urlpatterns = patterns('',
 	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
 	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
 
- 	# User Controls
-	url(r'^register/$', 'portal.views.register', name='registration'),
-	url(r'^login/$', 'portal.views.user_login', name='login'),
-	url(r'^logout/$', 'portal.views.user_logout', name='logout'),
-	url(r'^useradmin/(\d+)/$', 'portal.views.user_admin', name='useradmin'),
-    url(r'^admin/', include(admin.site.urls)),
-    
+ 	# Registration
+    url(r'^register/$', 'registration.views.register', name='registration'),
+
+    # User Authentication
+    url(r'^login/$', 'authentication.views.user_login', name='login'),
+	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
+
+    # User Admin
+    url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
+
+    # Clinical Admin
+    url(r'^clinicaladmin/$', 'clinicaladmin.views.main', name='clinicaladmin'),
+
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),
     url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
 	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),
     url(r'^legal/terms-of-use/$', 'flatpage', {'url': '/legal/terms-of-use'}, name='legal-terms-of-use'),
+
 )
 
 urlpatterns += staticfiles_urlpatterns()
@@ -61,7 +71,3 @@ if settings.DEBUG:
                 'document_root': settings.MEDIA_ROOT,
             }),
     )
-
-
-print ('urls.py MEDIA_URL: ' + settings.MEDIA_URL)
-print ('urls.py MEDIA_ROOT: ' + settings.MEDIA_ROOT)    
