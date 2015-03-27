@@ -22,7 +22,7 @@ from os.path 						import join 	as pjoin
 @login_required
 def user_admin(request, pk):
 
-	qns = Question.objects.all().order_by("timestamp").reverse() #not restricted to users yet
+	qns = Question.objects.filter(posted_by_id = request.user).order_by("timestamp").reverse() #not restricted to users yet
 
 	health_threats = category.objects.filter(master_category = 1)
 	categories = category.objects.filter(master_category = 2)

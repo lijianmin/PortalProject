@@ -7,17 +7,18 @@
 
 	<div class="row">
 
-  	 	<div class="small-12 large-4 columns">
+  	 	<div class="small-12 large-3 columns">
 
-			<div class="panel category">
-				<h5>Your Administration</h5>
-				<ul class="side-nav">
-					<li><a href="#">Account</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href-"#">Your Health</a></li>
-					<li><a href="#">Customize Further</a></li>
-				</ul>
-			</div>
+				<h3 class="article-heading" align="left"><b>User Control Panel</b></h3>
+				<div class="panel category">
+					<h5>Your Administration</h5>
+					<ul class="side-nav">
+						<li><a href="#">Account</a></li>
+						<li><a href="#">Profile</a></li>
+						<li><a href-"#">Your Health</a></li>
+						<li><a href="#">Customize Further</a></li>
+					</ul>
+				</div>
 
 			 <div class="category">
  				<img src="http://placehold.it/320x320&text=Advertisement"/>
@@ -27,7 +28,7 @@
 
  		</div>
 
- 		<div class="small-12 large-7 columns" role="content">
+ 		<div class="small-12 large-8 columns" role="content">
 
 			<div class="row">
 				<h4 class="article-heading" align="right">Your Profile</h3>
@@ -73,10 +74,12 @@
 
 				<p>Ask a Doctor</p>
 
+				{% if qns %}
 				<table border="0" cellpadding="0">
 					<tr>
-						<td width="75%"><h6>Questions</h6></td>
-						<td width="25%"><h6>Time</h6></td>
+						<td width="70%"><h5><b>Questions</b></h5></td>
+						<td width="20%"><h5><b>Last Updated</b></h5></td>
+						<td width="10%"><h5><b>Status</b></h5></td>
 					</tr>
 
 					{% for q in qns %}
@@ -84,7 +87,7 @@
 					<tr>
 						<td {% if forloop.last %}class="last"{% endif %}>
 
-							<div class="title"><h5>{{ q.question }}</h5></div>
+							<div class="title"><a href="{% url 'get_question' q.pk %}">{{ q.question }}</a></div>
 
 						</td>
 
@@ -94,11 +97,23 @@
 
 						</td>
 
+						<td {% if forloop.last %}class="last"{% endif %}>
+
+							{{ q.status }}
+
+						</td>
+
 					</tr>
 
 					{% endfor %}
 
 				</table>
+
+				{% else %}
+
+					<p>Nothing posted to a doctor yet</p>
+
+				{% endif %}
 
 			</div>
 			<br/>

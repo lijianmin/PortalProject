@@ -1,5 +1,9 @@
 from django.db 						import models
 from django_extensions.db.fields 	import UUIDField
+from django.contrib.auth.models     import User
+from model_utils.fields             import StatusField
+from model_utils                    import Choices
+import datetime
 
 # Create your models here.
 
@@ -23,14 +27,6 @@ from django_extensions.db.fields 	import UUIDField
 # The same question will then be answered
 # User has the choice to close the question or else it will be routed to a pharmacist (need clarification)
 
-#class Specialty(models.Model):
-
-#class Answer(models.Model):
-#   answer_UUID = UUIDField(blank=True, null=True)
-#   answer = models.TextField()
-#   timestamp = models.DateTimeField(auto_now_add=True)
-#   answering_provided_by = //to some user who is an authorized clinician
-
 class Question(models.Model):
 
     # to add
@@ -41,15 +37,56 @@ class Question(models.Model):
 
     question_UUID = UUIDField(blank=True, null=True)
 
-    question = models.CharField(
-    	max_length = 300
-    )
+    question    = models.CharField(max_length = 300)
 
-    #specialty = //onetoonefield to Specialty
-    #answer = onetomanyfield to Answer
-    #question_given_by = //to some user who is just a registered public user
+    posted_by   = models.ForeignKey(User, blank=True, null=True)
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp   = models.DateTimeField(auto_now_add=True)
+
+    STATUS = Choices('PENDING','ANSWERED', 'CONCLUDED','ARCHIVED','CANCELLED')
+    status = StatusField()
 
     def __str__(self):
     	return self.question
+
+    def cancelled(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.CANCELLED
+        super(Question, self).save()
+
+    def submitted(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.PENDING
+        super(Question, self).save()
+
+    def concluded(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.CONCLUDED
+        super(Question, self).save()
+
+    def archived(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.ARCHIVED
+        super(Question, self).save()
+
+    def answered(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.ANSWERED
+        super(Question, self).save()
+
+
+class Answer(models.Model):
+    answer_UUID = UUIDField(
+        blank=True,
+        null=True
+    )
+
+    answer = models.TextField()
+
+    timestamp = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    question = models.ForeignKey(Question, blank=True, null=True)
+
+    answer_provided_by = models.ForeignKey(User, blank=True, null=True)

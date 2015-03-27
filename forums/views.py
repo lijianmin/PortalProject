@@ -61,7 +61,6 @@ def increment_post_counter(request):
 def post(request, ptype, pk):
     """Display a post form."""
     action = reverse("forums.views.%s" % ptype, args=[pk])
-    print(ptype)
     if ptype == 'new_thread':
         title = "Start New Topic"
         subject = ''
@@ -80,7 +79,7 @@ def new_thread(request, pk):
         forum = Forum.objects.get(pk=pk)
         thread = Thread.objects.create(forum=forum, title=p["subject"], creator=request.user)
         Post.objects.create(thread=thread, title=p["subject"], body=p["body"], creator=request.user)
-    
+
     increment_post_counter(request)
 
     return HttpResponseRedirect(reverse("forums.views.forum", args=[pk]))
@@ -93,7 +92,7 @@ def reply(request, pk):
         thread = Thread.objects.get(pk=pk)
         post = Post.objects.create(thread=thread, title=p["subject"], body=p["body"],
             creator=request.user)
-    
+
     increment_post_counter(request)
 
     return HttpResponseRedirect(reverse("forums.views.thread", args=[pk]) + "?page=last")

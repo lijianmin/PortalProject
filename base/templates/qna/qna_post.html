@@ -3,49 +3,88 @@
 {% load humanize %}
 
 {% load staticfiles %}
- 	<br/>
- 	
-	<div class="row">
 
-        <br/>
-        <br/>
+<br/>
 
-		<h1 class="article-heading" align=left>What's up Health?</h1>
-
-        <p> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
-
-		<br/>
-
-        <div class="large-2 columns">
-        </div>
+<div class="row">
 
 		<div class="large-centered columns">
 
-			<div class="row collapse postfix-round">
+      <h1 class="article-heading"><b>Your Question:</b></h1>
 
-        		<div class="small-10 columns">    
-         	 		<!--<input type="text" name="question" placeholder="Ask a doctor a question">-->
-              {{ question }}
-        		</div>
-        	
-        		<div class="small-2 columns">
-          			<!--<a href="#" class="button postfix">GO!</a>-->
-        		</div>
+      <h4> {{ Question.question }} </h4>
+      <br/>
+      <p align="left"> <i><b>Posted on:</b> {{ Question.timestamp }} <b>by</b> {{ Question.posted_by }}</i> </p>
 
-     		</div>
+			  <div class="row collapse postfix-round">
 
-     	</div>
+						{% if Question.status == 'CONCLUDED' %}
+						<h5 style="color:red" align="left"> <b>You have concluded the question</b> </h5>
+						<p align="right">
+							<form action="{{ repost_qn }}" method="POST"> {% csrf_token %}
+									<input type="submit" class="button small" value="Repost!" id="submit" />
+							</form>
+						</p>
+							<br/>
+						{% else %}
+						<ul class="inline-list">
+        			<li>
+									<form action="{{ repost_qn }}" method="POST"> {% csrf_token %}
+											<input type="submit" class="button small" value="Not satisfied? Repost!" id="submit" />
+									</form>
+							</li>
+							<li>
+									<form action="{{ conclude_qn }}" method="POST"> {% csrf_token %}
+										<input type="submit" class="button small" value="Conclude the question" id="submit" />
+									</form>
+        			</li>
+						{% endif %}
+						</div>
 
-        <div class="large-2 columns">
+            <div class="small-11 columns">
+
+              <h4 class="article-heading" align=left>Answers:</h4>
+
+              <br/>
+
+
+
+              <div class="row collapse">
+
+								{% if Answer %}
+
+									{% for ans in Answer %}
+
+										<div class="row">
+											<div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
+											<div class="large-10 columns">
+	                  		<p><strong>{{ ans.answer_provided_by }} said:</strong> {{ ans.answer }}</p>
+											</div>
+										</div>
+										<br/>
+
+									{% endfor %}
+
+								{% else %}
+										<h5>Hmmm...no answer yet. The doctors are busy perhaps?</h5>
+								{% endif %}
+              </div>
+
+              <div class="large-2 columns">
+              </div>
+
+              <br/>
+              <br/>
+              <br/>
+
         </div>
 
-        <br/>
-        <br/>
-        <br/>
+    </div>
 
-	</div>
+</div>
 
-{% include 'auth.html' %} 
-	
+</div>
+
+{% include 'auth.html' %}
+
 {% include 'footer.html' %}
-

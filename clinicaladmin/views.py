@@ -21,13 +21,13 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def main(request):
 
-	qns = Question.objects.all().order_by("timestamp").reverse()
+	qns = Question.objects.filter(status='PENDING').order_by("timestamp").reverse()
 
 #	health_threats = category.objects.filter(master_category = 1)
 #	categories = category.objects.filter(master_category = 2)
 	userinfo = User.objects.get(username = request.user)
 	profile = UserProfile.objects.get(user_id = request.user.pk)
-    
+
 	return render_to_response(
 		'clinicaladmin/clinical_admin_main.html', {
 		#'categories' : categories,

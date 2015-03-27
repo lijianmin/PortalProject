@@ -20,11 +20,15 @@ urlpatterns = patterns('',
     #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     # Django-Admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='django_admin'),
 
     # QnA
     url(r'^questions/$', 'QnA.views.main', name='questions_main'),
-    url(r'^questions/post/$', 'QnA.views.post_question', name='questions_post'),
+    url(r'^questions/get/(\d+)/$', 'QnA.views.get_question', name='get_question'),
+    url(r'^questions/answer/(\d+)/$', 'QnA.views.answer_question', name='ans_question'),
+    url(r'^questions/save/(\d+)/$', 'QnA.views.save_answer', name='save_answer'),
+    url(r'^questions/repost/(\d+)/$', 'QnA.views.repost_question', name='repost_question'),
+    url(r'^questions/conclude/(\d+)/$', 'QnA.views.conclude_question', name='conclude_question'),
 
     # Discussion Forums
    	url(r'^forums/$', 'forums.views.main', name='forums'),

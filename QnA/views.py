@@ -10,16 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
 from portal.models 					import post, category, UserProfile
-from QnA.models						import Question
+from QnA.models						import Question, Answer
+from django.contrib.auth.models		import User
 
 from QnA.forms 						import QuestionForm
 
-# Create your views here.
-
-# def clinician_questionadmin - for retrieving the worklist of questions
-# def clinician_answer - for answering question
-
 # MAIN
+@login_required
 def main(request):
 
 	# A boolean value for telling the template whether the registration was successful.
@@ -33,13 +30,16 @@ def main(request):
 	# If it's a HTTP POST, we're interested in processing form data.
 	if request.method == 'POST':
 
-		question_form = QuestionForm(data=request.POST)
+		question_form = QuestionForm(data=request.POST, user=request.user)
 
 		if question_form.is_valid():
 
-			Question = question_form.save()
+			Question = question_form.save() #one insert statement
 
-			# Update our variable to tell the template registration was successful.
+			Question.posted_by = request.user #another update statement
+
+			Question.save()
+
 			posted = True
 
 		# Invalid form or forms - mistakes or something else?
@@ -58,9 +58,68 @@ def main(request):
 			RequestContext(request))
 
 
-def post_question(request):
+def add_csrf(request, ** kwargs):
+    d = dict(user=request.user, ** kwargs)
+    d.update(csrf(request))
+    return d
 
-	if request.method == 'POST':
-		question = request.POST.get('question', False)
+@login_required
+def get_question(request, pk):
+	question = Question.objects.get(pk=pk)
+	repost_qn_action = reverse("QnA.views.repost_question", args=[pk])
+	conclude_qn_action = reverse("QnA.views.conclude_question", args=[pk])
 
-	return render(request, 'qna/qna_post.html', { 'question': question })
+	try:
+		answer = Answer.objects.filter(question_id=pk)
+		return render(request, 'qna/qna_post.html',
+			add_csrf(request, repost_qn=repost_qn_action, conclude_qn=conclude_qn_action, Question=question, Answer=answer))
+	except Answer.DoesNotExist:
+		return render(request, 'qna/qna_post.html',
+			add_csrf(request, repost_qn=repost_qn_action, conclude_qn=conclude_qn_action, Question=question))
+
+#meant for public user
+#@login_required
+#def change_question_status(request, ptype, pk):
+#    if ptype == 'conclude':
+
+#    elif ptype == 'repost':
+
+#    return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
+#
+
+@login_required
+def repost_question(request, pk):
+	p = request.POST
+	question = Question.objects.get(pk=pk)
+	question.submitted()
+	question.save()
+
+	return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
+
+
+@login_required
+def conclude_question(request, pk):
+	p = request.POST
+	question = Question.objects.get(pk=pk)
+	question.concluded()
+	question.save()
+
+	return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
+
+
+@login_required
+def answer_question(request, pk):
+	question = Question.objects.get(pk=pk)
+	action = reverse("QnA.views.save_answer", args=[pk])
+	return render_to_response('qna/qna_answer_qn.html', add_csrf(request, action=action, Question=question))
+
+
+def save_answer(request, pk):
+	p = request.POST
+	if p["body"]:
+		question = Question.objects.get(pk=pk)
+		post = Answer.objects.create(question=question, answer=p["body"], answer_provided_by=request.user)
+		question.answered()
+		question.save()
+
+	return HttpResponseRedirect(reverse("clinicaladmin"))

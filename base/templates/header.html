@@ -59,13 +59,15 @@
 						<li class="has-dropdown">
 							<a href="#">Welcome, {{ user.username }}!</a>
 							<ul class="dropdown">
-                {% if user.group == "clinician" %}
-								  <li><a href="{% url 'clinicaladmin' %}">Control Panel</a></li>
+                {% if user.group == 'Clinician' %}
+                  <li><a href="{% url 'clinicaladmin' %}">** CLINICAL ADMIN **</a></li>
                 {% else %}
                   <li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
-                {% endif %}
-								<li><a href="{% url 'logout' %}">Logout</a></li>
-							</ul>
+								{% endif %}
+
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+
+              </ul>
 						</li>
 						{% else %}
 						<li><a href="#" data-reveal-id="myModal">Login/Register</a></li>

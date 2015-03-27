@@ -1,0 +1,55 @@
+{% include 'header.html' %}
+
+{% load humanize %}
+
+{% load staticfiles %}
+
+<br/>
+
+<div class="row">
+
+		<div class="large-centered columns">
+
+      <h1 class="article-heading" align=left><b>Question:</b></h1>
+
+      <h4 align="justify"> {{ Question.question }} </h4>
+			<br/>
+			<p align="right"> <i><b>Posted on:</b> {{ Question.timestamp }} <b>by</b> {{ Question.posted_by }}</i> </p>
+
+      <br/>
+
+			  <div class="row collapse postfix-round">
+
+        		<div class="small-3 columns">
+        		</div>
+
+            <div class="small-11 columns">
+
+              <h4 class="article-heading" align=left>Your Answer:</h4>
+
+              <br/>
+
+              <div class="row">
+                <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
+                <div class="large-10 columns">
+									<form action="{{ action }}" method="POST"> {% csrf_token %}
+	                		<textarea name="body" id="body" rows=15></textarea>
+	               		 	<input type="submit" class="button small" value="Submit" id="submit" />
+	            		</form>
+                </div>
+              </div>
+
+							<br/>
+							<br/>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% include 'auth.html' %}
+
+{% include 'footer.html' %}

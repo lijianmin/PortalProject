@@ -27,6 +27,7 @@ def user_login(request):
 		user = authenticate(username=username, password=password)
 
 		print(user)
+		print(user.groups.all())
 
 		# If we have a User object, the details are correct.
 		# If None (Python's way of representing the absence of a value), no user

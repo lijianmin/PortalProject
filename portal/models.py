@@ -135,6 +135,8 @@ class category(models.Model):
 	def get_absolute_url(self):
 		return ('view_category', (), { 'slug': self.category_slug, 'id': self.id })
 
+	class Meta:
+		verbose_name_plural = 'Categories'
 
 # Master Category
 class masterCategory(models.Model):
@@ -158,3 +160,6 @@ class masterCategory(models.Model):
 	@models.permalink
 	def get_absolute_url(self):
 		return ('view_master_category', (), { 'slug': self.master_category_slug })
+
+	class Meta:
+		verbose_name_plural = 'Master Categories'
