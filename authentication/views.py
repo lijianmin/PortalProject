@@ -5,10 +5,19 @@ from django.views 					import generic
 from django.utils 					import timezone
 from django.core.context_processors import csrf
 from django.template 				import RequestContext
+from django							import template
 
 from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.models		import User, Group
 from django.contrib.auth.decorators import login_required
+
+
+register = template.Library()
+
+@register.filter(name='has_group')
+def has_group(user, group_name):
+	group = Group.objects.get(name=group_name)
+	return True if group in user.groups.all() else False
 
 #need unit test case
 def user_login(request):
@@ -26,9 +35,6 @@ def user_login(request):
 		# combination is valid - a User object is returned if it is.
 		user = authenticate(username=username, password=password)
 
-		print(user)
-		print(user.groups.all())
-
 		# If we have a User object, the details are correct.
 		# If None (Python's way of representing the absence of a value), no user
 		# with matching credentials was found.
@@ -38,6 +44,9 @@ def user_login(request):
 				# If the account is valid and active, we can log the user in.
 				# We'll send the user back to the homepage.
 				login(request, user)
+
+				usergroup = user.groups.all()
+
 
 				if user.groups.all() == "User":
 					print("User login happened")
@@ -63,8 +72,6 @@ def user_login(request):
 # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required
 def user_logout(request):
-
-	print("User logout happened")
 
 	# Since we know the user is logged in, we can now just log them out.
 	logout(request)

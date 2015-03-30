@@ -19,12 +19,12 @@
 			  <div class="row collapse postfix-round">
 
 						{% if Question.status == 'CONCLUDED' %}
-						<h5 style="color:red" align="left"> <b>You have concluded the question</b> </h5>
-						<p align="right">
-							<form action="{{ repost_qn }}" method="POST"> {% csrf_token %}
-									<input type="submit" class="button small" value="Repost!" id="submit" />
-							</form>
-						</p>
+							<h5 style="color:red" align="left"> <b>You have concluded the question</b> </h5>
+							<p align="right">
+									<form action="{{ repost_qn }}" method="POST"> {% csrf_token %}
+										<input type="submit" class="button small" value="Repost!" id="submit" />
+									</form>
+							</p>
 							<br/>
 						{% else %}
 						<ul class="inline-list">
