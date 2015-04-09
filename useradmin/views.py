@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.template 				import RequestContext
 
 from django.forms					import ModelForm
+from django.conf 					import settings
 
 from portal.models 					import post, category, UserProfile
 from portal.forms 					import UserForm, UserProfileForm, AdminProfileForm
@@ -36,10 +37,10 @@ def user_admin(request, pk):
 		print(pf)
 		if pf.is_valid():
 			pf.save()
-			#imfn = pjoin("/Users/Jianmin/django_projects/healthportal/wassuphealth/media", profile.avatar.name)
-			#im = PImage.open(imfn)
-			#im.thumbnail((160,160), PImage.ANTIALIAS)
-			#im.save(imfn, "JPEG")
+			imfn = pjoin('/Applications/MAMP/htdocs/wsh/images/', profile.avatar.name)
+			im = PImage.open(imfn)
+			im.thumbnail((160,160), PImage.ANTIALIAS)
+			im.save(imfn, "JPEG")
 	else:
 		pf = AdminProfileForm(instance=userinfo)
 

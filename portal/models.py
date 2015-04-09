@@ -11,7 +11,7 @@ from django_extensions.db.fields 	import UUIDField
 # spruce up the forums
 
 
-# User Model
+# User Model for All Users only. - biggest regret to put it in the portal app :(
 class UserProfile(models.Model):
 
     # This line is required. Links UserProfile to a User model instance.
@@ -30,6 +30,8 @@ class UserProfile(models.Model):
 
     # profile_avatar = models.ImageField("Profile Pic", upload )
 
+    birthday = models.DateTimeField(null=True)
+
     posts = models.IntegerField(default = 0)
 
     home_address = models.TextField()
@@ -43,6 +45,50 @@ class UserProfile(models.Model):
     # Override the __unicode__() method to return out something meaningful!
     def __str__(self):
         return self.user.username
+
+# User Model for Clinician - with some common features from the UserProfile class
+class ClinicianProfile(UserProfile):
+    # for SG: SMC MCR Number
+    medical_reg_no = models.CharField(
+        max_length = 9
+    )
+
+    registered_date = models.DateTimeField()
+
+    # Place of practice e.g. Family Care Clinic
+    practice_address = models.TextField()
+
+    # Contact no. of practice
+    practice_contact_no = models.CharField(
+        max_length = 20
+    )
+
+    # Website URL of practice
+    practice_website = models.URLField()
+    practice_email_add = models.EmailField()
+
+    # Place of practice coordinates for use with Google Maps.
+    practice_gps_coord = models.CharField(
+        max_length = 20
+    )
+
+    # to add: overall rating and reviews
+    # to be semi colon separated
+    clinical_specialty = models.TextField()
+
+
+# User Model for User - with some common features from the UserProfile class
+class PublicUserProfile(UserProfile):
+
+    #More to be added. E.g. various medical related data
+
+    #Semi-colon separated field
+    allergies = models.TextField()
+
+    height = models.FloatField()
+
+    weight = models.FloatField()
+
 
 
 # Post Model -- Articles mainly...yea

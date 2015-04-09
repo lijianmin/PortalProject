@@ -9,7 +9,7 @@
     <title>WassupHealth</title>
     <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
     <link rel="stylesheet" href="{% static 'css/wassuphealth_custom.css' %}" />
-    <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static 'foundation-icons/foundation-icons.css' %}" />
     <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}"/>
@@ -83,6 +83,8 @@
 							</ul>
 						</li>
 
+            <li><a href="{% url 'questions_main' %}">Ask a Doc!</a></li>
+
 						<li><a href="{% url 'forums' %}">Forums</a></li>
 
 						<li><a href="#">Help</a></li>
@@ -94,8 +96,9 @@
 						<li><a href="#"><i class="fi-torso"></i></a></li>
 
 						<li class="search">
-							<form>
-								<input type="search" placeholder="Search Wassuphealth">
+							<form id="search_form" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+								<input type="search" id="search" name="search" placeholder="Search Wassuphealth">
 							</form>
 						</li>
 

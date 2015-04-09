@@ -10,9 +10,9 @@
         <br/>
         <br/>
 
-		<h1 class="article-heading" align=left>What's up Health?</h1>
+		<h1 class="article-heading" align=left><b>What's up Health?</b></h1>
 
-        <p> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
+        <p align=center> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
 
 		<br/>
 
@@ -22,13 +22,13 @@
 		<div class="large-centered columns">
 
 
-			<div class="row collapse postfix-round">
+			<div class="row collapse">
 
         {% if user.is_authenticated %}
 
 			      {% if posted %}
 
-				      <p>Thank you for posting. A doctor will get back to you shortly</p>
+				      <p align=center><b>Thank you for posting. A doctor will get back to you shortly.</b></p>
 
 			      {% else %}
 
@@ -36,22 +36,51 @@
 
             		{% csrf_token %}
 
-            		{{ question_form.as_p }}
+                <div class="large-12 columns">
+                  <div class="row collapse postfix-round">
+                    <div class="small-10 columns fieldWrapper">
+                      {{ question_form.question.errors }}
+                      {{ question_form.question }}
+                    </div>
+                    <div class="small-2 columns">
+                      <input class="button postfix" type="submit" name="submit" value="GO!" />
+                    </div>
+                  </div>
+                </div>
 
-        			<div class="small-2 columns">
-              			<input class="button small" type="submit" name="submit" value="GO!" />
-        			</div>
           		</form>
 
             {% endif %}
 
         {% else %}
 
-              <p>Please login to post a question</p>
+              <h4 align=center><b>Please login to post a question</b></h4>
 
         {% endif %}
 
      	</div>
+
+       <br/>
+       <hr/>
+
+      <div class="row">
+          <h3 class="article-heading" align=center>What has been asked? -- Pending Questions</h3>
+          <br/>
+          <table width="70%" align=center>
+
+            <tr>
+              <th width="75%"><h5><b>Question</b></h5></th>
+              <th width="25%"><h5><b>Date and Time of Posting</b></h5></th>
+            </tr>
+
+            {% for qn in qns %}
+              <tr>
+                <td>{{ qn.question }}</td>
+                <td>{{ qn.timestamp }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+      </div>
 
     </div>
 

@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     # Django-Admin
     url(r'^admin/', include(admin.site.urls), name='django_admin'),
 
+    # Search
+    #url(r'^search/$', 'search.views.search_site', name='search_site'),
+
     # QnA
     url(r'^questions/$', 'QnA.views.main', name='questions_main'),
     url(r'^questions/get/(\d+)/$', 'QnA.views.get_question', name='get_question'),

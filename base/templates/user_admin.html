@@ -13,10 +13,9 @@
 				<div class="panel category">
 					<h5>Your Administration</h5>
 					<ul class="side-nav">
-						<li><a href="#">Account</a></li>
-						<li><a href="#">Profile</a></li>
-						<li><a href-"#">Your Health</a></li>
-						<li><a href="#">Customize Further</a></li>
+						<li><a href="#yourprofile">Your Profile</a></li>
+						<li><a href="#health">Your Health</a></li>
+						<li><a href="#askadoc">Ask a Doc</a></li>
 					</ul>
 				</div>
 
@@ -28,51 +27,96 @@
 
  		</div>
 
+
  		<div class="small-12 large-8 columns" role="content">
 
+			<a name="yourprofile"></a>
 			<div class="row">
+
 				<h4 class="article-heading" align="right">Your Profile</h3>
 
-				<b>Username:</b> {{ userinfo.username }} <br/>
-				<b>Password:</b> "not to be revealed" <br/>
-				<b>Email Address:</b> {{ userinfo.email }} <br/>
-				<b>Joined:</b> {{ userinfo.date_joined }} <br/>
- 				<b>Country:</b> {{ profile.country }} <br/>
- 				<b>Address:</b> {{ profile.home_address }}
+					<hr/>
 
-				<!---{% if img %}
-					<p><img border="0" src="{{ MEDIA_URL }}{{ img }}" /></p>
-				{% endif %}-->
-
-				<!--- Profile pic form -->
-				<form enctype="multipart/form-data" action="{% url 'useradmin' profile.pk %}" method="POST">
-					{% csrf_token %}
-
-					<b>Profile Pic:</b> {{ pf.avatar }}
-					<input type="submit" value="Submit" id="submit" />
-				</form>
+					<table border="0" width="100%" cellpadding="0">
+						<tr>
+							<td width="30%"><h6><b>Username</b></h6></td>
+							<td width="70%">{{ userinfo.username }}</td>
+						</tr>
+						<tr>
+							<td><h6><b>Password</b></h6></td>
+							<td>**********</td>
+						</tr>
+						<tr>
+							<td><h6><b>Email Address</b></h6></td>
+							<td>{{ userinfo.email }}</td>
+						</tr>
+						<tr>
+							<td><h6><b>Join Date</b></h6></td>
+							<td>{{ userinfo.date_joined }}</td>
+						</tr>
+						<tr>
+							<td><h6><b>Country</b></h6></td>
+							<td>{{ profile.country }}</td>
+						</tr>
+						<tr>
+							<td><h6><b>Residential Address</b></h6></td>
+							<td>{{ profile.home_address }}</td>
+						</tr>
+						<tr>
+							<td><h6><b>Profile Photo</b></h6></td>
+							<td>
+								<img border="0" src="{{ MEDIA_URL }}{{ img }}" />
+								<form enctype="multipart/form-data" action="{% url 'useradmin' profile.pk %}" method="POST">
+									{% csrf_token %}
+									<br/>
+									<p><b>Change your profile pic:</b></p>
+									{{ pf.avatar }}
+									<input type="submit" value="Submit" id="submit" />
+								</form>
+							</td>
+						</tr>
+					</table>
 
 			</div>
 
 			<br/>
 
+			<a name="health"></a>
+
 			<div class="row">
+
 				<h4 class="article-heading" align="right">Your Health</h3>
+
+				<hr/>
+
+				<table border="0" width="100%" cellpadding="0">
+					<tr>
+						<td width="30%"><h6><b>Height</b></h6></td>
+						<td width="70%">{{ profile.publicuserprofile.height }}</td>
+					</tr>
+					<tr>
+						<td><h6><b>Weight</b></h6></td>
+						<td>{{ profile.publicuserprofile.weight }}</td>
+					</tr>
+					<tr>
+						<td><h6><b>Allergies</b></h6></td>
+						<td>{{ profile.publicuserprofile.allergies }}</td>
+					</tr>
+				</table>
+
 			</div>
 
 			<br/>
 
-			<div class="row">
-				<h4 class="article-heading" align="right">Customize</h3>
-			</div>
-
-			<br/>
+			<a name="askadoc"></a>
 
 			<div class="row">
 
-				<h4 class="article-heading" align="right">Your Activities</h3>
+				<h4 class="article-heading" align="right">Ask a Doc</h3>
 
-				<p>Ask a Doctor</p>
+				<hr/>
+
+				<p><a href="{% url 'questions_main' %}">ASK NOW!</a></p>
 
 				{% if qns %}
 				<table border="0" cellpadding="0">

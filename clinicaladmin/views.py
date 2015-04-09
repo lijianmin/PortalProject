@@ -37,4 +37,10 @@ def main(request):
 		'qns':qns },
 		RequestContext(request))
 
-# answer questions
+# post articles
+def add_csrf(request, ** kwargs):
+    d = dict(user=request.user, ** kwargs)
+    d.update(csrf(request))
+    return d
+
+#def post_article(request):

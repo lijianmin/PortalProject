@@ -24,7 +24,9 @@
         		</div>
 
             <div class="small-11 columns">
-							
+
+							<hr/>
+
               <h4 class="article-heading" align=left>Your Answer:</h4>
 
               <br/>
@@ -39,8 +41,35 @@
                 </div>
               </div>
 
-							<br/>
-							<br/>
+							<div class="row collapse">
+
+								<hr/>
+
+								<h4 class="article-heading" align=left>Who has provided answers so far?</h4>
+								<br/>
+
+								{% if Answer %}
+
+									{% for ans in Answer %}
+
+										<div class="row">
+											<div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
+											<div class="large-10 columns">
+	                  		<p><strong>{{ ans.answer_provided_by }} said:</strong> {{ ans.answer }}</p>
+											</div>
+										</div>
+										<br/>
+
+									{% endfor %}
+
+								{% else %}
+										<h5>No answers yet. You will be the first!</h5>
+								{% endif %}
+
+								<br/>
+								<br/>
+
+              </div>
 
         </div>
 

@@ -8,6 +8,7 @@ from django.template 				import RequestContext
 from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
+from django.conf 					import settings
 
 from portal.models 					import post, category, UserProfile
 from forums.models					import Forum, Thread, Post
@@ -43,7 +44,7 @@ def forum(request, pk):
     threads = Thread.objects.filter(forum=pk).order_by("-created")
     threads = mk_paginator(request, threads, 20)
     title = Forum.objects.get(pk=pk).title
-    return render_to_response("forums/forum.html", add_csrf(request, title=title, threads=threads, pk=pk))
+    return render_to_response("forums/forum.html", add_csrf(request, title=title, threads=threads, pk=pk), RequestContext(request))
 
 def thread(request, pk):
     """Listing of posts in a thread."""
@@ -51,7 +52,7 @@ def thread(request, pk):
     posts = mk_paginator(request, posts, 15)
     t = Thread.objects.get(pk=pk)
     return render_to_response("forums/thread.html", add_csrf(request, posts=posts, pk=pk, title=t.title,
-                                                       forum_pk=t.forum.pk))
+                                                       forum_pk=t.forum.pk), RequestContext(request))
 
 def increment_post_counter(request):
     profile = request.user.userprofile

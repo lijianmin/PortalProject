@@ -9,13 +9,13 @@
 
   	 	<div class="small-12 large-3 columns">
 
-				<h3 class="article-heading" align="left"><b>Clinician Control Panel</b></h3>
+				<h4 class="article-heading" align="left"><b>Hello clinician, {{ request.user }}</b></h4>
 			<div class="panel category">
 				<h5>Your Administration</h5>
 				<ul class="side-nav">
-					<li><a href="#">Account</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href-"#">Your Clinical Specialty</a></li>
+					<li><a href="#yourprofile">Your Profile</a></li>
+					<li><a href="#questions">Questions by Users</a></li>
+					<li><a href="#articles">Curate your articles</a></li>
 				</ul>
 			</div>
 
@@ -29,22 +29,49 @@
 
  		<div class="small-12 large-8 columns" role="content">
 
+			<a name="yourprofile"></a>
 			<div class="row">
 
       	<h4 class="article-heading" align="right">Your Profile</h3>
-
-				<b>Username:</b> {{ userinfo.username }} <br/>
-				<b>Password:</b> "not to be revealed" <br/>
-				<b>Email Address:</b> {{ userinfo.email }} <br/>
-				<b>Joined:</b> {{ userinfo.date_joined }} <br/>
- 				<b>Country:</b> {{ profile.country }} <br/>
- 				<b>Address:</b> {{ profile.home_address }}
+				<hr/>
+				<table border="0" width="100%" cellpadding="0">
+					<tr>
+						<td width="30%"><b>Username</b></td>
+						<td width="70%">{{ userinfo.username }}</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>Password</b></td>
+						<td width="70%">**********</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>SMC Registration Number:</b></td>
+						<td width="70%">99999G</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>Email Address</b></td>
+						<td width="70%">{{ userinfo.email }}</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>Join Date</b></td>
+						<td width="70%">{{ userinfo.date_joined }}</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>Country</b></td>
+						<td width="70%">{{ profile.country }}</td>
+					</tr>
+					<tr>
+						<td width="30%"><b>Clinical Address</b></td>
+						<td width="70%">{{ profile.home_address }}</td>
+					</tr>
+				</table>
 
       </div>
 
+			<a name="questions"></a>
 			<div class="row">
 
 				<h4 class="article-heading" align="right">Posted Questions by Users</h3>
+				<hr/>
 
 				<p>Ask a Doctor</p>
 
@@ -86,7 +113,34 @@
 				</table>
 
 			</div>
-			<br/>
+
+			<a name="articles"></a>
+			<div class="row">
+
+				<h4 class="article-heading" align="right">Curate Your Articles</h3>
+				<hr/>
+
+				<!--<div class="large-12 columns">
+
+				<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+
+					<form action="" method="POST"> {% csrf_token %}
+							<textarea name="articleText" id="articleText" rows=15 columns=30></textarea>
+							<br/>
+
+							<input type="submit" class="button small" value="Submit" id="submit" />
+
+            	<script>
+                // Replace the <textarea id="editor1"> with a CKEditor
+                // instance, using default configuration.
+                CKEDITOR.replace( 'articleText', {toolbar : 'Basic'	});
+            	</script>
+					</form>
+
+				</div>-->
+
+				<p>This will redirect you to the admin page. <a href="{% url 'admin:index' %}">Click here</a></p>
+			</div>
 
 		</div>
 
