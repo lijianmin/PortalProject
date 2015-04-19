@@ -44,11 +44,13 @@ urlpatterns = patterns('',
     # Portal
 	url(r'^$', 'portal.views.home', name='home'),
 	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
+    url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),
 	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
 	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
 
  	# Registration
-    url(r'^register/$', 'registration.views.register', name='registration'),
+    url(r'^register/public/$', 'registration.views.register_publicuser', name='publicuser_registration'),
+    url(r'^register/clinician/$', 'registration.views.register_clinician', name='clinician_registration'),
 
     # User Authentication
     url(r'^login/$', 'authentication.views.user_login', name='login'),
@@ -56,9 +58,14 @@ urlpatterns = patterns('',
 
     # User Admin
     url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
+    url(r'^useradmin/edit/health/$', 'useradmin.views.manage_healthprofile', name='manage_healthprofile'),
 
     # Clinical Admin
     url(r'^clinicaladmin/$', 'clinicaladmin.views.main', name='clinicaladmin'),
+    url(r'^clinicaladmin/edit/$', 'clinicaladmin.views.manage_clinicalprofile', name='manage_profile'),
+
+    # Doctors Directory
+    url(r'^lookforadoc/$', 'docdirectory.views.main', name='docdir'),
 
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),

@@ -32,7 +32,7 @@
 			<a name="yourprofile"></a>
 			<div class="row">
 
-      	<h4 class="article-heading" align="right">Your Profile</h3>
+      	<h4 class="article-heading" align="right">Your Profile <a href="{% url 'manage_profile' %}">[Manage]</a></h3>
 				<hr/>
 				<table border="0" width="100%" cellpadding="0">
 					<tr>
@@ -61,7 +61,7 @@
 					</tr>
 					<tr>
 						<td width="30%"><b>Clinical Address</b></td>
-						<td width="70%">{{ profile.home_address }}</td>
+						<td width="70%">IGNORE {{ profile.home_address }}</td>
 					</tr>
 				</table>
 

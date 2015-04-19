@@ -7,14 +7,14 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('portal', '0005_auto_20150110_0347'),
+        ('portal', '0003_auto_20150413_1351'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='title_slug',
-            field=models.SlugField(max_length=200, unique=True),
+            model_name='clinicianprofile',
+            name='registered_date',
+            field=models.DateTimeField(null=True),
             preserve_default=True,
         ),
     ]

@@ -3,6 +3,7 @@ from django.contrib.auth.models 	import User
 from django.db.models 				import permalink
 from django.template.defaultfilters import slugify
 from django_extensions.db.fields 	import UUIDField
+from taggit.managers                import TaggableManager
 
 # from PIL 							import Image as PImage
 # from os.path 						import join as pjoin
@@ -47,20 +48,35 @@ class UserProfile(models.Model):
         return self.user.username
 
 # User Model for Clinician - with some common features from the UserProfile class
-class ClinicianProfile(UserProfile):
+class ClinicianProfile(models.Model):
+
+    userprofile = models.OneToOneField(UserProfile)
+
+    # Available fields: medical_reg_no, registered_date, practice_address,
+    # practice_contact_no, practice_country, practice_website,
+    # practice_email_add, clinical_specialty, medical_interests, grad_school,
+    # grad_year, degree_type, writeup_text
+
+    # Professional License
     # for SG: SMC MCR Number
     medical_reg_no = models.CharField(
         max_length = 9
     )
 
-    registered_date = models.DateTimeField()
+    registered_date = models.DateTimeField(null=True)
 
+    # Clinic of Practice
     # Place of practice e.g. Family Care Clinic
     practice_address = models.TextField()
 
     # Contact no. of practice
     practice_contact_no = models.CharField(
         max_length = 20
+    )
+
+    # Country of practice
+    practice_country = models.CharField(
+        max_length = 200
     )
 
     # Website URL of practice
@@ -72,15 +88,32 @@ class ClinicianProfile(UserProfile):
         max_length = 20
     )
 
-    # to add: overall rating and reviews
     # to be semi colon separated
     clinical_specialty = models.TextField()
+    medical_interests = models.TextField()
+
+    # Graduate School
+    grad_school = models.CharField(
+        max_length = 200
+    )
+
+    grad_year = models.CharField(
+        max_length = 4
+    )
+
+    degree_type = models.CharField(
+        max_length = 7
+    )
+
+    # text profile of clinician
+    writeup_text = models.TextField()
 
 
 # User Model for User - with some common features from the UserProfile class
-class PublicUserProfile(UserProfile):
+class PublicUserProfile(models.Model):
 
     #More to be added. E.g. various medical related data
+    userprofile = models.OneToOneField(UserProfile)
 
     #Semi-colon separated field
     allergies = models.TextField()
@@ -94,53 +127,55 @@ class PublicUserProfile(UserProfile):
 # Post Model -- Articles mainly...yea
 class post(models.Model):
 
-	# Article UUID - internal to the portal only.
-	article_UUID = UUIDField(blank=True, null=True)
+    tags = TaggableManager()
 
-	author = models.CharField(
+	# Article UUID - internal to the portal only.
+    article_UUID = UUIDField(blank=True, null=True)
+
+    author = models.CharField(
     	max_length = 30
     )
 
-	title = models.CharField(
+    title = models.CharField(
     	max_length = 200,
     	db_index = True
     )
 
-	title_slug = models.SlugField(
+    title_slug = models.SlugField(
     	max_length = 200,
     	db_index = True,
     	unique = True
     )
 
-	bodytext = models.TextField()
+    bodytext = models.TextField()
 
-	view_count = models.IntegerField(
+    view_count = models.IntegerField(
 		default = 0
 	)
 
-	timestamp = models.DateTimeField(
+    timestamp = models.DateTimeField(
 		auto_now_add=True
 	)
 
     #strictly one category per post
-	category = models.ForeignKey('portal.category')
+    category = models.ForeignKey('portal.category')
 
 	#enable/disable the Disqus comments system (per article via the admin)
-	comments_enabled = models.BooleanField(default=False)
+    comments_enabled = models.BooleanField(default=False)
 
 	#publish when you are confident enough
-	published = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
 
-	def __str__(self):
-		return self.title
+    def __str__(self):
+        return self.title
 
-	@models.permalink
-	def get_absolute_url(self):
-		return ('view_article', (), { 'slug': self.title_slug, 'id': self.id })
+    @models.permalink
+    def get_absolute_url(self):
+        return ('view_article', (), { 'slug': self.title_slug, 'id': self.id })
 
-	def save(self, *args, **kwargs):
-		self.title_slug = slugify(self.title)
-		super(post, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.title_slug = slugify(self.title)
+        super(post, self).save(*args, **kwargs)
 
 
 from django.db.models.signals 		import pre_save

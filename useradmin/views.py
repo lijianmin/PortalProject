@@ -10,11 +10,12 @@ from django.forms					import ModelForm
 from django.conf 					import settings
 
 from portal.models 					import post, category, UserProfile
-from portal.forms 					import UserForm, UserProfileForm, AdminProfileForm
 from QnA.models						import Question
 
 from django.contrib.auth.models		import User, Group
 from django.contrib.auth.decorators import login_required
+from useradmin.forms	 			import PublicUserProfileForm
+from registration.forms 			import AdminProfileForm
 
 from PIL 							import Image 	as PImage
 from os.path 						import join 	as pjoin
@@ -51,7 +52,7 @@ def user_admin(request, pk):
 	print(img)
 
 	return render_to_response(
-		'user_admin.html', {
+		'useradmin/user_admin.html', {
 		'categories' : categories,
 		'health_threats': health_threats,
 		'profile': profile,
@@ -59,4 +60,43 @@ def user_admin(request, pk):
 		'pf':pf,
 		'img':img,
 		'qns':qns },
+		RequestContext(request))
+
+
+@login_required
+def manage_healthprofile(request):
+
+	p_user = request.user.userprofile
+	health_threats = category.objects.filter(master_category = 1)
+	categories = category.objects.filter(master_category = 2)
+
+	if request.method == 'POST':
+
+		p_user_profile_form = PublicUserProfileForm(request.POST, instance = p_user.publicuserprofile)
+
+		if p_user_profile_form.is_valid():
+
+			profile = p_user_profile_form.save(commit=False) #one insert statement
+
+			if profile:
+				profile.save()
+			else:
+				profile.userprofile = p_user
+				profile.save()
+
+			return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
+
+		else:
+
+			print(p_user_profile_form.errors)
+
+	else:
+
+		p_user_profile_form = PublicUserProfileForm(instance = p_user.publicuserprofile)
+
+	return render_to_response(
+		'useradmin/p_user_profile.html', {
+		'categories' : categories,
+		'health_threats': health_threats,
+		'p_user_profile_form': p_user_profile_form},
 		RequestContext(request))

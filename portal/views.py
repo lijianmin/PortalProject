@@ -10,8 +10,8 @@ from django.core.paginator          import Paginator, EmptyPage, PageNotAnIntege
 from django.forms					import ModelForm
 
 from portal.models 					import post, category, UserProfile
-from portal.forms 					import UserForm, UserProfileForm, AdminProfileForm
 from QnA.models						import Question
+from taggit.models					import Tag
 
 from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.models		import User, Group
@@ -20,8 +20,11 @@ from django.contrib.auth.decorators import login_required
 from PIL 							import Image 	as PImage
 from os.path 						import join 	as pjoin
 
+from QnA.forms 						import QuestionForm
+
 # Create your views here.
 def home(request):
+
 	#list of articles in reverse chronological order
 	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
 
@@ -31,6 +34,9 @@ def home(request):
 
 	#paginate the list of articles for elegance
 	paginator = Paginator(article_list, 5) #use small number to test
+
+	#question form
+	question_form = QuestionForm()
 
 	page = request.GET.get('page')
 	try:
@@ -45,7 +51,14 @@ def home(request):
 	return render(
 		request,
 		'index.html',
-		{'articles' : articles, 'categories' : categories, 'health_threats': health_threats})
+		{'articles' : articles, 'categories' : categories, 'health_threats': health_threats, 'question_form': question_form})
+
+
+
+def add_csrf(request, ** kwargs):
+    d = dict(user=request.user, ** kwargs)
+    d.update(csrf(request))
+    return d
 
 
 #need unit test case
@@ -53,22 +66,49 @@ def view_article(request, slug, id):
 
 	#return post object
 	article = get_object_or_404(post, pk = id)
+	tags = Tag.objects.filter(post__id = id)
 
-	return render_to_response('view_article.html', {
-		#'comments': Comments.objects.filter(pk = comments  ),
+	return render_to_response('portal/view_article.html', {
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
 		'same_cat_articles' : post.objects.filter(category = article.category.id),
-		'post': article
+		'post': article,
+		'tags': tags
+	}, RequestContext(request))
+
+#need unit test case
+def view_all_tags(request, slug, id):
+
+	tag = get_object_or_404(Tag, pk = id)
+
+	return render_to_response('portal/view_tagged_under.html', {
+		'tag': tag,
+		'health_threats' : category.objects.filter(master_category = 1),
+		'categories' : category.objects.filter(master_category = 2),
+		'posts': post.objects.filter(tags__id = id).order_by("timestamp").reverse(),
+		'all_tags': Tag.objects.all()
+	}, RequestContext(request))
+
+#need unit test case
+def view_tagged_under(request, slug, id):
+
+	tag = get_object_or_404(Tag, pk = id)
+
+	return render_to_response('portal/view_tagged_under.html', {
+		'tag': tag,
+		'health_threats' : category.objects.filter(master_category = 1),
+		'categories' : category.objects.filter(master_category = 2),
+		'posts': post.objects.filter(tags__id = id).order_by("timestamp").reverse(),
+		'all_tags': Tag.objects.all()
 	}, RequestContext(request))
 
 #need unit test case
 def view_category(request, slug, id):
 
-	_category = get_object_or_404(category, pk = id)
+	category_name = get_object_or_404(category, pk = id)
 
-	return render_to_response('view_category.html', {
-		'category': _category,
+	return render_to_response('portal/view_category.html', {
+		'category': category_name,
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
 		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse()
@@ -79,7 +119,7 @@ def view_master_category(request, slug):
 
 	master_category_name = get_object_or_404(master_category, master_category_slug = slug)
 
-	return render_to_response('view_master_category.html', {
+	return render_to_response('portal/view_master_category.html', {
 		'master_category': master_category_name,
 		'child_categories': category.objects.filter(master_category = master_category_name)[:10],
 	})

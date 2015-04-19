@@ -12,9 +12,9 @@
 
       <h1 class="article-heading" align=left><b>Question:</b></h1>
 
-      <h4 align="justify"> {{ Question.question }} </h4>
+      <h5> {{ Question.question }} </h5>
 			<br/>
-			<p align="right"> <i><b>Posted on:</b> {{ Question.timestamp }} <b>by</b> {{ Question.posted_by }}</i> </p>
+			<p align="right"> <i><b>Posted on:</b> {{ Question.timestamp }}</p>
 
       <br/>
 
@@ -35,7 +35,7 @@
                 <div class="large-2 columns small-3"><img src="http://placehold.it/80x80&text=[img]"/></div>
                 <div class="large-10 columns">
 									<form action="{{ action }}" method="POST"> {% csrf_token %}
-	                		<textarea name="body" id="body" rows=15></textarea>
+	                		<textarea name="body" id="body" rows=10></textarea>
 	               		 	<input type="submit" class="button small" value="Submit" id="submit" />
 	            		</form>
                 </div>

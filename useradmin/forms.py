@@ -1,4 +1,5 @@
-from QnA.models 				import Question
+from portal.models 				import UserProfile, PublicUserProfile
+from django.contrib.auth.models import User
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):
@@ -14,14 +15,9 @@ class BaseModelForm(forms.ModelForm):
                     'placeholder': field.help_text
                 })
 
-class QuestionForm(BaseModelForm):
-    class Meta:
-        model = Question
-        fields = ('question',)
-        help_texts = {
-            'question':'Ask a doctor now!',
-        }
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(QuestionForm, self).__init__(*args, **kwargs)
+class PublicUserProfileForm(BaseModelForm):
+
+    class Meta:
+        model = PublicUserProfile
+        fields = (  'allergies', 'height', 'weight', )

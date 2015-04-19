@@ -1,0 +1,63 @@
+{% include 'header.html' %}
+
+{% load humanize %}
+
+{% load staticfiles %}
+ 	<br/>
+
+	<div class="row center">
+
+		<div class="large-8 columns" role="content">
+
+			<div class="row">
+				{% if registered %}
+
+					<strong>Thank you for registering</strong>
+					<p><a href="{% url 'home' %}">Return home</a></p>
+
+				{% else %}
+
+					<h2 class="article-heading">Start contributing today!</h2>
+
+					<hr/>
+
+					<form id="user_form" method="post" action="{% url 'clinician_registration' %}" enctype="multipart/form-data">
+
+						{% csrf_token %}
+
+            <h4><b>Your Basic Information</b></h4>
+
+						{{ user_form.as_p }}
+
+            <hr/>
+
+            <h4><b>More About Yourself</b></h4>
+
+						{{ user_profile_form.as_p }}
+
+            <hr/>
+
+            <h4><b>Your Clinical Background</b></h4>
+
+            {{ clinical_profile_form.as_p }}
+
+            <p>Please note we will perform a background check after your registration. You will receive an account activation mail after it has been done.</p>
+
+						<input class="button right" type="submit" name="submit" value="Register Now" />
+
+					</form>
+
+				{% endif %}
+			</div>
+
+    	</div>
+
+		<br/>
+    	<br/>
+    	<br/>
+
+	</div>
+
+{% include 'auth.html' %}
+
+{% include 'footer.html' %}

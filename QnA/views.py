@@ -15,11 +15,19 @@ from django.contrib.auth.models		import User
 
 from QnA.forms 						import QuestionForm
 
+# tag question to specialty
+#	- EITHER choose a subject and load a page which shows all related questions
+#	  and post straight from it if logged into the system (which will tag it under that specialty)
+#	- OR post from user's dashboard (specialty list)
+#	- Need to re-tweak the category model or deployment of tags for questions and articles which is much more efficient than creating categories
+# image upload capability for dermatologist analysis
+# Front end notification polling
+# Appointment system (basic) with capabilities of only sending sms/email to clinic-in-charge (generated automatically)
+# Ernest to get back on the workflow for appointment setup which is related to how questions are answered in the system
+
 # MAIN
 def main(request):
 
-	# A boolean value for telling the template whether the registration was successful.
-	# Set to False initially. Code changes value to True when registration succeeds.
 	posted = False
 
 	#qns = Question.objects.all().order_by("timestamp").reverse()
