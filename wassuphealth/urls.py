@@ -33,7 +33,7 @@ urlpatterns = patterns('',
     url(r'^questions/repost/(\d+)/$', 'QnA.views.repost_question', name='repost_question'),
     url(r'^questions/conclude/(\d+)/$', 'QnA.views.conclude_question', name='conclude_question'),
 
-    # Discussion Forums
+    # Discussion Forums -- might be trashed
    	url(r'^forums/$', 'forums.views.main', name='forums'),
 	url(r'^forum/(\d+)/$', 'forums.views.forum', name='forum'),
 	url(r'^thread/(\d+)/$', 'forums.views.thread', name='thread'),
@@ -45,6 +45,7 @@ urlpatterns = patterns('',
 	url(r'^$', 'portal.views.home', name='home'),
 	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
     url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),
+    url(r'^tags/$', 'portal.views.view_all_tags', name='view_all_tags'),
 	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
 	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
 
@@ -69,6 +70,7 @@ urlpatterns = patterns('',
 
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),
+    #url(r'^', include('spirit.urls')),
     url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
 	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),
     url(r'^legal/terms-of-use/$', 'flatpage', {'url': '/legal/terms-of-use'}, name='legal-terms-of-use'),

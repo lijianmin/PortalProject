@@ -80,12 +80,15 @@
 								{% for category in categories %}
 									<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
 								{% endfor %}
-							</ul>
+
+                <li><a href="{% url 'view_all_tags' %}">View all tags</a></li>
+
+              </ul>
 						</li>
 
             <li><a href="{% url 'questions_main' %}">Ask a Doc!</a></li>
 
-            <li><a href="{% url 'docdir' %}">Find a Doc!</a></li>
+            <!--<li><a href="% url 'docdir' %">Find a Doc!</a></li>-->
 
 						<li><a href="{% url 'forums' %}">Forums</a></li>
 

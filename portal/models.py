@@ -18,10 +18,37 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
-    # The additional attributes we wish to include.
-    country = models.CharField(
-    	max_length = 150
+    country = (
+        ('SG','Singapore'),
+        ('MY','Malaysia'),
+        ('ID','Indonesia'),
+        ('TH','Thailand'),
+        ('IN','India'),
+        ('VN','Vietnam'),
+        ('KOR','South Korea, Republic of'),
+        ('AU','Australia'),
+        ('NZ','New Zealand'),
+        ('PH','Philippines'),
+        ('TW','Taiwan, Republic of China'),
+        ('CN','China, People''s Republic of'),
+        ('HK','Hong Kong SAR, China'),
+        ('MAC','Macau SAR, China')
     )
+    country = models.CharField(
+        max_length = 4, choices = country, default='SG'
+    )
+
+    gender = (
+        ('M', 'Female'),
+        ('F', 'Male'),
+        ('UN', 'Unknown'),
+    )
+
+    gender = models.CharField(
+        max_length = 2, choices = gender, default='F'
+    )
+
+    # The additional attributes we wish to include.
 
     zip_code = models.CharField(
     	max_length = 6
@@ -51,6 +78,39 @@ class UserProfile(models.Model):
 class ClinicianProfile(models.Model):
 
     userprofile = models.OneToOneField(UserProfile)
+
+    specialty_choices = (
+        (1, 'Anaethesiology'),
+        (2, 'Cardiology'),
+        (3, 'Cardiothoracic Surgery'),
+        (4, 'Colorectal Surgery'),
+        (5, 'Dentistry'),
+        (6, 'Dermatology'),
+        (7, 'Endocrinology'),
+        (8, 'ENT'),
+        (9, 'Gastroenterology'),
+        (10, 'General Surgery'),
+        (11, 'Geriatrics'),
+        (12, 'Gynaecology'),
+        (13, 'Haematology'),
+        (14, 'Hand Surgery'),
+        (15, 'Infectious Disease'),
+        (16, 'Internal Medicine'),
+        (17, 'Oncology'),
+        (18, 'Neonatology'),
+        (19, 'Neurology'),
+        (20, 'Obstetrics'),
+        (21, 'Ophthalmology'),
+        (22, 'Orthopaedic Surgery'),
+        (23, 'Paediatric'),
+        (24, 'Paediatric Surgery'),
+        (25, 'Plastic Surgery'),
+        (26, 'Psychiatry'),
+        (27, 'Renal Medicine'),
+        (28, 'Respiratory Medicine'),
+        (29, 'Rheumatology'),
+        (30, 'Urology')
+    )
 
     # Available fields: medical_reg_no, registered_date, practice_address,
     # practice_contact_no, practice_country, practice_website,
@@ -89,7 +149,7 @@ class ClinicianProfile(models.Model):
     )
 
     # to be semi colon separated
-    clinical_specialty = models.TextField()
+    clinical_specialty = models.IntegerField(choices = specialty_choices, default=1)
     medical_interests = models.TextField()
 
     # Graduate School

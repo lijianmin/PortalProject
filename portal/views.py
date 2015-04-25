@@ -76,16 +76,12 @@ def view_article(request, slug, id):
 		'tags': tags
 	}, RequestContext(request))
 
-#need unit test case
-def view_all_tags(request, slug, id):
+#need unit test case -- render in alphabetical order
+def view_all_tags(request):
 
-	tag = get_object_or_404(Tag, pk = id)
-
-	return render_to_response('portal/view_tagged_under.html', {
-		'tag': tag,
+	return render_to_response('portal/view_tags.html', {
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
-		'posts': post.objects.filter(tags__id = id).order_by("timestamp").reverse(),
 		'all_tags': Tag.objects.all()
 	}, RequestContext(request))
 
@@ -106,12 +102,14 @@ def view_tagged_under(request, slug, id):
 def view_category(request, slug, id):
 
 	category_name = get_object_or_404(category, pk = id)
+	question_form = QuestionForm()
 
 	return render_to_response('portal/view_category.html', {
 		'category': category_name,
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
-		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse()
+		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse(),
+		'question_form': question_form
 	}, RequestContext(request))
 
 #need unit test case

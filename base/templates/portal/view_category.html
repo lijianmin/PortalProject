@@ -3,58 +3,86 @@
 {% load humanize %}
 
 {% load staticfiles %}
- 
+
 	<div class="row">
 
 		<br/>
-  
+
 		<div class="large-8 columns" role="content">
-		
-		<h1><b>{{ category }}</b> </h1>
-		
-		{% if category.definition %}
-			<blockquote>{{ category.definition }}</blockquote>
-		{% endif %}
 
-		{% if posts %}
+		    <h1><b>{{ category }}</b> </h1>
 
-			<br/>
+		      {% if category.definition %}
+			       <blockquote>{{ category.definition }}</blockquote>
+		      {% endif %}
 
-			<h5 class="subheader"><b>Articles in this category</b></h5>
+          <div class="row" role="content">
 
-			{% for post in posts %}
-			<article>
-		
-				<h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-				<h6>Posted on {{ post.author }} since {{ post.timestamp | naturaltime }}</h6>
+            <h3 class="article-heading" align=left><b>Ask a {{ category }} specialty doctor!</b></h3>
 
-				{{ post.bodytext | safe | truncatechars_html:500 }}	
-			
-			</article>
+            {% if user.is_authenticated %}
+            <form id="question_form" method="post" action="{% url 'questions_main' %}" enctype="multipart/form-data">
 
-			<hr/>
+              {% csrf_token %}
 
- 			{% endfor %}
- 
- 		{% else %}
+              <div class="large-8 columns">
+                <div class="row collapse postfix-round">
+                  <div class="small-10 columns fieldWrapper">
+                    {{ question_form.question.errors }}
+                    {{ question_form.question }}
+                  </div>
+                  <div class="small-2 columns">
+                    <input class="button postfix" type="submit" name="submit" value="GO!" />
+                  </div>
+                </div>
+              </div>
 
- 			<p>Oops. Nothing on this yet. We are committed to this section though! Check back again!</p>
+            </form>
+            {% else %}
+              <p>Please login to post a question!</p>
+            {% endif %}
 
- 		{% endif %}
- 		<br/>
- 		<br/>
- 		<br/>
- 		
+
+          </div>
+
+		      {% if posts %}
+
+			       <h5 class="subheader"><b>Articles in this category</b></h5>
+
+			          {% for post in posts %}
+
+			            <article>
+
+				            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+				            <h6>Posted on {{ post.author }} since {{ post.timestamp | naturaltime }}</h6>
+
+				            {{ post.bodytext | safe | truncatechars_html:500 }}
+
+			            </article>
+
+			            <hr/>
+
+ 			          {% endfor %}
+
+ 		      {% else %}
+
+ 			       <p>Oops. Nothing on this yet. We are committed to this section though! Check back again!</p>
+
+ 		      {% endif %}
+ 		      <br/>
+ 		      <br/>
+ 		      <br/>
+
     </div>
 
     <aside class="large-4 columns">
- 
+
    		<div class="category">
  			<img src="http://placehold.it/320x320&text=Advertisement"/>
  			<br/>
  			<br/>
  		</div>
- 		
+
 		<div class="category">
 			<h5>Categories</h5>
 			<ul class="side-nav">
@@ -71,13 +99,13 @@
 					<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
 				{% endfor %}
 			</ul>
-		</div>	
- 
+		</div>
+
     </aside>
- 
-     
+
+
 	</div>
-	
+
 {% include 'auth.html' %}
-	
+
 {% include 'footer.html' %}

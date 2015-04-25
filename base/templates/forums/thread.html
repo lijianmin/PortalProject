@@ -37,9 +37,13 @@
 
     			<hr/>
 
-    			<div class="row">
+					{% if post.creator.userprofile.clinicianprofile %}
+				<div class="row" style="font-size: 14px; background-color: #EEE; padding: 10px">
+					{% else %}
+					<div class="row">
+					{% endif %}
 
-        			<div class="large-8 columns">
+							<div class="large-8 columns">
             			<h4 class="title">{{ post.title }}</h4>
             			Replied on {{ post.created }}
 
@@ -48,11 +52,13 @@
             			{{ post.body }}
         			</div>
 
-        			<div class="large-3 columns" style="font-size: 14px;">
+							<div class="large-3 columns" style="font-size: 14px;">
 								{% if post.creator.userprofile.avatar.name != None %}
 									<img border="0" src="{{ MEDIA_URL }}{{ post.creator.userprofile.avatar.name }}" />
 								{% endif %}
+
 								<br/>
+
 								<b>{{ post.creator }}</b>
 								<br/>
         				Joined Date: {{ post.creator.date_joined }}

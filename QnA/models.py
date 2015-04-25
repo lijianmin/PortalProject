@@ -29,6 +29,39 @@ import datetime
 
 class Question(models.Model):
 
+    question_category = (
+        (1, 'Anaethesiology'),
+        (2, 'Cardiology'),
+        (3, 'Cardiothoracic Surgery'),
+        (4, 'Colorectal Surgery'),
+        (5, 'Dentistry'),
+        (6, 'Dermatology'),
+        (7, 'Endocrinology'),
+        (8, 'Ear Nose Throat'),
+        (9, 'Gastroenterology'),
+        (10, 'General Surgery'),
+        (11, 'Geriatrics'),
+        (12, 'Gynaecology'),
+        (13, 'Haematology'),
+        (14, 'Hand Surgery'),
+        (15, 'Infectious Disease'),
+        (16, 'Internal Medicine'),
+        (17, 'Oncology'),
+        (18, 'Neonatology'),
+        (19, 'Neurology'),
+        (20, 'Obstetrics'),
+        (21, 'Ophthalmology'),
+        (22, 'Orthopaedic Surgery'),
+        (23, 'Paediatric'),
+        (24, 'Paediatric Surgery'),
+        (25, 'Plastic Surgery'),
+        (26, 'Psychiatry'),
+        (27, 'Renal Medicine'),
+        (28, 'Respiratory Medicine'),
+        (29, 'Rheumatology'),
+        (30, 'Urology')
+    )
+
     # to add
     # ========================
     # 1) status of answer
@@ -42,6 +75,8 @@ class Question(models.Model):
     posted_by   = models.ForeignKey(User, blank=True, null=True)
 
     timestamp   = models.DateTimeField(auto_now_add=True)
+
+    qn_clinical_specialty = models.IntegerField(choices = question_category, default=1)
 
     STATUS = Choices('PENDING','ANSWERED', 'CONCLUDED','ARCHIVED','CANCELLED')
     status = StatusField()

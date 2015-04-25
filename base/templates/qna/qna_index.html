@@ -12,7 +12,7 @@
 
 		<h1 class="article-heading" align=left><b>What's up Health?</b></h1>
 
-        <p align=center> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
+        <p align=center> Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. Skin problem? Take a picture and upload now! NOTE THAT for emergency, please contact your country's emergency hotline.</p>
 
 		<br/>
 
@@ -36,16 +36,14 @@
 
             		{% csrf_token %}
 
-                <div class="large-12 columns">
+                <div class="large-10 columns">
                   <div class="row collapse postfix-round">
-                    <div class="small-10 columns fieldWrapper">
-                      {{ question_form.question.errors }}
-                      {{ question_form.question }}
-                    </div>
-                    <div class="small-2 columns">
-                      <input class="button postfix" type="submit" name="submit" value="GO!" />
-                    </div>
+                    {{ question_form.question.errors }}
+                    {{ question_form.question }}
                   </div>
+                </div>
+                <div class="small-2 columns">
+                  <input class="button postfix" type="submit" name="submit" value="Submit!"/>
                 </div>
 
           		</form>

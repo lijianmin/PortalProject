@@ -7,6 +7,7 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+#from spirit.settings 	import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -14,10 +15,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 import pymysql
 pymysql.install_as_MySQLdb()
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'rc&)i4*i1(2^0=7!ujry9)eb3r9v&2w&1jbo1)et&4ja+79dc5'
@@ -34,6 +31,7 @@ ROBOTS_USE_SITEMAP = False
 # Application definition
 
 INSTALLED_APPS = (
+	#'spirit',
 	'suit',
 	'django_admin_bootstrapped',
     'django.contrib.admin',
@@ -51,7 +49,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_extensions',
 	'taggit',
-    #'robots',
 	'base',
     'portal',
 	'registration',
@@ -59,10 +56,11 @@ INSTALLED_APPS = (
 	'useradmin',
 	'clinicaladmin',
     'forums',
-    'QnA',
+	'QnA',
 )
 
 MIDDLEWARE_CLASSES = (
+	#'djconfig.middleware.DjConfigLocMemMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -65,7 +65,11 @@
 						<tr>
 							<td><h6><b>Profile Photo</b></h6></td>
 							<td>
-								<img border="0" src="{{ MEDIA_URL }}{{ img }}" />
+								{% if img %}
+									<img border="0" src="{{ MEDIA_URL }}{{ img }}" />
+								{% else %}
+									<img border="0" src="http://placehold.it/150x150&text=No Img" />
+								{% endif %}
 								<form enctype="multipart/form-data" action="{% url 'useradmin' profile.pk %}" method="POST">
 									{% csrf_token %}
 									<br/>
