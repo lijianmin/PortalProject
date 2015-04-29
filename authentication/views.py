@@ -8,7 +8,7 @@ from django.template 				import RequestContext
 from django							import template
 
 from django.contrib.auth            import authenticate, login, logout
-from django.contrib.auth.models		import User, Group
+from profile.models					import User
 from django.contrib.auth.decorators import login_required
 
 
@@ -28,12 +28,12 @@ def user_login(request):
 	if request.method == 'POST':
 		# Gather the username and password provided by the user.
 		# This information is obtained from the login form.
-		username = request.POST.get('username', False)
+		email = request.POST.get('email', False)
 		password = request.POST.get('password', False)
 
 		# Use Django's machinery to attempt to see if the username/password
 		# combination is valid - a User object is returned if it is.
-		user = authenticate(username=username, password=password)
+		user = authenticate(email=email, password=password)
 
 		# If we have a User object, the details are correct.
 		# If None (Python's way of representing the absence of a value), no user
@@ -59,7 +59,7 @@ def user_login(request):
 				return HttpResponse("Your portal account has been disabled. Please contact support.")
 		else:
 			# Bad login details were provided. So we can't log the user in.
-			print ("Invalid login details: {0}, {1}".format(username, password))
+			print ("Invalid login details: {0}".format(email))
 			return HttpResponse("Invalid login details supplied.")
 
 	# The request is not a HTTP POST, so display the login form.

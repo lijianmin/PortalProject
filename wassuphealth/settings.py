@@ -7,7 +7,8 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-#from spirit.settings 	import *
+
+from spirit.settings 	import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -31,7 +32,6 @@ ROBOTS_USE_SITEMAP = False
 # Application definition
 
 INSTALLED_APPS = (
-	#'spirit',
 	'suit',
 	'django_admin_bootstrapped',
     'django.contrib.admin',
@@ -56,11 +56,14 @@ INSTALLED_APPS = (
 	'useradmin',
 	'clinicaladmin',
     'forums',
+	'profile',
 	'QnA',
+	'djconfig',
+	'spirit',
 )
 
 MIDDLEWARE_CLASSES = (
-	#'djconfig.middleware.DjConfigLocMemMiddleware',
+	'djconfig.middleware.DjConfigLocMemMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -106,6 +109,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'profile.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

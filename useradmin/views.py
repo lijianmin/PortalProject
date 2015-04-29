@@ -9,10 +9,10 @@ from django.template 				import RequestContext
 from django.forms					import ModelForm
 from django.conf 					import settings
 
-from portal.models 					import post, category, UserProfile
+from portal.models 					import post, category
+from profile.models					import User, UserProfile
 from QnA.models						import Question
 
-from django.contrib.auth.models		import User, Group
 from django.contrib.auth.decorators import login_required
 from useradmin.forms	 			import PublicUserProfileForm
 from registration.forms 			import AdminProfileForm
@@ -29,7 +29,7 @@ def user_admin(request, pk):
 	health_threats = category.objects.filter(master_category = 1)
 	categories = category.objects.filter(master_category = 2)
 
-	userinfo = User.objects.get(username = request.user)
+	userinfo = User.objects.get(email = request.user)
 	profile = UserProfile.objects.get(user_id = request.user.pk)
 	img = None
 

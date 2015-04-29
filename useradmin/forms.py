@@ -1,5 +1,4 @@
-from portal.models 				import UserProfile, PublicUserProfile
-from django.contrib.auth.models import User
+from profile.models 			import User, UserProfile, PublicUserProfile
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):

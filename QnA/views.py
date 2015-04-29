@@ -9,9 +9,9 @@ from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
-from portal.models 					import post, category, UserProfile
+from portal.models 					import post, category
+from profile.models					import User, UserProfile
 from QnA.models						import Question, Answer
-from django.contrib.auth.models		import User
 
 from QnA.forms 						import QuestionForm
 

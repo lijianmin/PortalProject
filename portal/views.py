@@ -7,18 +7,12 @@ from django.core.context_processors import csrf
 from django.template 				import RequestContext
 
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
-from django.forms					import ModelForm
 
-from portal.models 					import post, category, UserProfile
+from portal.models 					import post, category
+from profile.models					import User
+
 from QnA.models						import Question
 from taggit.models					import Tag
-
-from django.contrib.auth            import authenticate, login, logout
-from django.contrib.auth.models		import User, Group
-from django.contrib.auth.decorators import login_required
-
-from PIL 							import Image 	as PImage
-from os.path 						import join 	as pjoin
 
 from QnA.forms 						import QuestionForm
 

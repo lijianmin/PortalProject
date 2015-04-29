@@ -9,12 +9,13 @@ from django.template 				import RequestContext
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 from django.forms					import ModelForm
 
-from portal.models 					import post, category, UserProfile, ClinicianProfile
+from portal.models 					import post, category
+from profile.models					import User, UserProfile, ClinicianProfile
 from clinicaladmin.forms 			import ClinicalProfileForm
 from QnA.models						import Question
 
 from django.contrib.auth            import authenticate, login, logout
-from django.contrib.auth.models		import User, Group
+from profile.models					import User
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -22,10 +23,10 @@ from django.contrib.auth.decorators import login_required
 def main(request):
 
 	qns = Question.objects.filter(status='PENDING').order_by("timestamp").reverse()
+	health_threats = category.objects.filter(master_category = 1)
+	categories = category.objects.filter(master_category = 2)
 
-#	health_threats = category.objects.filter(master_category = 1)
-#	categories = category.objects.filter(master_category = 2)
-	userinfo = User.objects.get(username = request.user)
+	userinfo = User.objects.get(email = request.user)
 	profile = UserProfile.objects.get(user_id = request.user.pk)
 
 	return render_to_response(

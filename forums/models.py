@@ -1,5 +1,6 @@
+from django.conf                import settings
 from django.db 					import models
-from django.contrib.auth.models import User
+from profile.models             import User
 
 class Forum(models.Model):
     title = models.CharField(max_length=60)
@@ -22,7 +23,7 @@ class Forum(models.Model):
 class Thread(models.Model):
     title 	= 	models.CharField(max_length=60)
     created =	models.DateTimeField(auto_now_add=True)
-    creator = 	models.ForeignKey(User, blank=True, null=True)
+    creator = 	models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     forum 	= 	models.ForeignKey(Forum)
 
     def __str__(self):
@@ -41,7 +42,7 @@ class Thread(models.Model):
 class Post(models.Model):
     title 	=	models.CharField(max_length=60)
     created = 	models.DateTimeField(auto_now_add=True)
-    creator = 	models.ForeignKey(User, blank=True, null=True)
+    creator = 	models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     thread 	= 	models.ForeignKey(Thread)
     body 	=	models.TextField(max_length=10000)
 

@@ -1,8 +1,9 @@
 from django.db 						import models
 from django_extensions.db.fields 	import UUIDField
-from django.contrib.auth.models     import User
+from profile.models                 import User
 from model_utils.fields             import StatusField
 from model_utils                    import Choices
+from django.conf                    import settings
 import datetime
 
 # Create your models here.
@@ -72,7 +73,7 @@ class Question(models.Model):
 
     question    = models.CharField(max_length = 300)
 
-    posted_by   = models.ForeignKey(User, blank=True, null=True)
+    posted_by   = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
 
     timestamp   = models.DateTimeField(auto_now_add=True)
 
@@ -124,4 +125,4 @@ class Answer(models.Model):
 
     question = models.ForeignKey(Question, blank=True, null=True)
 
-    answer_provided_by = models.ForeignKey(User, blank=True, null=True)
+    answer_provided_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)

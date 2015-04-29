@@ -1,5 +1,4 @@
-from portal.models 				import UserProfile, ClinicianProfile, PublicUserProfile
-from django.contrib.auth.models import User
+from profile.models 		    import User, UserProfile, ClinicianProfile, PublicUserProfile
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):
@@ -16,16 +15,26 @@ class BaseModelForm(forms.ModelForm):
                 })
 
 class UserForm(BaseModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+
+    #email = forms.EmailField(widget=forms.widget.TextInput,
+    #                            label="Email")
+
+    #username = forms.CharField(widget=forms.widget.TextInput,
+    #                            label="Username")
+
+    #password1 = forms.CharField(widget=forms.widget.PasswordInput,
+    #                            label="Password")
+
+    #password2 = forms.CharField(widget=forms.widget.PasswordInput,
+    #                            label="Confirm password")
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'email')
+        fields = ('email','username','password')
         help_texts = {
             'Username':'A unique username e.g. Winston Churchill. This will be used as your display name',
             'email':'A valid email address',
         }
-
 
 class UserProfileForm(BaseModelForm):
 
@@ -40,7 +49,6 @@ class UserProfileForm(BaseModelForm):
             'home_address':'Your residential/office address. Optional',
             'zip_code':'Zip/Postal code of your address. Optional'
         }
-
 
 class PublicUserProfileForm(BaseModelForm):
 

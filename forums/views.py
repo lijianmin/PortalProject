@@ -10,7 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 from django.conf 					import settings
 
-from portal.models 					import post, category, UserProfile
+from portal.models 					import post, category
+from profile.models					import UserProfile
 from forums.models					import Forum, Thread, Post
 from django.contrib.auth.models		import User
 

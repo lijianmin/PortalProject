@@ -6,7 +6,8 @@ from django.utils 					import timezone
 from django.core.context_processors import csrf
 from django.template 				import RequestContext
 
-from portal.models 					import post, category, UserProfile
+from portal.models 					import post, category
+from profile.models 				import User, UserProfile, ClinicianProfile
 from registration.forms 			import UserForm, UserProfileForm, PublicUserProfileForm, ClinicalProfileForm, AdminProfileForm
 
 from django.contrib.auth.models		import User, Group
