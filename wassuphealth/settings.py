@@ -55,7 +55,7 @@ INSTALLED_APPS = (
 	'authentication',
 	'useradmin',
 	'clinicaladmin',
-    'forums',
+    #'forums',
 	'profile',
 	'QnA',
 	'djconfig',
@@ -110,6 +110,15 @@ USE_L10N = True
 USE_TZ = True
 
 AUTH_USER_MODEL = 'profile.User'
+
+# EMAIL
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+#EMAIL_HOST_USER = 'relay@lijianmin.me'
+#EMAIL_HOST_PASSWORD = ''
+#DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+NOTIFY_EMAIL = 'jianmin@wassuphealth.com'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

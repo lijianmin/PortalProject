@@ -11,13 +11,12 @@ from django.contrib.auth            import authenticate, login, logout
 from profile.models					import User
 from django.contrib.auth.decorators import login_required
 
+#register = template.Library()
 
-register = template.Library()
-
-@register.filter(name='has_group')
-def has_group(user, group_name):
-	group = Group.objects.get(name=group_name)
-	return True if group in user.groups.all() else False
+#@register.filter(name='has_group')
+#def has_group(user, group_name):
+#	group = Group.objects.get(name=group_name)
+#	return True if group in user.groups.all() else False
 
 #need unit test case
 def user_login(request):
@@ -46,17 +45,17 @@ def user_login(request):
 				login(request, user)
 
 				usergroup = user.groups.all()
+				print(usergroup[0].name)
 
-
-				if user.groups.all() == "User":
+				if usergroup[0].name == "User":
 					print("User login happened")
 					return HttpResponseRedirect('/')
 				else:
-					print("User login happened")
+					print("Clinician User login happened")
 					return HttpResponseRedirect('/clinicaladmin/')
 			else:
 				# An inactive account was used - no logging in!
-				return HttpResponse("Your portal account has been disabled. Please contact support.")
+				return HttpResponseRedirect('/account-inactive/')
 		else:
 			# Bad login details were provided. So we can't log the user in.
 			print ("Invalid login details: {0}".format(email))

@@ -23,16 +23,14 @@ from django.contrib.auth.decorators import login_required
 def main(request):
 
 	qns = Question.objects.filter(status='PENDING').order_by("timestamp").reverse()
-	health_threats = category.objects.filter(master_category = 1)
-	categories = category.objects.filter(master_category = 2)
 
 	userinfo = User.objects.get(email = request.user)
 	profile = UserProfile.objects.get(user_id = request.user.pk)
 
+	# need clinical profile
+
 	return render_to_response(
 		'clinicaladmin/clinical_admin_main.html', {
-		#'categories' : categories,
-		#'health_threats': health_threats,
 		'profile': profile,
 		'userinfo': userinfo,
 		'qns':qns },
@@ -50,8 +48,6 @@ def add_csrf(request, ** kwargs):
 def manage_clinicalprofile(request):
 
 	c_user = request.user.userprofile.clinicianprofile
-	health_threats = category.objects.filter(master_category = 1)
-	categories = category.objects.filter(master_category = 2)
 
 	if request.method == 'POST':
 
@@ -78,7 +74,5 @@ def manage_clinicalprofile(request):
 	# Render the template depending on the context.
 	return render_to_response(
 			'clinicaladmin/clinician_profile.html', {
-			'clinical_profile_form': clinical_profile_form,
-			'categories' : categories,
-			'health_threats': health_threats },
+			'clinical_profile_form': clinical_profile_form },
 			RequestContext(request))

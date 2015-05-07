@@ -16,23 +16,20 @@ class BaseModelForm(forms.ModelForm):
 
 class UserForm(BaseModelForm):
 
-    #email = forms.EmailField(widget=forms.widget.TextInput,
-    #                            label="Email")
+    email = forms.EmailField(widget=forms.TextInput,
+                                label="Email Address")
 
-    #username = forms.CharField(widget=forms.widget.TextInput,
-    #                            label="Username")
+    username = forms.CharField(widget=forms.TextInput,
+                                label="Username")
 
-    #password1 = forms.CharField(widget=forms.widget.PasswordInput,
-    #                            label="Password")
-
-    #password2 = forms.CharField(widget=forms.widget.PasswordInput,
-    #                            label="Confirm password")
+    password = forms.CharField(widget=forms.PasswordInput,
+                                label="Password")
 
     class Meta:
         model = User
         fields = ('email','username','password')
         help_texts = {
-            'Username':'A unique username e.g. Winston Churchill. This will be used as your display name',
+            'username':'A unique username e.g. Winston Churchill. This will be used as your display name',
             'email':'A valid email address',
         }
 
@@ -42,7 +39,7 @@ class UserProfileForm(BaseModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('birthday','mobile_no','country','home_address','zip_code')
+        fields = ('gender', 'birthday','mobile_no','country','home_address','zip_code')
         help_texts = {
             'mobile_no':'A valid mobile phone number for use with our 2-factor Authentication',
             'country':'Country of origin e.g. Singapore',
@@ -72,10 +69,10 @@ class ClinicalProfileForm(BaseModelForm):
     class Meta:
         model = ClinicianProfile
         fields = (  'medical_reg_no',       'registered_date',
-                            'practice_address',
-                    'practice_contact_no',  'practice_country',
-                    'clinical_specialty',   'grad_school',
-                    'grad_year',            'degree_type',)
+                    'practice_address',     'practice_contact_no',
+                    'practice_country',     'clinical_specialty',
+                    'grad_school',          'grad_year',
+                    'degree_type',)
 
 
 class AdminProfileForm(BaseModelForm):

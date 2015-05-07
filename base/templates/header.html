@@ -1,3 +1,4 @@
+{% load portal_tags %}
 {% load staticfiles %}
 
 <!doctype html>
@@ -60,8 +61,11 @@
 							<a href="#">Welcome, {{ user.username }}!</a>
 							<ul class="dropdown">
 
-                <li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
-
+                {% ifusergroup User %}
+                  <li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
+                {% else %}
+                  <li><a href="{% url 'clinicaladmin' %}">Manage your Account (Clinician)</a></li>
+                {% endifusergroup %}
                 <li><a href="{% url 'logout' %}">Logout</a></li>
 
               </ul>
@@ -72,25 +76,14 @@
 
 						<li class="has-dropdown">
 							<a href="#">Sections</a>
-							<ul class="dropdown">
-								{% for h in health_threats %}
-									<li><a href="{{ h.get_absolute_url }}">{{ h.category_name }}</a></li>
-								{% endfor %}
-
-								{% for category in categories %}
-									<li><a href="{{ category.get_absolute_url }}">{{ category.category_name }}</a></li>
-								{% endfor %}
-
-                <li><a href="{% url 'view_all_tags' %}">View all tags</a></li>
-
-              </ul>
+              {% categories %}
 						</li>
 
             <li><a href="{% url 'questions_main' %}">Ask a Doc!</a></li>
 
             <!--<li><a href="% url 'docdir' %">Find a Doc!</a></li>-->
 
-						<li><a href="{% url 'forums' %}">Forums</a></li>
+						<li><a href="{% url 'view_forums' %}">Forums</a></li>
 
 						<li><a href="#">Help</a></li>
 

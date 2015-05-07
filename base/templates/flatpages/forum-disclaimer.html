@@ -1,0 +1,33 @@
+{% include 'header.html' %}
+
+{% load flatpages %}
+
+{% load staticfiles %}
+ 	<br/>
+
+	<div class="row">
+
+		<div class="large-12 columns" role="content">
+
+			<h2 class="article-heading">{{ flatpage.title }}</h2>
+
+			<hr/>
+
+			<article align=justify>
+
+				{% block content %}
+					{{ flatpage.content | safe }}
+				{% endblock %}
+
+			</article>
+
+			<br/>
+			<br/>
+
+    	</div>
+
+	</div>
+
+{% include 'auth.html' %}
+
+{% include 'footer.html' %}

@@ -9,6 +9,8 @@ from spirit.models              import user
 from django.contrib.auth.models import BaseUserManager
 from django.conf                import settings
 
+import datetime
+
 class UserManager(BaseUserManager):
 
     def _create_user(self, email, password,
@@ -36,7 +38,6 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
-
 class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
@@ -47,7 +48,7 @@ class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
     email       = models.EmailField('Email Address', max_length=254, unique=True, db_index=True)
 
     username    = models.CharField('User Name', max_length=30, unique=True)
-    
+
     first_name  = models.CharField('First Name', max_length=30, blank=True)
 
     last_name   = models.CharField('Last Name', max_length=30, blank=True)
@@ -93,11 +94,14 @@ class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
         """
         send_mail(subject, message, from_email, [self.email])
 
-# User Model for All Users only. - biggest regret to put it in the portal app :(
 class UserProfile(models.Model):
 
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
+
+    activation_key = models.CharField(max_length=40, blank=True)
+
+    key_expires = models.DateTimeField(default=datetime.date.today())
 
     country = (
         ('SG','Singapore'),
@@ -150,7 +154,6 @@ class UserProfile(models.Model):
     mobile_no = models.CharField(
     	max_length = 20
     )
-
 
 # User Model for Clinician - with some common features from the UserProfile class
 class ClinicianProfile(models.Model):
@@ -245,7 +248,6 @@ class ClinicianProfile(models.Model):
 
     # text profile of clinician
     writeup_text = models.TextField()
-
 
 # User Model for User - with some common features from the UserProfile class
 class PublicUserProfile(models.Model):

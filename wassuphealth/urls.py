@@ -12,12 +12,10 @@ from django.contrib.staticfiles.urls    import staticfiles_urlpatterns
 #wires of the site
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^blog/', include('blog.urls')),
-    url(r'^robots\.txt$', include('robots.urls')),
-    #url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     # Django-Admin
     url(r'^admin/', include(admin.site.urls), name='django_admin'),
+    url(r'^forums/', include('spirit.urls')),
 
     # Search
     #url(r'^search/$', 'search.views.search_site', name='search_site'),
@@ -31,15 +29,16 @@ urlpatterns = patterns('',
     url(r'^questions/conclude/(\d+)/$', 'QnA.views.conclude_question', name='conclude_question'),
 
     # Discussion Forums -- might be trashed
-   	url(r'^forums/$', 'forums.views.main', name='forums'),
-	url(r'^forum/(\d+)/$', 'forums.views.forum', name='forum'),
-	url(r'^thread/(\d+)/$', 'forums.views.thread', name='thread'),
-    url(r'^post/(new_thread|reply)/(\d+)/$', 'forums.views.post', name='post'),
-    url(r'^reply/(\d+)/$', 'forums.views.reply', name='reply'),
-    url(r'^new_thread/(\d+)/$', 'forums.views.new_thread', name='new_thread'),
+   	#url(r'^forums/$', 'forums.views.main', name='forums'),
+	#url(r'^forum/(\d+)/$', 'forums.views.forum', name='forum'),
+	#url(r'^thread/(\d+)/$', 'forums.views.thread', name='thread'),
+    #url(r'^post/(new_thread|reply)/(\d+)/$', 'forums.views.post', name='post'),
+    #url(r'^reply/(\d+)/$', 'forums.views.reply', name='reply'),
+    #url(r'^new_thread/(\d+)/$', 'forums.views.new_thread', name='new_thread'),
 
     # Portal
 	url(r'^$', 'portal.views.home', name='home'),
+    url(r'^forum/$','portal.views.forum_pre_landing', name='view_forums'),
 	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
     url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),
     url(r'^tags/$', 'portal.views.view_all_tags', name='view_all_tags'),
@@ -49,10 +48,16 @@ urlpatterns = patterns('',
  	# Registration
     url(r'^register/public/$', 'registration.views.register_publicuser', name='publicuser_registration'),
     url(r'^register/clinician/$', 'registration.views.register_clinician', name='clinician_registration'),
+    url(r'^register/confirm/(?P<activation_key>\w+)/', 'registration.views.register_confirm'),
+
+    url(r'^account-activated/$','portal.views.account_activated', name='account-activated'),
+    url(r'^activation-timeout/$','portal.views.account_timeout', name='account-timeout'),
 
     # User Authentication
     url(r'^login/$', 'authentication.views.user_login', name='login'),
 	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
+
+    url(r'^account-inactive/$','portal.views.account_inactive', name='account-inactive'),
 
     # User Admin
     url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
@@ -67,10 +72,10 @@ urlpatterns = patterns('',
 
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),
-    #url(r'^', include('spirit.urls')),
     url(r'^PDPA/$', 'flatpage', {'url': '/PDPA/'}, name='PDPA'),
 	url(r'^about-wassuphealth/$', 'flatpage', {'url': '/about-wassuphealth/'}, name='about-wassuphealth'),
     url(r'^legal/terms-of-use/$', 'flatpage', {'url': '/legal/terms-of-use'}, name='legal-terms-of-use'),
+    url(r'^forums/disclaimer/$', 'flatpage', {'url': '/forums/disclaimer/'}, name='forums-disclaimer'),
 
 )
 

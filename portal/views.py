@@ -16,6 +16,41 @@ from taggit.models					import Tag
 
 from QnA.forms 						import QuestionForm
 
+def account_timeout(request):
+
+	#categories
+	#health_threats = category.objects.filter(master_category = 1)
+	#categories = category.objects.filter(master_category = 2)
+
+	return render(
+		request,
+		'authentication/account_activation_timeout.html')
+
+
+def account_inactive(request):
+
+	#categories
+	#health_threats = category.objects.filter(master_category = 1)
+	#categories = category.objects.filter(master_category = 2)
+
+	return render(
+		request,
+		'authentication/account_disabled.html')
+
+def account_activated(request):
+
+	#categories
+	#health_threats = category.objects.filter(master_category = 1)
+	#categories = category.objects.filter(master_category = 2)
+
+	return render(
+		request,
+		'authentication/account_activated.html')
+
+def forum_pre_landing(request):
+
+	return HttpResponseRedirect('/forums/disclaimer/')
+
 # Create your views here.
 def home(request):
 
@@ -23,8 +58,8 @@ def home(request):
 	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
 
 	#categories
-	health_threats = category.objects.filter(master_category = 1)
-	categories = category.objects.filter(master_category = 2)
+	#health_threats = category.objects.filter(master_category = 1)
+	#categories = category.objects.filter(master_category = 2)
 
 	#paginate the list of articles for elegance
 	paginator = Paginator(article_list, 5) #use small number to test
@@ -45,7 +80,7 @@ def home(request):
 	return render(
 		request,
 		'index.html',
-		{'articles' : articles, 'categories' : categories, 'health_threats': health_threats, 'question_form': question_form})
+		{'articles' : articles, 'question_form': question_form })
 
 
 
@@ -63,8 +98,8 @@ def view_article(request, slug, id):
 	tags = Tag.objects.filter(post__id = id)
 
 	return render_to_response('portal/view_article.html', {
-		'health_threats' : category.objects.filter(master_category = 1),
-		'categories' : category.objects.filter(master_category = 2),
+		#'health_threats' : category.objects.filter(master_category = 1),
+		#'categories' : category.objects.filter(master_category = 2),
 		'same_cat_articles' : post.objects.filter(category = article.category.id),
 		'post': article,
 		'tags': tags
@@ -74,8 +109,8 @@ def view_article(request, slug, id):
 def view_all_tags(request):
 
 	return render_to_response('portal/view_tags.html', {
-		'health_threats' : category.objects.filter(master_category = 1),
-		'categories' : category.objects.filter(master_category = 2),
+		#'health_threats' : category.objects.filter(master_category = 1),
+		#'categories' : category.objects.filter(master_category = 2),
 		'all_tags': Tag.objects.all()
 	}, RequestContext(request))
 
@@ -100,8 +135,8 @@ def view_category(request, slug, id):
 
 	return render_to_response('portal/view_category.html', {
 		'category': category_name,
-		'health_threats' : category.objects.filter(master_category = 1),
-		'categories' : category.objects.filter(master_category = 2),
+		#'health_threats' : category.objects.filter(master_category = 1),
+		#'categories' : category.objects.filter(master_category = 2),
 		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse(),
 		'question_form': question_form
 	}, RequestContext(request))
