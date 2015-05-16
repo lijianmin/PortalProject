@@ -38,6 +38,8 @@ urlpatterns = patterns('',
 
     # Portal
 	url(r'^$', 'portal.views.home', name='home'),
+    url(r'^news/$','portal.views.news', name='news'),
+    url(r'^conditions/$','portal.views.conditions', name='conditions'),
     url(r'^forum/$','portal.views.forum_pre_landing', name='view_forums'),
 	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
     url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),

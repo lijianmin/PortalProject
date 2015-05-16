@@ -1,152 +1,323 @@
-{% include 'header.html' %}
 {% load humanize %}
 {% load staticfiles %}
 
-	<br/>
-	<div class="row">
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
 
-		<div class="large-8 columns" role="content">
+<body class="home-page">
 
-			{% if user.is_authenticated %}
+    {% include 'header.html' %}
 
-						<div class="row" style="background-color: #EEE; padding: 8px;">
+    <div class="bg-slider-wrapper">
+        <div class="flexslider bg-slider">
+            <ul class="slides">
+                <li class="slide slide-1"></li>
+                <li class="slide slide-2"></li>
+                <li class="slide slide-3"></li>
+            </ul>
+        </div>
+    </div><!--//bg-slider-wrapper-->
 
-						<h3 class="article-heading" align=left><b>What's up Health?</b></h3>
-						<p align=justify style="font-size: 14px;">Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
-						<form id="question_form" method="post" action="{% url 'questions_main' %}" enctype="multipart/form-data">
+    <section class="promo section section-on-bg">
+        <div class="container text-center">
+            <h2 class="title">Let's get an answer to your <br/>healthcare worries right away!</h2>
+            <p class="intro">Wassuphealth is an online platform where you can get access to our pool of doctors, pharmacists and nurses with just a few clicks.</p>
+            <p>
+				<a class="btn btn-cta btn-cta-primary" href="signup.html">Ask A Doctor Now</a>
+				<a class="btn btn-cta btn-cta-primary" href="signup.html">Ask A Pharmacist Now</a>
+			</p>
+            <button type="button" class="play-trigger btn-link" data-toggle="modal" data-target="#modal-video" ><i class="fa fa-youtube-play"></i> Watch the video</button>
+        </div><!--//container-->
+    </section><!--//promo-->
 
-							{% csrf_token %}
+    <div class="sections-wrapper">
 
-							<div class="large-12 columns">
-								<div class="row collapse postfix-round">
-									<div class="small-10 columns fieldWrapper">
-										{{ question_form.question.errors }}
-										{{ question_form.question }}
-									</div>
-									<div class="small-2 columns">
-										<input class="button postfix" type="submit" name="submit" value="GO!" />
-									</div>
-								</div>
-							</div>
+        <!-- ******Why Section****** -->
+        <section id="why" class="section why">
+            <div class="container">
+                <h2 class="title text-center">How Can Wassuphealth Help You?</h2>
+                <p class="intro text-center">We all want better healthcare. But we can’t get there by doing things the same old way.</p>
+                <div class="row item">
+                    <div class="content col-md-4 col-sm-12 col-xs-12">
+                        <h3 class="title">Save you time and effort</h3>
+                        <div class="desc">
+                            <p>So we are doing it better, with this portal that connects you instantly with our pool of healthcare workers, telling you everything you can do to stay healthy.</p>
+                            <p>If you have a question that you wish to ask our doctors, simply write a post and we will direct your question to the next doctor available. No waiting, no travelling, just type it, post it and wait for the reply. It’s that simple.</p>
+                        </div>
+                        <div class="quote">
+                            <div class="quote-profile">
+                                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+                            </div><!--//profile-->
+                            <div class="quote-content">
+                                <blockquote><p><a href="https://twitter.com/3rdwave_themes" target="_blank">@wassuphealth</a> Love it! Thank you for making my life easier and saving me time! I’ll definitely recommend it to my friends. :)</p></blockquote>
+                                <p class="source">@Lisa, Clementi</p>
+                            </div><!--//quote-content-->
+                        </div><!--//quote-->
+                    </div><!--//content-->
+                    <figure class="figure col-md-7 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+                        <img class="img-responsive" src="{% static 'assets/images/figures/figure-1.png' %}" alt="" />
+                        <figcaption class="figure-caption">(Screenshot: Coral - App &amp; website startup kit) </figcaption>
+                    </figure>
+                </div><!--//item-->
 
-						</form>
+                <div class="row item">
+                    <div class="content col-md-4 col-sm-12 col-xs-12 col-md-push-8 col-sm-push-0 col-xs-push-0">
+                        <h3 class="title">A Website That Does Things FOR You</h3>
+                        <div class="desc">
+                            <p>Our team of healthcare experts work together with each other to ensure that your questions and concerns are addressed. We utilise technology to provide the best experience and efficiency for you and we mean it. No seriously, it’s the 21st century and healthcare can definitely be better than the way it currently is.</p>
+                            <p>Talk to a healthcare expert whenever and wherever you are. Share photos, lab test results and even your prescription medications so that you get the complete picture of what is going on. No more guessing or searching on the web for answers.</p>
+                        </div>
+                        <div class="quote">
+                            <div class="quote-profile">
+                                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-2.png' %}" alt="" />
+                            </div><!--//profile-->
+                            <div class="quote-content">
+                                <blockquote><p>I find the service extremely useful when I couldn’t get a full explanation of my condition from my primary physician but want to know more. </p></blockquote>
+                                <p class="source">@JackT, Bukit Batok</p>
+                            </div><!--//quote-content-->
+                        </div><!--//quote-->
+                    </div><!--//content-->
+                    <figure class="figure col-md-7 col-sm-12 col-xs-12 col-md-pull-4 col-sm-pull-0 col-xs-pull-0">
+                        <img class="img-responsive" src="{% static 'assets/images/figures/figure-2.png' %}" alt="" />
+                        <div class="control text-center">
+                            <button type="button" class="play-trigger" data-toggle="modal" data-target="#modal-video"><i class="fa fa-play"></i></button>
+                        </div><!--//control-->
+                    </figure>
+                </div><!--//item-->
 
-					</div>
+                <div class="row item ">
+                    <div class="content col-md-4 col-sm-12 col-xs-12">
+                        <h3 class="title">Easy to customise</h3>
+                        <div class="desc">
+                            <p>We don’t charge you and arm or a leg when you have burning questions to ask. We’re pretty sure that’s against the Hippocratic Oath and our doctors won’t be pleased. Healthcare experts on Wassuphealth are here because they want to help, and we provide the platform to achieve scalability because we believe that everyone can benefit from the educational medical advices.</p>
+                            <p>What’s more? All newly signed up members will get to ask 5 questions for free.</p>
+                        </div>
+                        <div class="quote">
+                            <div class="quote-profile">
+                                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-3.png' %}" alt="" />
+                            </div><!--//profile-->
+                            <div class="quote-content">
+                                <blockquote><p>Nice template! It’s practical and there is no gimmicks. Very easy to customise as well!</p></blockquote>
+                                <p class="source"><a href="#">@AlexD</a>, London</p>
+                            </div><!--//quote-content-->
+                        </div><!--//quote-->
+                    </div><!--//content-->
+                    <figure class="figure col-md-7 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+                        <img class="img-responsive" src="{% static 'assets/images/figures/figure-3.png' %}" alt="" />
+                        <figcaption class="figure-caption">(Screenshot: <a href="http://themes.3rdwavemedia.com/website-templates/responsive-bootstrap-theme-for-startups-tempo/?ref=3wm" target="_blank">Tempo - Bootstrap template for startups)</a> </figcaption>
 
-					<br/>
-			{% else %}
+                    </figure>
+                </div><!--//item-->
 
-			<div class="row" style="background-color: #EEE; padding: 8px;">
+                <div class="row item last-item">
+                    <div class="content col-md-4 col-sm-12 col-xs-12 col-md-push-8 col-sm-push-0 col-xs-push-0">
+                        <h3 class="title">Connecting you with the doctors you’re comfortable with</h3>
+                        <div class="desc">
+                            <p>Let’s just say you asked a question about your own condition and a specialist answered it with great knowledge, patience and friendliness. You feel comfortable communicating with this specialist and would like to make an appointment for a clinical consultation? You can set up an appointment with the expert right within the website! </p>
+                            <p>Wassuphealth believes that doctor to patient interaction is key to patient’s confidence in treatment and we are here to bridge the gap. No more searching endlessly online hoping to find a doctor best for yourself based on their qualifications and profile photo. Start interacting!</p>
 
-				<h3 class="article-heading" align=left><b>Something up with your health?</b></h3>
+                        </div>
 
-				<div class="row">
-					<div class="small-9 columns">
-						<p align=justify style="font-size: 16px;">Ask our panel of professional doctors, make appointments and see our health recommendations. Interact with like-minded folks for all it's in the name of keeping healthy</p>
-					</div>
-					<div class="small-3 columns">
-						<a href="{% url 'publicuser_registration' %}" class="button">Sign up today!</a>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="small-9 columns">
-						<p align=justify style="font-size: 16px;">Or if you are a clinician in today's highly integrated medical community and ready to contribute your expert knowledge</p>
-					</div>
-					<div class="small-3 columns">
-						<a href="{% url 'clinician_registration' %}" class="button">Join us today!</a>
-					</div>
-				</div>
-
-			</div>
-
-			<br/>
-
-		{% endif %}
-
-		{% for article in articles %}
-
-			<article>
-
-				<h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
-				<h6>Posted by {{ article.author }} since {{ article.timestamp | naturaltime }}</h6>
-				<h6>Under: {{ article.category }}</h6>
-				<br/>
-				{{ article.bodytext | safe | truncatechars_html:500 }}
-
-			</article>
-
-		<br/>
-		<hr/>
- 		{% endfor %}
-
- 		<div class="row">
-
- 			<ul class="small-block-grid-5">
-
-				{% if articles.has_previous %}
- 					<li class="left">
- 						<a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
- 					</li>
- 				{% endif %}
-
- 				{% if articles.has_next %}
-					<li class="right">
-						<a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
-					</li>
-				{% endif %}
-
- 			</ul>
-
-		</div>
-
-    </div>
-
-    <aside class="large-4 columns">
-
- 		<div class="category">
- 			<img src="http://placehold.it/320x320&text=Advertisement"/>
- 			<br/>
- 			<br/>
- 		</div>
-
- 		<div class="category">
- 			<img src="http://placehold.it/320x320&text=DatePicker"/>
- 			<br/>
- 			<br/>
- 		</div>
-
-		<div class="category">
-			<h4>Featured Articles</h4>
-			<hr/>
-			Some articles
-		</div>
-
-		<br/>
-
-		<div class="category">
-			<h4>Most Commented</h4>
-			<hr/>
-			Some rubbish
-		</div>
-
-		<br/>
-
-		<div class="category">
-			<h4>Most Viewed</h4>
-			<hr/>
-			Some viewed
-		</div>
-
-    </aside>
+                        <div class="quote">
+                            <div class="quote-profile">
+                                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-4.png' %}' %}" alt="" />
+                            </div><!--//profile-->
+                            <div class="quote-content">
+                                <blockquote><p>I can connect to like-minded people lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p></blockquote>
+                                <p class="source">@JackT, San Francisco</p>
+                            </div><!--//quote-content-->
+                        </div><!--//quote-->
+                    </div><!--//content-->
+                    <figure class="figure col-md-7 col-sm-12 col-xs-12 col-md-pull-4 col-sm-pull-0 col-xs-pull-0">
+                        <img class="img-responsive" src="{% static 'assets/images/figures/figure-4.png' %}" alt="" />
+                    </figure>
+                </div><!--//item-->
 
 
-	</div>
+                <div class="feature-lead text-center">
+                    <h4 class="title">Want to discover all the features?</h4>
+                    <p><a class="btn btn-cta btn-cta-secondary" href="features.html">Take a Tour</a></p>
+                </div>
+            </div><!--//container-->
+        </section><!--//why-->
 
-	<br/>
-	<br/>
-	<br/>
 
-{% include 'auth.html' %}
+    <!-- Team Section -->
+    <section id="team" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Our Amazing Team</h2>
+                    <h3 class="section-subheading text-muted">Wassup! Yes, we are the team dedicated to bring healthcare to your fingertips, literally.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-member text-center">
+                        <img src="{% static 'img/team/1.jpg' %}" class="img-responsive img-circle" style="margin: 0 auto;" alt="">
+                        <h4>Ernest Chin</h4>
+                        <p class="text-muted">Chief Executive Officer</p>
+                        <ul class="list-inline social-buttons ">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member text-center">
+                        <img src="{% static 'img/team/2.jpg' %}" class="img-responsive img-circle" style="margin: 0 auto;" alt="">
+                        <h4>Li Jian Min</h4>
+                        <p class="text-muted">Chief Technology Officer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-member text-center">
+                        <img src="{% static 'img/team/3.jpg' %}" class="img-responsive img-circle" style="margin: 0 auto;" alt="">
+                        <h4>Howard Lee</h4>
+                        <p class="text-muted">Chief Finance Officer</p>
+                        <ul class="list-inline social-buttons">
+                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p class="large text-muted">We believe in technology. We also believe in bringing convenience to healthcare services. What if we combine these beliefs and create something? The result is Wassuphealth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-{% include 'footer.html' %}
+
+        <!-- ******Testimonials Section****** -->
+        <section class="section testimonials">
+            <div class="container">
+                <h2 class="title text-center">What are people saying about Wassuphealth?</h2>
+                <div id="testimonials-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#testimonials-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#testimonials-carousel" data-slide-to="1"></li>
+                        <li data-target="#testimonials-carousel" data-slide-to="2"></li>
+                    </ol><!--//carousel-indicators-->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <figure class="profile"><img src="{% static 'assets/images/people/profile-m-1.png' %}" alt="" /></figure>
+                            <div class="content">
+                                <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                <p>We used Velocity as a front-end design template for our product site. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum elit tortor, consectetur vitae varius at, interdum eget libero. Morbi.</p>
+                                </blockquote>
+                                <p class="source">Kevin Knight<br /><span class="title">Co-Founder, Startup Hub</span></p>
+                            </div><!--//content-->
+                        </div><!--//item-->
+                        <div class="item">
+                            <figure class="profile"><img src="{% static 'assets/images/people/profile-m-2.png' %}" alt="" /></figure>
+                            <div class="content">
+                                <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
+                                </blockquote>
+                                <p class="source">Diana	Luna<br /><span class="title">Entrepreneur, Maecenas</span></p>
+                            </div><!--//content-->
+                        </div><!--//item-->
+                        <div class="item">
+                            <figure class="profile"><img src="{% static 'assets/images/people/profile-m-3.png' %}" alt="" /></figure>
+                            <div class="content">
+                                <blockquote>
+                                <i class="fa fa-quote-left"></i>
+                                <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere.</p>
+                                </blockquote>
+                                <p class="source">Tony Lee<br /><span class="title">CTO, Lorem Ipsum</span></p>
+                            </div><!--//content-->
+                        </div><!--//item-->
+                    </div><!--//carousel-inner-->
+
+                </div><!--//carousel-->
+            </div><!--//container-->
+        </section><!--//testimonials-->
+
+        <!-- ******Press Section****** -->
+        <section class="section press hidden">
+            <div class="container text-center">
+                <h2 class="title">Press Coverage</h2>
+                <ul class="press-list list-inline row">
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-1.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-2.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4 xs-break"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-3.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-4.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-5.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-6.png' %}" alt="" /></a></li>
+                </ul><!--//press-list-->
+                <ul class="press-list list-inline row last">
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-7.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-8.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4 xs-break"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-9.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-10.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-11.png' %}" alt="" /></a></li>
+                    <li class="col-md-2 col-sm-2 col-xs-4"><a href="#"><img class="img-responsive" src="{% static 'assets/images/press/press-12.png' %}" alt="" /></a></li>
+                </ul><!--//press-list-->
+
+                <div class="press-lead text-center">
+                     <h3 class="title">Have press inquires?</h3>
+                     <p class="press-links"><a href="#">Download our press kit</a> or <a href="contact.html">Get in touch</a></p>
+                </div>
+
+            </div><!--//container-->
+        </section><!--//press-->
+
+        <!-- ******CTA Section****** -->
+        <section id="cta-section" class="section cta-section text-center home-cta-section">
+            <div class="container">
+               <h2 class="title">Ready to get in touch with our healthcare experts?</h2>
+               <p class="intro">More than <span class="counting">3,000</span> doctors and pharmacists are on Wassuphealth</p>
+               <p><a class="btn btn-cta btn-cta-primary" href="signup.php" target="_blank">Sign Up Now For Free</a></p>
+            </div><!--//container-->
+        </section><!--//cta-section-->
+
+    </div><!--//section-wrapper-->
+
+    {% include 'footer.html' %}
+
+    <!-- Video Modal -->
+    <div class="modal modal-video" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="videoModalLabel" class="modal-title sr-only">Video Tour</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="video-container">
+                        <iframe id="vimeo-video" src="{% static '//player.vimeo.com/video/28872840?color=ffffff&amp;wmode=transparent' %}" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div><!--//video-container-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
+    {% include 'js.html' %}
+
+
+</body>
+</html>

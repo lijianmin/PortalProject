@@ -1,33 +1,31 @@
-{% include 'header.html' %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
 
-{% load flatpages %}
+<body class="blog-page">
+    <div class="wrapper">
 
-{% load staticfiles %}
- 	<br/>
+      {% include 'portal/header-forums.html' %}
 
-	<div class="row">
+        <!-- ******BLOG LIST****** -->
+        <div class="container" style="margin-top:100px;">
+			<div class="col-md-12">
+        {% block content %}
+          {{ flatpage.content }}
+        {% endblock %}
+        <br/>
+				<div style="margin-bottom: 75px;"><a href="/forums/"><button type="button" class="col-sm-4 col-sm-push-4 col-xs-12 btn btn-primary btn-lg">I Agree</button></a></div>
+			  <br/>
+      </div>
+		</div>
+    </div><!--//wrapper-->
 
-		<div class="large-12 columns" role="content">
+    {% include 'footer.html' %}
 
-			<h2 class="article-heading">{{ flatpage.title }}</h2>
+    <!-- Javascript -->
+    {% include 'js.html' %}
 
-			<hr/>
-
-			<article align=justify>
-
-				{% block content %}
-					{{ flatpage.content | safe }}
-				{% endblock %}
-
-			</article>
-
-			<br/>
-			<br/>
-
-    	</div>
-
-	</div>
-
-{% include 'auth.html' %}
-
-{% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,62 @@
+      .slide {
+        position: relative;
+      }
+
+      .company-masthead {
+        background-color: #BF1E2D;
+        color: #FFF
+      }
+
+      .main-font{
+        font-family: 'Lato', sans-serif;
+      }
+
+      .top-bar, ul, li{
+        font-family: 'Lato', sans-serif;
+      }
+
+      .article-heading{
+        color: #BF1E2D;
+      }
+
+      body{
+        height: auto;
+      }
+
+      h1, h2, h3, h4, h5, h6{
+        font-family: 'Lato', sans-serif;
+      }
+
+      .left ul li{
+        font-family: 'Lato', sans-serif;
+        background-color: #53BBF4 !important;
+      }
+
+      .right ul li{
+        font-family: 'Lato', sans-serif;
+        background-color: #53BBF4 !important;
+      }
+
+      .footer-content {
+        font-size: 10px;
+      }
+
+      .slide-caption {
+        bottom: 10px;
+        min-height: 50px;
+        left: 10px;
+        position: absolute;
+        width: 100%;
+        background-color: #000;
+        color: #FFF;
+        font: arial;
+        margin: 0px;
+        font-family: 'Lato', sans-serif;
+        font-size: 20px;
+        z-index: 2;
+        opacity: 0.8;
+      }
+
+      .navigation-area {
+        font-family: 'Lato', sans-serif;
+      }

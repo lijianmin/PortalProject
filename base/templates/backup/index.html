@@ -1,0 +1,152 @@
+{% include 'header.html' %}
+{% load humanize %}
+{% load staticfiles %}
+
+	<br/>
+	<div class="row">
+
+		<div class="large-8 columns" role="content">
+
+			{% if user.is_authenticated %}
+
+						<div class="row" style="background-color: #EEE; padding: 8px;">
+
+						<h3 class="article-heading" align=left><b>What's up Health?</b></h3>
+						<p align=justify style="font-size: 14px;">Do you have any heart-burning questions on health and fitness? Post them here and a doctor will answer you shortly. NOTE THAT for emergency, please contact your country's emergency hotline.</p>
+						<form id="question_form" method="post" action="{% url 'questions_main' %}" enctype="multipart/form-data">
+
+							{% csrf_token %}
+
+							<div class="large-12 columns">
+								<div class="row collapse postfix-round">
+									<div class="small-10 columns fieldWrapper">
+										{{ question_form.question.errors }}
+										{{ question_form.question }}
+									</div>
+									<div class="small-2 columns">
+										<input class="button postfix" type="submit" name="submit" value="GO!" />
+									</div>
+								</div>
+							</div>
+
+						</form>
+
+					</div>
+
+					<br/>
+			{% else %}
+
+			<div class="row" style="background-color: #EEE; padding: 8px;">
+
+				<h3 class="article-heading" align=left><b>Something up with your health?</b></h3>
+
+				<div class="row">
+					<div class="small-9 columns">
+						<p align=justify style="font-size: 16px;">Ask our panel of professional doctors, make appointments and see our health recommendations. Interact with like-minded folks for all it's in the name of keeping healthy</p>
+					</div>
+					<div class="small-3 columns">
+						<a href="{% url 'publicuser_registration' %}" class="button">Sign up today!</a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="small-9 columns">
+						<p align=justify style="font-size: 16px;">Or if you are a clinician in today's highly integrated medical community and ready to contribute your expert knowledge</p>
+					</div>
+					<div class="small-3 columns">
+						<a href="{% url 'clinician_registration' %}" class="button">Join us today!</a>
+					</div>
+				</div>
+
+			</div>
+
+			<br/>
+
+		{% endif %}
+
+		{% for article in articles %}
+
+			<article>
+
+				<h3><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+				<h6>Posted by {{ article.author }} since {{ article.timestamp | naturaltime }}</h6>
+				<h6>Under: {{ article.category }}</h6>
+				<br/>
+				{{ article.bodytext | safe | truncatechars_html:500 }}
+
+			</article>
+
+		<br/>
+		<hr/>
+ 		{% endfor %}
+
+ 		<div class="row">
+
+ 			<ul class="small-block-grid-5">
+
+				{% if articles.has_previous %}
+ 					<li class="left">
+ 						<a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
+ 					</li>
+ 				{% endif %}
+
+ 				{% if articles.has_next %}
+					<li class="right">
+						<a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
+					</li>
+				{% endif %}
+
+ 			</ul>
+
+		</div>
+
+    </div>
+
+    <aside class="large-4 columns">
+
+ 		<div class="category">
+ 			<img src="http://placehold.it/320x320&text=Advertisement"/>
+ 			<br/>
+ 			<br/>
+ 		</div>
+
+ 		<div class="category">
+ 			<img src="http://placehold.it/320x320&text=DatePicker"/>
+ 			<br/>
+ 			<br/>
+ 		</div>
+
+		<div class="category">
+			<h4>Featured Articles</h4>
+			<hr/>
+			Some articles
+		</div>
+
+		<br/>
+
+		<div class="category">
+			<h4>Most Commented</h4>
+			<hr/>
+			Some rubbish
+		</div>
+
+		<br/>
+
+		<div class="category">
+			<h4>Most Viewed</h4>
+			<hr/>
+			Some viewed
+		</div>
+
+    </aside>
+
+
+	</div>
+
+	<br/>
+	<br/>
+	<br/>
+
+{% include 'auth.html' %}
+
+{% include 'footer.html' %}

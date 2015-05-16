@@ -25,9 +25,6 @@ class ClinicalProfileForm(BaseModelForm):
     class Meta:
         model = ClinicianProfile
         fields = (  'medical_reg_no',       'registered_date',
-                    'practice_address',     'practice_website',
-                    'practice_contact_no',  'practice_country',
-                    'practice_email_add',
                     'clinical_specialty',   'grad_school',
                     'grad_year',            'degree_type',
                     'medical_interests',    'writeup_text', )

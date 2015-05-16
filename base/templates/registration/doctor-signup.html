@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="signup-page access-page has-full-screen-bg">
+    <div class="upper-wrapper">
+	    <!-- ******HEADER****** -->
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">
+                    <a href="/"><span class="logo-icon"></span><span class="text">WassupHEALTH!</span></a>
+                </h1><!--//logo-->
+            </div><!--//container-->
+        </header><!--//header-->
+
+        <!-- ******Login Section****** -->
+        <section class="signup-section access-section section">
+            <div class="container">
+                <div class="row">
+                    <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
+                        <div class="form-box-inner">
+                            <h2 class="title text-center">Sign up now</h2>
+                            <p class="intro text-center">It only takes 3 minutes!</p>
+                            <div class="row">
+								<form class="signup-form">
+									<div class="form-container">
+										<div class="form-group email">
+											<label>Email or username</label>
+											<input name="email" type="email" class="form-control" placeholder="Email or username" required>
+										</div><!--//form-group-->
+                                        <div class="form-group password">
+                                            <label>Your password</label>
+                                            <input name="password" type="password" class="form-control" placeholder="Password" required>
+                                        </div><!--//form-group-->
+										<div class="form-group form-inline">
+											<label>Full Name: </label>
+                                            <input name="firstname" type="text" class="form-control" placeholder="First Name" required>
+                                            <input name="initial" type="text" class="form-control" placeholder="Initial">
+											<input name="lastname" type="text" class="form-control" placeholder="Last Name" required>
+										</div><!--//form-group-->
+										<div class="form-group form-inline">
+											<label>Speciality: </label>
+											<select class="form-control" name="speciality">
+												<option value="" disabled selected>Select your option</option>
+												<option value="">IDK</option>
+												<option value="">ASDF</option>
+												<option value="">IDGI</option>
+											</select>
+											<input id="clinic" name="clinic" type="text" class="form-control" placeholder="Clinic of Practice">
+                                        </div><!--//form-group-->
+										<div class="form-group">
+											<label>Graduate School: </label>
+											<input id="school" name="school" type="text" class="form-control" placeholder="School eg. Howard University">
+										</div><!--//form-group-->
+										<div class="form-group form-inline ">
+											<label>Education: </label>
+											<select class="form-control" name="education">
+												<option value="" disabled selected> Education Degree</option>
+												<option value="">IDK</option>
+												<option value="">ASDF</option>
+												<option value="">IDGI</option>
+											</select>
+											<input id="year" name="year" type="month" class="form-control">
+                                        </div><!--//form-group-->
+										<div class="form-group form-inline">
+											<label>License: </label>
+											<input id="qualifications" type="text" class="form-control" placeholder="Registration Number" name='qualification' required>
+											<input id="license" name="license" type="text" class="form-control" placeholder="Qualifications">
+											<select class="form-control" name="country">
+												<option value="" disabled selected>Country of Practice</option>
+												<option value="">Singapore</option>
+												<option value="">Russia</option>
+												<option value="">Still Russia</option>
+											</select>
+
+                                        </div><!--//form-group-->
+									</div><!--//form-container-->
+									<button type="submit" class="btn btn-block btn-cta-primary">Sign up</button>
+								</form>
+                            </div><!--//row-->
+                        </div><!--//form-box-inner-->
+                    </div><!--//form-box-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </section><!--//contact-section-->
+    </div><!--//upper-wrapper-->
+
+	  {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    {% include 'js.html' %}
+
+
+</body>
+</html>

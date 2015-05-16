@@ -1,0 +1,13 @@
+> DjangoCMS
+> Clinic Sub-website within Wassuphealth portal
+    - Appointment booking via email
+    - Articles written by the doctor belonging to the clinic
+        -> notify whoever that wants to read it then feature the wall of text (worklist style)
+        -> can only post to that category/specialty
+    - Questions posed by public and have been answered by the doctor belonging to the clinic
+    - Featured articles/news marked by administrators
+    - Core services provided by the clinic
+    - Rating from 0 star to 5 stars for the clinic
+    - Textual review for the doctor
+    - Manage Clinic module
+> Ask a Pharmacist app (tbc)

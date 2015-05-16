@@ -69,10 +69,8 @@ class ClinicalProfileForm(BaseModelForm):
     class Meta:
         model = ClinicianProfile
         fields = (  'medical_reg_no',       'registered_date',
-                    'practice_address',     'practice_contact_no',
-                    'practice_country',     'clinical_specialty',
-                    'grad_school',          'grad_year',
-                    'degree_type',)
+                    'clinical_specialty',   'grad_school',
+                    'grad_year', 'degree_type',)
 
 
 class AdminProfileForm(BaseModelForm):

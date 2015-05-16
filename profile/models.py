@@ -38,6 +38,7 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
+
 class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
@@ -93,6 +94,7 @@ class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email])
+
 
 class UserProfile(models.Model):
 
@@ -155,10 +157,49 @@ class UserProfile(models.Model):
     	max_length = 20
     )
 
+
+class Clinic(models.Model):
+
+    # Clinic of Practice
+    name = models.CharField('Clinic Name', max_length=254, unique=True)
+
+    # Place of practice e.g. Family Care Clinic
+    address = models.TextField()
+
+    # Contact no. of practice
+    contact_no = models.CharField(
+        max_length = 20
+    )
+
+    # Country of practice
+    country = models.CharField(
+        max_length = 200
+    )
+
+    # Website URL of practice
+    website = models.URLField('Business Website')
+
+    # Business Email Address for Contact
+    business_email_address = models.EmailField('Business Email Address', max_length=254, db_index=True)
+
+    # Place of practice coordinates for use with Google Maps.
+    gps_coord = models.CharField(
+        max_length = 20
+    )
+
+    # Business Registration Date
+    business_registered_date = models.DateTimeField('Date joined')
+
+    # Services in semi-colon delimited fashion
+    services = models.TextField('Provided Services')
+
+
 # User Model for Clinician - with some common features from the UserProfile class
 class ClinicianProfile(models.Model):
 
     userprofile = models.OneToOneField(UserProfile)
+
+    #clinic_of_practice = models.ForeignKey('Clinic')
 
     specialty_choices = (
         (1, 'Anaethesiology'),
@@ -206,31 +247,10 @@ class ClinicianProfile(models.Model):
 
     registered_date = models.DateTimeField(null=True)
 
-    # Clinic of Practice
-    # Place of practice e.g. Family Care Clinic
-    practice_address = models.TextField()
-
-    # Contact no. of practice
-    practice_contact_no = models.CharField(
-        max_length = 20
-    )
-
-    # Country of practice
-    practice_country = models.CharField(
-        max_length = 200
-    )
-
-    # Website URL of practice
-    practice_website = models.URLField()
-    practice_email_add = models.EmailField()
-
-    # Place of practice coordinates for use with Google Maps.
-    practice_gps_coord = models.CharField(
-        max_length = 20
-    )
-
     # to be semi colon separated
     clinical_specialty = models.IntegerField(choices = specialty_choices, default=1)
+
+    # semi-colon delimited
     medical_interests = models.TextField()
 
     # Graduate School
@@ -248,6 +268,7 @@ class ClinicianProfile(models.Model):
 
     # text profile of clinician
     writeup_text = models.TextField()
+
 
 # User Model for User - with some common features from the UserProfile class
 class PublicUserProfile(models.Model):

@@ -1,0 +1,113 @@
+{% load portal_tags %}
+{% load staticfiles %}
+
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WassupHealth</title>
+    <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/wassuphealth_custom.css' %}" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'foundation-icons/foundation-icons.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}"/>
+
+  </head>
+
+  <body class="main-font">
+
+    <div class="contain-to-grid company-masthead">
+
+    	<br/>
+
+      <section class="top-bar-section row">
+
+        <ul class="left">
+        	<br/>
+        	<p>Today is {% now "jS F Y" %}<br/><i>Have you done your exercise today?</i></p>
+        </ul>
+
+        <ul class="right">
+          <a href="{% url 'home' %}"><img src="{% static 'img/logo_web.png' %}" /></a>
+        </ul>
+
+      </section>
+
+    	<br/>
+
+    </div>
+
+    <div class="contain-to-grid sticky navigation-area">
+
+		<nav class="top-bar" data-topbar role="navigation">
+
+			<ul class="title-area">
+
+				<li class="toggle-topbar menu-icon">
+					<a href="#"><span>Menu</span></a>
+				</li>
+
+			</ul>
+
+			<section class="top-bar-section">
+
+				<ul class="left">
+
+						{% if user.is_authenticated %}
+						<li class="has-dropdown">
+							<a href="#">Welcome, {{ user.username }}!</a>
+							<ul class="dropdown">
+
+                {% ifusergroup User %}
+                  <li><a href="{% url 'useradmin' user.pk %}">Manage your Account</a></li>
+                {% else %}
+                  <li><a href="{% url 'clinicaladmin' %}">Manage your Account (Clinician)</a></li>
+                {% endifusergroup %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+
+              </ul>
+						</li>
+						{% else %}
+						<li><a href="#" data-reveal-id="myModal">Login/Register</a></li>
+						{% endif %}
+
+						<li class="has-dropdown">
+							<a href="#">Sections</a>
+              {% categories %}
+						</li>
+
+            <li><a href="{% url 'questions_main' %}">Ask a Doc!</a></li>
+
+            <!--<li><a href="% url 'docdir' %">Find a Doc!</a></li>-->
+
+						<li><a href="{% url 'view_forums' %}">Forums</a></li>
+
+						<li><a href="#">Help</a></li>
+
+					</ul>
+
+					<ul class="right">
+
+						<li><a href="#"><i class="fi-torso"></i></a></li>
+
+						<li class="search">
+							<form id="search_form" method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+								<input type="search" id="search" name="search" placeholder="Search Wassuphealth">
+							</form>
+						</li>
+
+						<li class="has-button">
+							<a class="small button" href="#">Search</a>
+						</li>
+					</ul>
+				</section>
+			</nav>
+			</div>
+
+		</div>
+
+	</div>

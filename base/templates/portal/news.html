@@ -1,0 +1,161 @@
+{% load humanize %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>WassupHealth News</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'assets/plugins/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/flexslider/flexslider.css">
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" href="{% static 'assets/css/toggle-switch.css' %}">
+</head>
+
+<body class="blog-page">
+    <div class="wrapper">
+
+      {% include 'portal/header-conditions.html' %}
+
+        <section class="featured-blog-posts section">
+            <div class="flexslider blog-slider">
+                <ul class="slides">
+                    <li class="slide slide-1">
+                        <div class="flex-caption container">
+                            <h3 class="title"><a href="#">Know more about Common Cold, Flu and Influenza</a></h3>
+                            <div class="meta">What you can do to make yourself feel better</div>
+                            <a class="more-link" href="blog-single.html">Read more &rarr;</a>
+                        </div><!--//flex-caption-->
+                    </li>
+                    <li class="slide slide-2">
+                        <div class="flex-caption container">
+                            <h3 class="title"><a href="#">Research Breakthrough For HIV</a></h3>
+                            <div class="meta">Scientists were able to eradicate HIV genome from human DNA </div>
+                            <a class="more-link" href="blog-single.html">Read more &rarr;</a>
+                        </div><!--//flex-caption-->
+                    </li>
+                    <li class="slide slide-3">
+                        <div class="flex-caption container">
+                            <h3 class="title"><a href="#">Depression, a flaw in chemistry not character</a></h3>
+                            <div class="meta">Signs, symptoms, causes and when to get help</div>
+                            <a class="more-link" href="blog-single.html">Read more &rarr;</a>
+                        </div><!--//flex-caption-->
+                    </li>
+                    <li class="slide slide-4">
+                        <div class="flex-caption container">
+                            <h3 class="title"><a href="#">Good design is good business</a></h3>
+                            <div class="meta">5th Aug, 2014</div>
+                            <a class="more-link" href="blog-single.html">Read more &rarr;</a>
+                        </div><!--//flex-caption-->
+                    </li>
+                </ul><!--//slides-->
+            </div><!--//flexslider-->
+
+        </section><!--//featured-blog-posts-->
+
+        <!-- ******BLOG LIST****** -->
+        <div class="blog container">
+			<div class="col-md-5 col-md-offset-3">
+			<label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = '/'; }, 500); ">
+				<input type="checkbox">
+				<span>
+					<span>News</span>
+					<span>Conditions</span>
+				</span>
+				<a></a>
+			</label>
+			</div>
+			<hr>
+            <div class="row">
+                <div class="blog-list blog-category-list">
+
+                  {% for article in articles %}
+
+                    <article class="post col-md-10 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+                        <div class="post-inner">
+                            <figure class="post-thumb">
+                                <a href="blog-single.html"><img class="img-responsive" src="{% static 'assets/images/blog/post-1.jpg' %}" alt="" /></a>
+                            </figure><!--//post-thumb-->
+                            <div class="content">
+                                <h3 class="post-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+                                <div class="meta">
+                                    <ul class="meta-list list-inline">
+                                    	<li class="post-time">{{ article.timestamp | naturaltime }}</li>
+                                    	<li class="post-author"> by <a href="#">{{ article.author }}</a></li>
+                                	</ul><!--//meta-list-->
+                                </div><!--meta-->
+                                <div class="post-entry">
+                                    <p>{{ article.bodytext | safe | truncatechars_html:500 | striptags }}</p>
+                                    <a class="read-more" href="{{ article.get_absolute_url }}">Read more <i class="fa fa-long-arrow-right"></i></a>
+                                </div>
+                            </div><!--//content-->
+                        </div><!--//post-inner-->
+                    </article><!--//post-->
+
+                  {% endfor %}
+
+                </div><!--//blog-list-->
+            </div><!--//row-->
+            <div class="pagination-container text-center">
+
+                {% if articles.has_previous %}
+                   <li class="left">
+                     <a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
+                   </li>
+                {% endif %}
+
+                {% if articles.has_next %}
+                  <li class="right">
+                    <a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
+                  </li>
+                {% endif %}
+
+            </div><!--//pagination-container-->
+
+            <br/>
+
+        </div><!--//blog-->
+    </div><!--//wrapper-->
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>}
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+
+
+</body>
+</html>

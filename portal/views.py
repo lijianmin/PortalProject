@@ -51,6 +51,36 @@ def forum_pre_landing(request):
 
 	return HttpResponseRedirect('/forums/disclaimer/')
 
+
+def news(request):
+
+	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
+	paginator = Paginator(article_list, 5) 
+
+	page = request.GET.get('page')
+
+	try:
+		articles = paginator.page(page)
+	except PageNotAnInteger:
+		#if page is not an integer, deliver the first page
+		articles = paginator.page(1)
+	except EmptyPage:
+		#if page is out of the given range, deliver the last page
+		articles = paginator.page(paginator.num_pages)
+
+	return render(
+		request,
+		'portal/news.html',
+		{'articles' : articles})
+
+
+def conditions(request):
+
+	return render(
+		request,
+		'portal/conditions.html')
+
+
 # Create your views here.
 def home(request):
 
