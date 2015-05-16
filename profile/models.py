@@ -199,7 +199,7 @@ class ClinicianProfile(models.Model):
 
     userprofile = models.OneToOneField(UserProfile)
 
-    #clinic_of_practice = models.ForeignKey('Clinic')
+    clinic_of_practice = models.ForeignKey(Clinic, default=1)
 
     specialty_choices = (
         (1, 'Anaethesiology'),
