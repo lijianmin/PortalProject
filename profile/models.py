@@ -54,6 +54,8 @@ class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
 
     last_name   = models.CharField('Last Name', max_length=30, blank=True)
 
+    initial     = models.CharField('Initial', max_length=4, blank=True)
+
     is_staff    = models.BooleanField('Staff status', default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
@@ -141,10 +143,6 @@ class UserProfile(models.Model):
     	max_length = 6
     )
 
-    # type of user: either clinician, pharmacist or general user ex. admin
-
-    # profile_avatar = models.ImageField("Profile Pic", upload )
-
     birthday = models.DateTimeField(null=True)
 
     posts = models.IntegerField(default = 0)
@@ -188,7 +186,7 @@ class Clinic(models.Model):
     )
 
     # Business Registration Date
-    business_registered_date = models.DateTimeField('Date joined')
+    business_registered_date = models.DateTimeField('Business Registration Date', null=True)
 
     # Services in semi-colon delimited fashion
     services = models.TextField('Provided Services')

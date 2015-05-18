@@ -1,4 +1,4 @@
-from profile.models 		    import User, UserProfile, ClinicianProfile, PublicUserProfile
+from profile.models 		    import User, UserProfile, ClinicianProfile, PublicUserProfile, Clinic
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):
@@ -27,7 +27,7 @@ class UserForm(BaseModelForm):
 
     class Meta:
         model = User
-        fields = ('email','username','password')
+        fields = ('email','username','password','last_name','first_name')
         help_texts = {
             'username':'A unique username e.g. Winston Churchill. This will be used as your display name',
             'email':'A valid email address',
@@ -35,16 +35,12 @@ class UserForm(BaseModelForm):
 
 class UserProfileForm(BaseModelForm):
 
-    #country = forms.ChoiceField(choices=['Singapore','Malaysia'])
-
     class Meta:
         model = UserProfile
-        fields = ('gender', 'birthday','mobile_no','country','home_address','zip_code')
+        fields = ('mobile_no','country')
         help_texts = {
-            'mobile_no':'A valid mobile phone number for use with our 2-factor Authentication',
+            'mobile_no':'A valid mobile number for use with our 2-factor Authentication',
             'country':'Country of origin e.g. Singapore',
-            'home_address':'Your residential/office address. Optional',
-            'zip_code':'Zip/Postal code of your address. Optional'
         }
 
 class PublicUserProfileForm(BaseModelForm):
@@ -58,8 +54,14 @@ class PublicUserProfileForm(BaseModelForm):
         model = PublicUserProfile
         fields = ('allergies','height','weight')
 
+class ClinicForm(BaseModelForm):
 
-class ClinicalProfileForm(BaseModelForm):
+    class Meta:
+        model = Clinic
+        fields = ( 'name', )
+
+
+class ClinicalUserProfileForm(BaseModelForm):
 
     # Available fields: medical_reg_no, registered_date, practice_address,
     # practice_contact_no, practice_country, practice_website,

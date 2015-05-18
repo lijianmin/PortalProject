@@ -11,12 +11,9 @@ from django.contrib.auth            import authenticate, login, logout
 from profile.models					import User
 from django.contrib.auth.decorators import login_required
 
-#register = template.Library()
+def portal_login(request):
 
-#@register.filter(name='has_group')
-#def has_group(user, group_name):
-#	group = Group.objects.get(name=group_name)
-#	return True if group in user.groups.all() else False
+	return render(request, 'portal/login.html')
 
 #need unit test case
 def user_login(request):

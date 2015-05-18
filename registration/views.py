@@ -8,7 +8,7 @@ from django.template 				import RequestContext
 
 from portal.models 					import post, category
 from profile.models 				import User, UserProfile, ClinicianProfile, PublicUserProfile
-from registration.forms 			import UserForm, UserProfileForm, PublicUserProfileForm, ClinicalProfileForm, AdminProfileForm
+from registration.forms 			import UserForm, UserProfileForm, PublicUserProfileForm, ClinicalUserProfileForm, ClinicForm
 from django.contrib.auth.models		import Group
 
 from django.core.mail 				import send_mail
@@ -55,7 +55,7 @@ def emailnotify(usertype, username, email_address, activation_key):
 			[email_address], fail_silently=True)
 
 # Create your views here.
-#need unit test case
+# Need unit test case
 def register_publicuser(request):
 
 	# A boolean value for telling the template whether the registration was successful.
@@ -71,11 +71,11 @@ def register_publicuser(request):
 		# Attempt to grab information from the raw form information.
 		# Note that we make use of both UserForm and UserProfileForm.
 		user_form = UserForm(data=request.POST)
-		profile_form = UserProfileForm(data=request.POST)
+		user_profile_form = UserProfileForm(data=request.POST)
 		args['user_form'] = user_form
 
 		# If the two forms are valid...
-		if user_form.is_valid() and profile_form.is_valid():
+		if user_form.is_valid() and user_profile_form.is_valid():
 			# Save the user's form data to the database.
 			user = user_form.save()
 
@@ -119,18 +119,18 @@ def register_publicuser(request):
 		# Print problems to the terminal.
 		# They'll also be shown to the user.
 		else:
-			print(user_form.errors, profile_form.errors)
+			print(user_form.errors, user_profile_form.errors)
 
 	# Not a HTTP POST, so we render our form using two ModelForm instances.
 	# These forms will be blank, ready for user input.
 	else:
 		user_form = UserForm()
-		profile_form = UserProfileForm()
+		user_profile_form = UserProfileForm()
 
 	# Render the template depending on the context.
 	return render_to_response(
-			'registration/register_publicuser.html',
-			{'user_form': user_form, 'profile_form': profile_form, 'registered': registered},
+			'registration/public-signup.html',
+			{'user_form': user_form, 'user_profile_form': user_profile_form, 'registered': registered},
 			RequestContext(request))
 
 
@@ -150,11 +150,12 @@ def register_clinician(request):
 
 		user_form = UserForm(data=request.POST)
 		user_profile_form = UserProfileForm(data=request.POST)
-		clinical_profile_form = ClinicalProfileForm(data=request.POST)
+		clinical_profile_form = ClinicalUserProfileForm(data=request.POST)
+		clinic_form = ClinicForm(data=request.POST)
 		args['user_form'] = user_form
 
 		# If the two forms are valid...
-		if user_form.is_valid() and clinical_profile_form.is_valid() and user_profile_form.is_valid():
+		if user_form.is_valid() and clinical_profile_form.is_valid() and clinic_form.is_valid() and user_profile_form.is_valid():
 			# Save the user's form data to the database.
 			user = user_form.save()
 			username = user_form.cleaned_data['username']
@@ -172,6 +173,11 @@ def register_clinician(request):
 			clinical_profile.userprofile = user_profile
 			clinical_profile.save()
 
+			# save clinic - need to check if user inputted the text himself/herself
+			clinic = clinic_form.save(commit=False)
+			clinical_profile.clinic_of_practice = clinic
+			clinic.save()
+
 			# Set user group - for this, we set it to 'User'
 			g = Group.objects.get(name = user_group)
 			g.user_set.add(user)
@@ -182,17 +188,18 @@ def register_clinician(request):
 			emailnotify("clinicianuser", username, email, "")
 
 		else:
-			print(user_form.errors, user_profile_form.errors, clinical_profile_form.errors)
+			print(user_form.errors, user_profile_form.errors, clinic_form.errors, clinical_profile_form.errors)
 
 	# Not a HTTP POST, so we render our form using two ModelForm instances.
 	# These forms will be blank, ready for user input.
 	else:
 		user_form = UserForm()
 		user_profile_form = UserProfileForm()
-		clinical_profile_form = ClinicalProfileForm()
+		clinical_profile_form = ClinicalUserProfileForm()
+		clinic_form = ClinicForm()
 
 	# Render the template depending on the context.
 	return render_to_response(
-			'registration/register_clinician.html',
-			{'user_form': user_form, 'user_profile_form': user_profile_form, 'clinical_profile_form': clinical_profile_form, 'registered': registered},
+			'registration/doctor-signup.html',
+			{'user_form': user_form, 'user_profile_form': user_profile_form, 'clinical_profile_form': clinical_profile_form, 'clinic_form': clinic_form, 'registered': registered},
 			RequestContext(request))

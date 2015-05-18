@@ -60,6 +60,7 @@ INSTALLED_APPS = (
 	'QnA',
 	'djconfig',
 	'spirit',
+	'widget_tweaks',
 )
 
 MIDDLEWARE_CLASSES = (

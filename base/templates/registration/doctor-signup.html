@@ -2,15 +2,16 @@
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% load widget_tweaks %}
 {% include 'static.html' %}
 
-<body class="signup-page access-page has-full-screen-bg">
+<body class="signup-page">
     <div class="upper-wrapper">
 	    <!-- ******HEADER****** -->
         <header class="header">
             <div class="container">
                 <h1 class="logo">
-                    <a href="/"><span class="logo-icon"></span><span class="text">WassupHEALTH!</span></a>
+                    <a href="/"><span class="logo-icon"></span><span class="text">Wassuphealth!</span></a>
                 </h1><!--//logo-->
             </div><!--//container-->
         </header><!--//header-->
@@ -19,66 +20,110 @@
         <section class="signup-section access-section section">
             <div class="container">
                 <div class="row">
+
                     <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
                         <div class="form-box-inner">
-                            <h2 class="title text-center">Sign up now</h2>
-                            <p class="intro text-center">It only takes 3 minutes!</p>
-                            <div class="row">
-								<form class="signup-form">
-									<div class="form-container">
-										<div class="form-group email">
-											<label>Email or username</label>
-											<input name="email" type="email" class="form-control" placeholder="Email or username" required>
+                          <h2 class="title text-center">Sign up now</h2>
+                          <p class="intro text-center">It only takes less than 5 minutes!</p>
+                        <div class="row">
+
+                {% if registered %}
+
+                  <strong>Thank you for registering</strong>
+
+                  <br/>
+
+                  <p><a href="{% url 'home' %}">Return home</a></p>
+
+                {% else %}
+
+								<form class="signup-form" id="user_form" method="post" action="{% url 'clinician_registration' %}" enctype="multipart/form-data">
+
+                  {% csrf_token %}
+
+                  <div class="form-container">
+
+                    <div class="form-group email">
+											<!--<label>Email or username</label>-->
+                      <label>Email Address: </label>
+                      {% render_field user_form.email type="email" placeholder="Email Address" class+="form-control" attr="required" %}
+											<!--<input name="email" type="email" class="form-control" placeholder="Email or username" required>-->
 										</div><!--//form-group-->
-                                        <div class="form-group password">
-                                            <label>Your password</label>
-                                            <input name="password" type="password" class="form-control" placeholder="Password" required>
-                                        </div><!--//form-group-->
+
+                    <div class="form-group">
+											<!--<label>Email or username</label>-->
+                      <label>Display Name: </label>
+                      {% render_field user_form.username type="text" placeholder="Display name" class+="form-control" attr="required" %}
+											<!--<input name="email" type="email" class="form-control" placeholder="Email or username" required>-->
+										</div><!--//form-group-->
+
+                    <div class="form-group password">
+                      <label>Your password: </label>
+                      <!--<input name="password" type="password" class="form-control" placeholder="Password" required>-->
+                      {% render_field user_form.password type="password" placeholder="Password required" class+="form-control" attr="required" %}
+                    </div><!--//form-group-->
+
 										<div class="form-group form-inline">
 											<label>Full Name: </label>
-                                            <input name="firstname" type="text" class="form-control" placeholder="First Name" required>
-                                            <input name="initial" type="text" class="form-control" placeholder="Initial">
-											<input name="lastname" type="text" class="form-control" placeholder="Last Name" required>
+                        {% render_field user_form.first_name type="text" placeholder="First name" class+="form-control" %}
+                        {% render_field user_form.last_name type="text" placeholder="Last name" class+="form-control" %}
+                        <!--<input name="firstname" type="text" class="form-control" placeholder="First Name" required>-->
+                        <!--<input name="initial" type="text" class="form-control" placeholder="Initial">-->
+											  <!--<input name="lastname" type="text" class="form-control" placeholder="Last Name" required>-->
 										</div><!--//form-group-->
-										<div class="form-group form-inline">
+
+                    <div class="form-group form-inline">
+											<label>Country of Residence: </label>
+                        {% render_field user_profile_form.country class+="form-control" %}
+                        &nbsp
+                        <label>Mobile Phone No.: </label>
+                        {% render_field user_profile_form.mobile_no type="text" length="20" placeholder="A valid mobile number in use." class+="form-control" %}
+										</div><!--//form-group-->
+
+                    <div class="form-group form-inline">
 											<label>Speciality: </label>
-											<select class="form-control" name="speciality">
-												<option value="" disabled selected>Select your option</option>
-												<option value="">IDK</option>
-												<option value="">ASDF</option>
-												<option value="">IDGI</option>
-											</select>
-											<input id="clinic" name="clinic" type="text" class="form-control" placeholder="Clinic of Practice">
-                                        </div><!--//form-group-->
+                      {% render_field clinical_profile_form.clinical_specialty class+="form-control" %}
+											<!--<input id="clinic" name="clinic" type="text" class="form-control" placeholder="Clinic of Practice">-->
+                    </div><!--//form-group-->
+
+                    <div class="form-group">
+                      <label>Clinic of Practice: </label>
+                      {% render_field clinic_form.name class+="form-control" placeholder="e.g. Bukit Batok West Clinic or Singapore General Hospital"%}
+                      <!--<input id="clinic" name="clinic" type="text" class="form-control" placeholder="Clinic of Practice">-->
+                    </div><!--//form-group-->
+
 										<div class="form-group">
 											<label>Graduate School: </label>
-											<input id="school" name="school" type="text" class="form-control" placeholder="School eg. Howard University">
+                      {% render_field clinical_profile_form.grad_school type="text" placeholder="School e.g. National University of Singapore" class+="form-control" attr="required" %}
+											<!--<input id="school" name="school" type="text" class="form-control" placeholder="School eg. Howard University">-->
 										</div><!--//form-group-->
+
 										<div class="form-group form-inline ">
 											<label>Education: </label>
-											<select class="form-control" name="education">
-												<option value="" disabled selected> Education Degree</option>
-												<option value="">IDK</option>
-												<option value="">ASDF</option>
-												<option value="">IDGI</option>
-											</select>
-											<input id="year" name="year" type="month" class="form-control">
-                                        </div><!--//form-group-->
+                      {% render_field clinical_profile_form.degree_type class+="form-control" placeholder="e.g. MBBS" attr="required" %}
+                      &nbsp
+                      <label>Graduation Year: </label>
+                      {% render_field clinical_profile_form.grad_year type="text"  class+="form-control" attr="required" %}
+											<!--<input id="year" name="year" type="month" class="form-control">-->
+                    </div><!--//form-group-->
+
 										<div class="form-group form-inline">
 											<label>License: </label>
-											<input id="qualifications" type="text" class="form-control" placeholder="Registration Number" name='qualification' required>
-											<input id="license" name="license" type="text" class="form-control" placeholder="Qualifications">
-											<select class="form-control" name="country">
-												<option value="" disabled selected>Country of Practice</option>
-												<option value="">Singapore</option>
-												<option value="">Russia</option>
-												<option value="">Still Russia</option>
-											</select>
+                      {% render_field clinical_profile_form.medical_reg_no class+="form-control" placeholder="e.g. M12345X" attr="required" %}
+                      &nbsp
+                      <label>Date of License Issued: </label>
+                      {% render_field clinical_profile_form.registered_date type="text" class+="form-control" %}
+											<!--<input id="qualifications" type="text" class="form-control" placeholder="Registration Number" name='qualification' required>-->
+											<!--<input id="license" name="license" type="text" class="form-control" placeholder="Qualifications">-->
+                    </div><!--//form-group-->
 
-                                        </div><!--//form-group-->
 									</div><!--//form-container-->
+
 									<button type="submit" class="btn btn-block btn-cta-primary">Sign up</button>
+
 								</form>
+
+                {% endif %}
                             </div><!--//row-->
                         </div><!--//form-box-inner-->
                     </div><!--//form-box-->

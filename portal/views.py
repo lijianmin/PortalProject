@@ -49,13 +49,12 @@ def account_activated(request):
 
 def forum_pre_landing(request):
 
-	return HttpResponseRedirect('/forums/disclaimer/')
-
+	return HttpResponseRedirect('/forums-disclaimer/')
 
 def news(request):
 
 	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
-	paginator = Paginator(article_list, 5) 
+	paginator = Paginator(article_list, 5)
 
 	page = request.GET.get('page')
 

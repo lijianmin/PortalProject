@@ -56,6 +56,7 @@ urlpatterns = patterns('',
     url(r'^activation-timeout/$','portal.views.account_timeout', name='account-timeout'),
 
     # User Authentication
+    url(r'^login-account/$', 'authentication.views.portal_login', name='portal_login'),
     url(r'^login/$', 'authentication.views.user_login', name='login'),
 	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
 
