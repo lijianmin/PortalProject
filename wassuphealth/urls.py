@@ -28,14 +28,6 @@ urlpatterns = patterns('',
     url(r'^questions/repost/(\d+)/$', 'QnA.views.repost_question', name='repost_question'),
     url(r'^questions/conclude/(\d+)/$', 'QnA.views.conclude_question', name='conclude_question'),
 
-    # Discussion Forums -- might be trashed
-   	#url(r'^forums/$', 'forums.views.main', name='forums'),
-	#url(r'^forum/(\d+)/$', 'forums.views.forum', name='forum'),
-	#url(r'^thread/(\d+)/$', 'forums.views.thread', name='thread'),
-    #url(r'^post/(new_thread|reply)/(\d+)/$', 'forums.views.post', name='post'),
-    #url(r'^reply/(\d+)/$', 'forums.views.reply', name='reply'),
-    #url(r'^new_thread/(\d+)/$', 'forums.views.new_thread', name='new_thread'),
-
     # Portal
 	url(r'^$', 'portal.views.home', name='home'),
     url(r'^news/$','portal.views.news', name='news'),

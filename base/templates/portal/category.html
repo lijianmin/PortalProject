@@ -2,7 +2,9 @@
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% load humanize %}
 {% include 'static.html' %}
+{% load staticfiles %}
 
 <body class="blog-page">
     <div class="wrapper">
@@ -49,34 +51,29 @@
         <div class="blog container">
 			<div class="col-md-5 col-md-offset-3">
 			<label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = 'news.php'; }, 500); ">
-				<input type="checkbox" checked>
-				<span>
-					<span>News</span>
-					<span>Conditions</span>
-				</span>
-				<a></a>
 			</label>
 			</div>
-			<hr>
+
             <div class="row">
 
                 <div id="blog-mansonry" class="blog-list">
 
+                    {% for post in posts %}
                     <article class="post col-md-4 col-sm-6 col-xs-12">
                         <div class="post-inner">
                             <figure class="post-thumb">
-                                <a href="blog-single.html"><img class="img-responsive" src="assets/images/blog/post-1-thumb.jpg" alt="" /></a>
+                                <a href="blog-single.html"><img class="img-responsive" src="{% static 'assets/images/blog/post-1-thumb.jpg' %}" alt="" /></a>
                             </figure><!--//post-thumb-->
                             <div class="content">
-                                <h3 class="post-title"><a href="blog-single.html">Ideas are easy, execution is hard</a></h3>
+                                <h3 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
                                 <div class="post-entry">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lobortis mattis erat, dictum facilisis magna posuere ac. Curabitur consectetur magna mauris, et aliquam lectus ornare nec.</p>
-                                    <a class="read-more" href="blog-single.html">Read more <i class="fa fa-long-arrow-right"></i></a>
+                                    <p>{{ post.bodytext | safe | truncatechars_html:250 | striptags }}</p>
+                                    <a class="read-more" href="{{ post.get_absolute_url }}">Read more <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
                                 <div class="meta">
                                     <ul class="meta-list list-inline">
-                                    	<li class="post-time post_date date updated">16th Oct, 2014</li>
-                                    	<li class="post-author"> by <a href="#">James Lee</a></li>
+                                    	<li class="post-time post_date date updated">{{ post.timestamp | naturaltime }}</li>
+                                    	<li class="post-author"> by <a href="#">{{ post.author }}</a></li>
                                     	<li class="post-comments-link">
                                 	        <a href="blog-single.html#comment-area"><i class="fa fa-comments"></i>8</a>
                                 	    </li>
@@ -85,6 +82,7 @@
                             </div><!--//content-->
                         </div><!--//post-inner-->
                     </article><!--//post-->
+                    {% endfor %}
 
                 </div><!--//blog-list-->
             </div><!--//row-->

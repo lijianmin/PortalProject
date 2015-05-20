@@ -126,7 +126,7 @@ def view_article(request, slug, id):
 	article = get_object_or_404(post, pk = id)
 	tags = Tag.objects.filter(post__id = id)
 
-	return render_to_response('portal/view_article.html', {
+	return render_to_response('portal/article.html', {
 		#'health_threats' : category.objects.filter(master_category = 1),
 		#'categories' : category.objects.filter(master_category = 2),
 		'same_cat_articles' : post.objects.filter(category = article.category.id),
@@ -148,7 +148,7 @@ def view_tagged_under(request, slug, id):
 
 	tag = get_object_or_404(Tag, pk = id)
 
-	return render_to_response('portal/view_tagged_under.html', {
+	return render_to_response('portal/tag.html', {
 		'tag': tag,
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
@@ -162,7 +162,7 @@ def view_category(request, slug, id):
 	category_name = get_object_or_404(category, pk = id)
 	question_form = QuestionForm()
 
-	return render_to_response('portal/view_category.html', {
+	return render_to_response('portal/category.html', {
 		'category': category_name,
 		#'health_threats' : category.objects.filter(master_category = 1),
 		#'categories' : category.objects.filter(master_category = 2),
