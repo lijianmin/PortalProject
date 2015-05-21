@@ -16,6 +16,7 @@ django-robots==1.0
 django-spirit==0.2.1
 django-suit==0.2.12
 django-taggit==0.13.0
+django-widget-tweaks==1.3
 django-wysiwyg==0.7.0
 ecdsa==0.11
 flake8==2.4.0
