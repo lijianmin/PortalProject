@@ -77,6 +77,11 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
+# DJANGO SUIT CONFIG
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'Wassuphealth'
+}
+
 SITE_ID = 2
 
 ROOT_URLCONF = 'wassuphealth.urls'

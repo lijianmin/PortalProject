@@ -1,7 +1,39 @@
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<?php
+$array = [
+    "Allergy and Immunology" => ["Anaphylaxis"],
+    "Cardiology" => ["Myocardial Infarction"],
+	"Dermatology" => ["Cellulitis","Corns & Calluses"],
+	"Endocrinology" => [""],
+	"ENT" => [""],
+	"Gastroenterology" => [""],
+	"Geriatrics" => [""],
+	"Hepatology" => ["HIV", "HCV", "Hapatitis"],
+	"HIV" => ["Human Immunodeficiency Virus"],
+	"Infectious Disease" => ["Cytomegalovirus", "Infectious Monoucleosis", "Mumps", "Paediatics Chickenpox"],
+	"Neonatalogy" => [""],
+	"Nephrology" => [""],
+	"Neurology" => [""],
+	"O&G" => ["Pelvic Inflammatory Diease","Salpingitis"],
+	"Oncology" => [""],
+	"Opthalmology" => [""],
+	"Orthopaedics" => ["Cervical Spondylitis", "Metatarsalgia", "Osteomyelitis", "Plantar Fasciitis"],
+	"Paediatrics" => [""],
+	"Physiology" => ["Blood Pressure", "Body Temp", "CBC", "ECG", "Heart Rate Variability", "Pulse", "Respiratory Rate", "Sp02"],
+	"Proctology" => ["Foot Ulcers"],
+	"Psychiatry" => ["Depression"],
+	"Pulmonology" => ["Pneumothorax", "Pulmonary Embolism"],
+	"Renal" => ["Acute Pyelonephritis"],
+	"Rheumatology" => ["Reactive Arthritis"],
+	"Sports Medicine" => [""],
+	"STD" => ["Chlamydia","Genital Herpes","Genital Warts","Molloscum Contagiosum","STD Overview and Gonorrhea","Syphilis","Trichomoniasis"],
+	"Urology" => ["Cystitis"],
+	"Vascular" => [""]
+];
+?>
+
+{% load humanize %}
+
+{% load staticfiles %}
 {% include 'static.html' %}
 
 <body class="blog-page">
@@ -47,80 +79,84 @@
 
         <!-- ******BLOG LIST****** -->
         <div class="blog container">
-			<div class="col-md-5 col-md-offset-3">
-			<label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = 'news.php'; }, 500); ">
-				<input type="checkbox" checked>
-				<span>
-					<span>News</span>
-					<span>Conditions</span>
-				</span>
-				<a></a>
-			</label>
+			<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+				<label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = 'news.php'; }, 500); ">
+					<input type="checkbox" checked>
+					<span>
+						<span>News</span>
+						<span>Conditions</span>
+					</span>
+					<a></a>
+				</label>
 			</div>
 			<hr>
-            <div class="row">
-
+			<div class="row">
                 <div id="blog-mansonry" class="blog-list">
 
+
+
+
+				<?php foreach ($array as $key => $value) { ?>
                     <article class="post col-md-4 col-sm-6 col-xs-12">
                         <div class="post-inner">
                             <figure class="post-thumb">
-                                <a href="blog-single.html"><img class="img-responsive" src="assets/images/blog/post-1-thumb.jpg" alt="" /></a>
+                                <a data-toggle="modal" data-target="#<?php echo str_replace(' ', '', $key);?>"><img class="img-responsive" src="http://www.playamedical.com/images/Allergy-and-Immunology.jpg" alt="" /></a>
                             </figure><!--//post-thumb-->
                             <div class="content">
-                                <h3 class="post-title"><a href="blog-single.html">Ideas are easy, execution is hard</a></h3>
+                                <h3 class="post-title"><a data-toggle="modal" data-target="#<?php echo str_replace(' ', '', $key);?>"><?php echo "$key"; ?></a></h3>
                                 <div class="post-entry">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin lobortis mattis erat, dictum facilisis magna posuere ac. Curabitur consectetur magna mauris, et aliquam lectus ornare nec.</p>
-                                    <a class="read-more" href="blog-single.html">Read more <i class="fa fa-long-arrow-right"></i></a>
+									Description
                                 </div>
-                                <div class="meta">
-                                    <ul class="meta-list list-inline">
-                                    	<li class="post-time post_date date updated">16th Oct, 2014</li>
-                                    	<li class="post-author"> by <a href="#">James Lee</a></li>
-                                    	<li class="post-comments-link">
-                                	        <a href="blog-single.html#comment-area"><i class="fa fa-comments"></i>8</a>
-                                	    </li>
-                                	</ul><!--//meta-list-->
-                                </div><!--meta-->
-                            </div><!--//content-->
-                        </div><!--//post-inner-->
-                    </article><!--//post-->
+                            </div>
+                        </div>
+                    </article>
+					<div class="modal fade" id="<?php echo str_replace(' ', '', $key);?>" role="dialog" aria-labelledby="<?php echo "$key"; ?>" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="c
+                  lose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel"><?php echo "$key"; ?></h4>
+								</div>
+								<div class="modal-body">
+									<ul>
+										<?php foreach ($value as $var) { ?>
+											<li><?php echo "$var"; ?></li>
+										<?php } ?>
+									</ul>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php } ?>
 
                 </div><!--//blog-list-->
             </div><!--//row-->
-            <div class="pagination-container text-center">
-                <ul class="pagination">
-                    <li class="disabled"><a href="#">&laquo;</a></li>
-                    <li class="active"><a href="#">1<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul><!--//pagination-->
-            </div><!--//pagination-container-->
         </div><!--//blog-->
     </div><!--//wrapper-->
 
 	<?php include 'footer.html'; ?>
 
     <!-- Javascript -->
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script>
 
     <!-- blog page specific js starts -->
-    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
+    <script type="text/javascript" src="assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="assets/js/blog.js"></script>
     <!-- blog page specific js ends -->
 
-    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
 
 
 </body>

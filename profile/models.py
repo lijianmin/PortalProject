@@ -66,7 +66,7 @@ class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
 
     is_admin    = models.BooleanField(default=False)
 
-    date_joined = models.DateTimeField('Date joined', auto_now_add=True, default=timezone.now)
+    date_joined = models.DateTimeField('Date joined', default=timezone.now)
 
     objects     = UserManager()
 

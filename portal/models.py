@@ -1,5 +1,5 @@
 from django.db 						import models
-from django.contrib.auth.models 	import User
+from profile.models					import User
 from django.db.models 				import permalink
 from django.template.defaultfilters import slugify
 from django_extensions.db.fields 	import UUIDField
@@ -8,7 +8,7 @@ from django.conf                    import settings
 
 # two-factor authentication - explore that option by utilising a service
 # spruce up the forums
-    
+
 # Post Model -- Articles mainly...yea
 class post(models.Model):
 
@@ -17,9 +17,7 @@ class post(models.Model):
 	# Article UUID - internal to the portal only.
     article_UUID = UUIDField(blank=True, null=True)
 
-    author = models.CharField(
-    	max_length = 30
-    )
+    author = models.ForeignKey(User)
 
     title = models.CharField(
     	max_length = 200,
@@ -66,6 +64,53 @@ from django.db.models.signals 		import pre_save
 from portal.signals					import create_redirect
 
 pre_save.connect(create_redirect, sender=post, dispatch_uid="001")
+
+class condition(models.Model):
+
+    # Condition under Category
+    category = models.ForeignKey('portal.category')
+
+    name = models.CharField(unique=True, max_length=250, db_index=True)
+
+    name_slug = models.SlugField(
+    	max_length = 200,
+    )
+
+    tags = TaggableManager()
+
+    condition_UUID = UUIDField(blank=True, null=True)
+
+    overview = models.TextField()
+
+    transmission = models.TextField()
+
+    symptoms = models.TextField()
+
+    complications = models.TextField()
+
+    diagnosis = models.TextField()
+
+    treatment = models.TextField()
+
+    prevention = models.TextField()
+
+    #publish when you are confident enough
+    published = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.name_slug = slugify(self.name)
+        super(condition, self).save(*args, **kwargs)
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('view_condition', (), { 'slug': self.name_slug, 'id': self.id })
+
+    class Meta:
+        verbose_name_plural = 'Conditions'
+
 
 # Category Model
 class category(models.Model):
@@ -123,7 +168,7 @@ class masterCategory(models.Model):
 
 	@models.permalink
 	def get_absolute_url(self):
-		return ('view_master_category', (), { 'slug': self.master_category_slug })
+		return ('view_master_category', (), { 'slug': self.master_category_slug, 'id': self.id })
 
 	class Meta:
 		verbose_name_plural = 'Master Categories'

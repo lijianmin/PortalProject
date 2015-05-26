@@ -8,7 +8,7 @@ from django.template 				import RequestContext
 
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
-from portal.models 					import post, category
+from portal.models 					import post, category, masterCategory, condition
 from profile.models					import User
 
 from QnA.models						import Question
@@ -72,13 +72,26 @@ def news(request):
 		'portal/news.html',
 		{'articles' : articles})
 
+#def get_category_conditions(request, id):
 
-def conditions(request):
 
-	return render(
-		request,
-		'portal/conditions.html')
+def view_all_conditions(request):
 
+	# might need AJAX
+	# view all conditions
+	conditions = condition.objects.select_related('category').filter(category__mastercategory = 4)
+
+	return render_to_response('portal/conditions.html', {
+		'conditions': conditions,
+	}, RequestContext(request))
+
+def view_condition(request, slug, id):
+
+	condition_c = get_object_or_404(condition, pk=id)
+
+	return render_to_response('portal/condition.html', {
+		'condition': condition_c
+	}, RequestContext(request))
 
 # Create your views here.
 def home(request):
@@ -171,9 +184,11 @@ def view_category(request, slug, id):
 	}, RequestContext(request))
 
 #need unit test case
-def view_master_category(request, slug):
+def view_master_category(request, slug, id):
 
-	master_category_name = get_object_or_404(master_category, master_category_slug = slug)
+	master_category_name = get_object_or_404(master_category, pk = id)
+
+	print('inside')
 
 	return render_to_response('portal/view_master_category.html', {
 		'master_category': master_category_name,

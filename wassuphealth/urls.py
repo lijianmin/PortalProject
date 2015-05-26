@@ -31,13 +31,14 @@ urlpatterns = patterns('',
     # Portal
 	url(r'^$', 'portal.views.home', name='home'),
     url(r'^news/$','portal.views.news', name='news'),
-    url(r'^conditions/$','portal.views.conditions', name='conditions'),
     url(r'^forum/$','portal.views.forum_pre_landing', name='view_forums'),
-	url(r'^view/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
     url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),
     url(r'^tags/$', 'portal.views.view_all_tags', name='view_all_tags'),
-	url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
-	url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
+	url(r'^mastercategory/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
+    url(r'^category/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_category', name='view_category'),
+    url(r'^article/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_article', name='view_article'),
+    url(r'^conditions/$', 'portal.views.view_all_conditions', name='conditions'),
+    url(r'^conditions/view/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_condition', name='view_condition'),
 
  	# Registration
     url(r'^register/public/$', 'registration.views.register_publicuser', name='publicuser_registration'),
