@@ -1,0 +1,6 @@
+.blog-list .post {
+	position: static !important;
+}
+.blog-list{
+	height: auto !important;
+}

@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import django.utils.timezone
 from django.conf import settings
-import spirit.utils.models
+#import spirit.utils.models
 
 
 class Migration(migrations.Migration):
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(verbose_name='password', max_length=128)),
                 ('last_login', models.DateTimeField(verbose_name='last login', default=django.utils.timezone.now)),
                 ('is_superuser', models.BooleanField(default=False, verbose_name='superuser status', help_text='Designates that this user has all permissions without explicitly assigning them.')),
-                ('slug', spirit.utils.models.AutoSlugField(blank=True, populate_from='username', db_index=False)),
+                #('slug', spirit.utils.models.AutoSlugField(blank=True, populate_from='username', db_index=False)),
                 ('location', models.CharField(blank=True, verbose_name='location', max_length=75)),
                 ('last_seen', models.DateTimeField(verbose_name='last seen', auto_now=True)),
                 ('last_ip', models.GenericIPAddressField(blank=True, verbose_name='last ip', null=True)),

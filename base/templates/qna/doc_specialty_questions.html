@@ -1,0 +1,119 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="blog-page">
+    <div class="wrapper">
+      {% include 'portal/header-forums.html' %}
+        <div class="container">
+			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+			<div class="row col-md-12">
+				<h1>Wassup Doc!<small> on {{ title }}</small></p>
+			</div>
+			<div class="col-md-8 col-sm-12 container">
+        <h4 align="left">Answered Questions</h4>  
+        {% if qns %}
+
+          {% for qn in qns %}
+
+            <div style="row">
+              <hr/>
+					    <p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
+                <a href="{% url 'get_question' qn.pk %}">{{ qn.question }}</a>
+					    </p>
+					    <div class="col-xs-2 {% cycle '' 'pull-right' %}">
+						    <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+                <br/>
+					    </div>
+					    <div class="col-xs-10">
+                <br/>
+                Posted by <b>{{ qn.posted_by.username }}</b> on <b>{{ qn.timestamp }}</b>
+					    </div>
+				    </div>
+          {% endfor %}
+
+        {% else %}
+          <h5>No questions asked yet. Be the first?</h5>
+        {% endif %}
+
+			</div>
+			<div class="col-md-4 col-sm-12 container">
+				<div style="row">
+          <form action="{% url 'save_question' specialty_id %}" method="POST">
+            {% csrf_token %}
+						<div class="form-group">
+							<label for="voting" class="control-label">Ask a Question!</label>
+							<button type="submit" class="btn btn-default pull-right">Submit!</button>
+              <br/>
+              <br/>
+              {% render_field question_form.question class+="form-control" attr="required":textarea rows="4" %}
+						</div>
+					</form>
+				</div>
+				<div style="row">
+					<div class="list-group">
+						<p class="list-group-item list-group-item-warning">
+								Related Specialist
+						</p>
+						<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+						<a href="#" class="list-group-item">Morbi leo risus</a>
+						<a href="#" class="list-group-item">Porta ac consectetur ac</a>
+						<a href="#" class="list-group-item">Vestibulum at eros</a>
+					</div>
+				</div>
+				<div style="row">
+					<div class="list-group">
+						<p class="list-group-item list-group-item-warning">
+							List of Popular Topics
+						</p>
+						<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">I EAT TOO MUCH SUGER</h4>
+						<p class="list-group-item-text">Like the title said, does that means i got diabetes?</p>
+						</a>
+						<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">I was kissed by ernest</h4>
+						<p class="list-group-item-text">and now i'm dying.</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div><!--//wrapper-->
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.promt.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
+
+</body>
+</html>

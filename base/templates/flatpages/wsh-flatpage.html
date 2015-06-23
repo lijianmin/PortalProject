@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="about-page">
+
+  {% include 'header.html' %}
+
+    <div class="headline-bg about-headline-bg">
+    </div><!--//headline-bg-->
+
+    <!-- ******Video Section****** -->
+    <section class="story-section section section-on-bg">
+        <h2 class="title container text-center">{{ flatpage.title }}</h2>
+        <div class="story-container container text-center">
+
+          {% block content %}
+            {{ flatpage.content }}
+          {% endblock %}
+
+        </div><!--//container-->
+    </section><!--//story-video-->
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    {% include 'js.html' %}
+
+</body>
+</html>

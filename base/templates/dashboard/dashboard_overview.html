@@ -1,0 +1,57 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="blog-page">
+    <div class="wrapper">
+      {% include 'portal/header-forums.html' %}
+        <div class="container">
+			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+			<div class="row col-md-12">
+				<h1>Overview</h1>
+			</div>
+			<div class="col-md-10 col-sm-12 container">
+        <h4 align="left">Username: </h4>{{ user.username }}<br/>
+        <h4 align="left">Email: </h4>{{ user.email }}<br/>
+      </div>
+			{% include 'dashboard/dashboard_userpanel.html' %}
+		</div>
+    </div><!--//wrapper-->
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.promt.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+forums/tests.py:1:1: F401 'TestCase' imported but unused
+forums/admin.py:1:20: E274 tab before keyword
+forums/admin.py:2:19: E274 tab before keyword
+forums/admin.py:3:1: F401 'models' imported but unused
+forums/admin.py:3:15: E274 tab before keyword
+forums/admin.py:4:1: F401 'forms' imported but unused
+forums/admin.py:4:12: E274 tab before keyword
+forums/admin.py:6:1: E302 expected 2 blank lines, found 1
+forums/admin.py:9:1: E302 expected 2 blank lines, found 1
+forums/admin.py:13:1: E302 expected 2 blank lines, found 1
+forums/admin.py:19:37: W292 no newline at end of file
+forums/migrations/0001_initial.py:18:80: E501 line too long (114 > 79 characters)
+forums/migrations/0001_initial.py:28:80: E501 line too long (114 > 79 characters)
+forums/migrations/0001_initial.py:32:80: E501 line too long (99 > 79 characters)
+forums/migrations/0001_initial.py:41:80: E501 line too long (114 > 79 characters)
+forums/migrations/0001_initial.py:44:80: E501 line too long (99 > 79 characters)
+forums/models.py:3:17: E272 multiple spaces before keyword
+forums/models.py:4:15: E274 tab before keyword
+forums/models.py:5:1: F401 'User' imported but unused
+forums/models.py:5:20: E272 multiple spaces before keyword
+forums/models.py:9:1: E302 expected 2 blank lines, found 1
+forums/models.py:11:5: E301 expected 1 blank line, found 0
+forums/models.py:23:32: E701 multiple statements on one line (colon)
+forums/models.py:24:50: E701 multiple statements on one line (colon)
+forums/models.py:27:1: E302 expected 2 blank lines, found 1
+forums/models.py:28:10: E223 tab before operator
+forums/models.py:28:13: E224 tab after operator
+forums/models.py:29:14: E224 tab after operator
+forums/models.py:30:14: E224 tab after operator
+forums/models.py:30:80: E501 line too long (81 > 79 characters)
+forums/models.py:31:10: E223 tab before operator
+forums/models.py:31:13: E224 tab after operator
+forums/models.py:54:10: E223 tab before operator
+forums/models.py:54:13: E224 tab after operator
+forums/models.py:55:14: E224 tab after operator
+forums/models.py:56:14: E224 tab after operator
+forums/models.py:56:80: E501 line too long (81 > 79 characters)
+forums/models.py:57:11: E223 tab before operator
+forums/models.py:57:14: E224 tab after operator
+forums/models.py:58:9: E223 tab before operator
+forums/models.py:58:12: E224 tab after operator
+forums/models.py:64:80: E501 line too long (99 > 79 characters)
+forums/views.py:1:1: F401 'get_object_or_404' imported but unused
+forums/views.py:1:22: E274 tab before keyword
+forums/views.py:2:1: F401 'HttpResponse' imported but unused
+forums/views.py:2:17: E274 tab before keyword
+forums/views.py:3:30: E274 tab before keyword
+forums/views.py:4:1: F401 'generic' imported but unused
+forums/views.py:4:18: E274 tab before keyword
+forums/views.py:5:1: F401 'timezone' imported but unused
+forums/views.py:5:18: E274 tab before keyword
+forums/views.py:7:21: E274 tab before keyword
+forums/views.py:8:1: F401 'authenticate' imported but unused
+forums/views.py:8:1: F401 'login' imported but unused
+forums/views.py:8:1: F401 'logout' imported but unused
+forums/views.py:8:25: E272 multiple spaces before keyword
+forums/views.py:10:1: F401 'PageNotAnInteger' imported but unused
+forums/views.py:10:27: E272 multiple spaces before keyword
+forums/views.py:10:80: E501 line too long (81 > 79 characters)
+forums/views.py:11:1: F401 'settings' imported but unused
+forums/views.py:11:17: E274 tab before keyword
+forums/views.py:13:1: F401 'UserProfile' imported but unused
+forums/views.py:13:20: E274 tab before keyword
+forums/views.py:14:19: E274 tab before keyword
+forums/views.py:15:1: F401 'User' imported but unused
+forums/views.py:15:32: E274 tab before keyword
+forums/views.py:19:1: E302 expected 2 blank lines, found 1
+forums/views.py:20:1: W191 indentation contains tabs
+forums/views.py:21:1: W191 indentation contains tabs
+forums/views.py:21:64: E231 missing whitespace after ':'
+forums/views.py:23:1: E302 expected 2 blank lines, found 1
+forums/views.py:24:1: E101 indentation contains mixed spaces and tabs
+forums/views.py:28:1: E302 expected 2 blank lines, found 1
+forums/views.py:31:8: E701 multiple statements on one line (colon)
+forums/views.py:32:22: E701 multiple statements on one line (colon)
+forums/views.py:36:13: F821 undefined name 'InvalidPage'
+forums/views.py:40:1: E302 expected 2 blank lines, found 1
+forums/views.py:45:80: E501 line too long (139 > 79 characters)
+forums/views.py:47:1: E302 expected 2 blank lines, found 1
+forums/views.py:52:80: E501 line too long (115 > 79 characters)
+forums/views.py:53:56: E128 continuation line under-indented for visual indent
+forums/views.py:53:80: E501 line too long (101 > 79 characters)
+forums/views.py:55:1: E302 expected 2 blank lines, found 1
+forums/views.py:60:1: E302 expected 2 blank lines, found 1
+forums/views.py:70:80: E501 line too long (84 > 79 characters)
+forums/views.py:71:9: E128 continuation line under-indented for visual indent
+forums/views.py:73:1: E302 expected 2 blank lines, found 1
+forums/views.py:79:80: E501 line too long (93 > 79 characters)
+forums/views.py:80:80: E501 line too long (100 > 79 characters)
+forums/views.py:86:1: E302 expected 2 blank lines, found 1
+forums/views.py:92:9: F841 local variable 'post' is assigned to but never used
+forums/views.py:92:80: E501 line too long (85 > 79 characters)
+forums/views.py:93:13: E128 continuation line under-indented for visual indent
+forums/views.py:97:80: E501 line too long (89 > 79 characters)

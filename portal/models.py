@@ -10,7 +10,7 @@ from django.conf                    import settings
 # spruce up the forums
 
 # Post Model -- Articles mainly...yea
-class post(models.Model):
+class article(models.Model):
 
     tags = TaggableManager()
 
@@ -58,12 +58,15 @@ class post(models.Model):
 
     def save(self, *args, **kwargs):
         self.title_slug = slugify(self.title)
-        super(post, self).save(*args, **kwargs)
+        super(article, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'Articles'
 
 from django.db.models.signals 		import pre_save
 from portal.signals					import create_redirect
 
-pre_save.connect(create_redirect, sender=post, dispatch_uid="001")
+pre_save.connect(create_redirect, sender=article, dispatch_uid="001")
 
 class condition(models.Model):
 

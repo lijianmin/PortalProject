@@ -7,7 +7,7 @@ from django.core.context_processors import csrf
 from django.template 				import RequestContext
 from django.conf 					import settings
 
-from portal.models 					import post, category
+from portal.models 					import article, category
 from profile.models                 import User, UserProfile, ClinicianProfile
 
 def main(request):

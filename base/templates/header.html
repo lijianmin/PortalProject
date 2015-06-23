@@ -1,3 +1,4 @@
+{% load portal_tags %}
 {% load staticfiles %}
 
 <!-- ******HEADER****** -->
@@ -17,9 +18,9 @@
 			</div><!--//navbar-header-->
 			<div id="navbar-collapse" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active nav-item"><a href="index.php">Home</a></li>
+					<li class="active nav-item"><a href="/">Home</a></li>
 					<li class="nav-item"><a href="/about-wassuphealth/">About Us</a></li>
-					<li class="nav-item"><a href="/forum/">Forums</a></li>
+					<li class="nav-item"><a href="/forums/">Forums</a></li>
 					<li class="nav-item dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Articles<i class="fa fa-angle-down"></i></a>
 						<ul class="dropdown-menu">
@@ -27,8 +28,21 @@
 							<li><a href="{% url 'conditions' %}">Conditions</a></li>
 						</ul>
 					</li><!--//dropdown-->
-					<li class="nav-item"><a href="{% url 'portal_login' %}">Log in</a></li>
-					<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'publicuser_registration' %}">Sign Up Free</a></li>
+					{% if user.is_authenticated %}
+
+						{% ifusergroup User %}
+						<li class="nav-item">Hello, {{ user.username }}</a></li>
+						{% else %}
+						<li class="nav-item">Hello clinician, {{ user.username }}</a></li>
+						{% endifusergroup %}
+
+						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'logout' %}">Sign Out</a></li>
+
+					{% else %}
+						<li class="nav-item"><a href="{% url 'portal_login' %}">Log in</a></li>
+						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'publicuser_registration' %}">Sign Up Free</a></li>
+					{% endif %}
+
 				</ul><!--//nav-->
 			</div><!--//navabr-collapse-->
 		</nav><!--//main-nav-->

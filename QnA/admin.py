@@ -1,3 +1,9 @@
-from django.contrib import admin
+from django.contrib 	import admin
+from QnA.models		    import Specialty, Question, Answer
+from django.db 			import models
+from django 			import forms
 
-# Register your models here.
+class SpecialtyAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Specialty, SpecialtyAdmin)

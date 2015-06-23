@@ -1,9 +1,9 @@
 from django.contrib.redirects.models  import Redirect
 from django.contrib.sites.models      import Site
-from portal.models                    import post
+from portal.models                    import article
 
 def create_redirect(sender, instance, **kwargs):
-  if sender == post:
+  if sender == article:
     try:
       o = sender.objects.get(id=instance.id)
       if o.title_slug != instance.title_slug:

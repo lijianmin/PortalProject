@@ -1,9 +1,9 @@
 from django.contrib 	import admin
-from portal.models 		import post, category, masterCategory, condition
+from portal.models 		import article, category, masterCategory, condition
 from django.db 			import models
 from django 			import forms
 
-class PostsAdmin(admin.ModelAdmin):
+class ArticlesAdmin(admin.ModelAdmin):
 	#exclude = ['timestamp']
 	prepopulated_fields = {"title_slug": ("title",)}
 	change_form_template = 'portal/admin/change_form.html'
@@ -36,7 +36,7 @@ class MasterCategoryAdmin(admin.ModelAdmin):
 	prepopulated_fields = {"master_category_slug": ("master_category_name",)}
 
 # Register your models here.
-admin.site.register(post, PostsAdmin)
+admin.site.register(article, ArticlesAdmin)
 admin.site.register(category, CategoryAdmin)
 admin.site.register(masterCategory, MasterCategoryAdmin)
 admin.site.register(condition, ConditionAdmin)

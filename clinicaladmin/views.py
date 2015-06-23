@@ -9,7 +9,7 @@ from django.template 				import RequestContext
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 from django.forms					import ModelForm
 
-from portal.models 					import post, category
+from portal.models 					import article, category
 from profile.models					import User, UserProfile, ClinicianProfile
 from clinicaladmin.forms 			import ClinicalProfileForm
 from QnA.models						import Question

@@ -1,0 +1,178 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="blog-page">
+    <div class="wrapper">
+      {% include 'portal/header-forums.html' %}
+        <div class="container">
+			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+
+
+      <div class="col-md-2 col-sm-12">
+			</div>
+
+			<div class="col-md-8 col-sm-12 container">
+
+        <div class="row col-sm-12 col-md-12 container">
+          <h3>The Experience:</h3>
+          <p align=justify>{{ thread.experience }}</p>
+          <p><b>Impact to Daily Life:</b> {{ thread.impact_scale }}/7</p>
+          <p><b>Side Effect after Medication:</b> {{ thread.side_effect_scale }}/7</p>
+          <p><b>Cost of Managing It:</b> {{ thread.manage_cost }}/5</p>
+          <p><b>Diagnosed for:</b> {{ thread.diagnosis_duration}} years</p>
+          <p align=right><i>Posted by <b>{{ thread.creator.username }}</b> on <b>{{ thread.created }}</b> under <b><a href="{% url 'forum' forum_pk %}">{{ thread.forum.title }}</a></b></i></p>
+          <br/>
+        </div>
+
+        <div style="row">
+          <div class="col-sm-12 col-sm-12 container">
+            <div class="form-group">
+              {% if user.is_authenticated %}
+                <form action="{% url 'reply' pk %}" method="POST">
+                  {% csrf_token %}
+                  <label for="voting" class="control-label">Your Response:</label>
+                  <br/>
+                  {% render_field reply_form.body class+="form-control" attr="required":textarea rows="5" %}
+                  <br/>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+              {% else %}
+                <h3 align=center><b>Please login to post a response and vote</b></h3>
+              {% endif %}
+              <hr/>
+            </div>
+          </div>
+        </div>
+
+        {% for post in posts.object_list %}
+        {% if forloop.first %}
+          <h4>Most Voted:</h4>
+        {% endif %}
+        <div style="row">
+					<p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
+            {{ post.body }}
+					</p>
+					<div class="col-xs-2 {% cycle '' 'pull-right' %}">
+            <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+            <br/>
+          </div>
+					<div class="col-xs-10">
+            <br/>
+            Replied by
+            {% if post.creator.userprofile.clinicianprofile %}
+              <span align="{% cycle 'right' 'left' %}" class="color:red;"><b>Dr. {{ post.creator.last_name }} {{ post.creator.first_name }}</b></span>
+            {% else %}
+              <span align="{% cycle 'right' 'left' %}"><b>{{ post.creator.username }}</b></span>
+            {% endif %}
+            on <b>{{ post.created }}</b>
+            {% if user.is_authenticated %}
+              <p align="{% cycle 'right' 'left' %}"><a href="{% url 'post_vote' 'upvote' thread.pk post.pk %}"><b>This helps!</b></a> ({{ post.upvote }})</p>
+            {% else %}
+              <p align="{% cycle 'right' 'left' %}"><b>This helps!</b> ({{ post.upvote }})</p>
+            {% endif %}
+					</div>
+          <hr/>
+				</div>
+        {% if forloop.first %}
+          <br/>
+          <br/>
+        {% endif %}
+        {% endfor %}
+
+		  </div>
+			<div class="col-md-2 col-sm-12">
+			</div>
+
+		</div>
+    </div><!--//wrapper-->
+
+    <br/>
+    <br/>
+    <br/>
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js"></script>
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.promt.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$('#textarea').textext({
+			plugins : 'autocomplete suggestions tags filter',
+
+			suggestions: [
+				'JavaScript',
+				'Java',
+				'PHP',
+				'Ruby',
+				'Python',
+				'Closure',
+				'Delphi',
+				'Perl',
+				'OCAML',
+				'Erlang',
+				'Scala',
+				'Haskel',
+				'Groovy',
+				'Fortran',
+				'Basic',
+				'Cobol',
+				'Go'
+			]
+		});
+	</script>
+	<script type="text/javascript">
+        $('#rating1').barrating('show', {
+            wrapperClass: 'br-wrapper-c',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating2').barrating('show', {
+            wrapperClass: 'br-wrapper-c',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating3').barrating('show', {
+            wrapperClass: 'br-wrapper-e',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating4').barrating('show', {
+            wrapperClass: 'br-wrapper-e',
+            showValues: true,
+            showSelectedRating: false
+        });
+
+	</script>
+</body>
+</html>

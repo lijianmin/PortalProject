@@ -15,23 +15,28 @@ urlpatterns = patterns('',
 
     # Django-Admin
     url(r'^admin/', include(admin.site.urls), name='django_admin'),
-    url(r'^forums/', include('spirit.urls')),
 
-    # Search
-    #url(r'^search/$', 'search.views.search_site', name='search_site'),
+    # Forums - landing and main
+    url(r'^forums/$','forums.views.forum_pre_landing', name='view_forums'),
+    url(r'^forums/index/$', 'forums.views.main', name='forums'),
 
-    # QnA
-    url(r'^questions/$', 'QnA.views.main', name='questions_main'),
-    url(r'^questions/get/(\d+)/$', 'QnA.views.get_question', name='get_question'),
-    url(r'^questions/answer/(\d+)/$', 'QnA.views.answer_question', name='ans_question'),
-    url(r'^questions/save/(\d+)/$', 'QnA.views.save_answer', name='save_answer'),
-    url(r'^questions/repost/(\d+)/$', 'QnA.views.repost_question', name='repost_question'),
-    url(r'^questions/conclude/(\d+)/$', 'QnA.views.conclude_question', name='conclude_question'),
+    # Community Forums
+	url(r'^forums/community/(\d+)/$', 'forums.views.forum', name='forum'),
+    url(r'^forums/community/thread/(\d+)/$', 'forums.views.show_thread', name='thread'),
+    url(r'^forums/community/reply/(\d+)/$', 'forums.views.reply_to_thread', name='reply'),
+    url(r'^forums/community/new_thread/(\d+)/$', 'forums.views.new_thread', name='new_thread'),
+    url(r'^forums/community/post/(upvote|downvote)/(\d+)/(\d+)/$', 'forums.views.post_vote', name='post_vote'),
+
+    # Doctors Forums
+    url(r'^forums/doc/(\d+)/$', 'QnA.views.show_specialty', name='questions_specialty'),
+    url(r'^forums/doc/question/get/(\d+)/$', 'QnA.views.show_specialty_question', name='get_question'),
+    url(r'^forums/doc/question/(upvote|downvote)/(\d+)/$', 'QnA.views.question_vote', name='question_vote'),
+    url(r'^forums/doc/question/save/(\d+)/$', 'QnA.views.new_question', name='save_question'),
+    url(r'^forums/doc/question/answer/save/(\d+)/$', 'QnA.views.save_answer', name='save_answer'),
 
     # Portal
-	url(r'^$', 'portal.views.home', name='home'),
+	url(r'^$','portal.views.home', name='home'),
     url(r'^news/$','portal.views.news', name='news'),
-    url(r'^forum/$','portal.views.forum_pre_landing', name='view_forums'),
     url(r'^tag/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_tagged_under', name='view_tagged'),
     url(r'^tags/$', 'portal.views.view_all_tags', name='view_all_tags'),
 	url(r'^mastercategory/(?P<id>\d+)/(?P<slug>[^\.]+)/$', 'portal.views.view_master_category', name='view_master_category'),
@@ -54,6 +59,11 @@ urlpatterns = patterns('',
 	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
 
     url(r'^account-inactive/$','portal.views.account_inactive', name='account-inactive'),
+
+    # dashboard
+    url(r'^dashboard/$', 'dashboard.views.index', name='dashboard_index'),
+    #url(r'^dashboard/profile/$', 'dashboard.views.edit_profile', name='edit_profile'),
+    url(r'^dashboard/activities/$', 'dashboard.views.view_activities', name='view_activities'),
 
     # User Admin
     url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),

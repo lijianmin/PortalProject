@@ -9,11 +9,11 @@ from django.contrib.auth            import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
-from portal.models 					import post, category
+from portal.models 					import category
 from profile.models					import User, UserProfile
-from QnA.models						import Question, Answer
+from QnA.models						import Question, Answer, Specialty
 
-from QnA.forms 						import QuestionForm
+from QnA.forms 						import QuestionForm, AnswerForm
 
 # tag question to specialty
 #	- EITHER choose a subject and load a page which shows all related questions
@@ -24,46 +24,20 @@ from QnA.forms 						import QuestionForm
 # Front end notification polling
 # Appointment system (basic) with capabilities of only sending sms/email to clinic-in-charge (generated automatically)
 # Ernest to get back on the workflow for appointment setup which is related to how questions are answered in the system
+# private system for doctor and public user but viewable by public
+# when answered by a doctor, it can also be posed back to the same doctor
 
 # MAIN
-def main(request):
+def show_specialty(request, specialty_id):
 
-	posted = False
-
-	#qns = Question.objects.all().order_by("timestamp").reverse()
-	health_threats = category.objects.filter(master_category = 1)
-	categories = category.objects.filter(master_category = 2)
-	qns = Question.objects.filter(status='PENDING')
-
-	# If it's a HTTP `POST`, we're interested in processing form data.
-	if request.method == 'POST':
-
-		question_form = QuestionForm(data=request.POST, user=request.user)
-
-		if question_form.is_valid():
-
-			qn = question_form.save() #one insert statement
-
-			qn.posted_by = request.user #another update statement
-
-			qn.save()
-
-			posted = True
-
-		# Invalid form or forms - mistakes or something else?
-		# Print problems to the terminal.
-		# They'll also be shown to the user.
-		else:
-			print(question_form.errors)
-
-	else:
-		question_form = QuestionForm()
-
+    title = Specialty.objects.get(pk=specialty_id).title
+    qns = Question.objects.filter(status='ANSWERED').filter(specialty_id=specialty_id).order_by("upvote").reverse()
+    question_form = QuestionForm()
 
 	# Render the template depending on the context.
-	return render_to_response(
-			'qna/qna_index.html',
-			{'question_form': question_form, 'posted': posted, 'categories' : categories, 'health_threats': health_threats, 'qns': qns},
+    return render_to_response(
+			'qna/doc_specialty_questions.html',
+			add_csrf(request, question_form=question_form, qns=qns, title=title, specialty_id=specialty_id),
 			RequestContext(request))
 
 
@@ -72,30 +46,59 @@ def add_csrf(request, ** kwargs):
     d.update(csrf(request))
     return d
 
+def show_specialty_question(request, question_id):
+
+    question 		= get_object_or_404(Question, id=question_id)
+    answer 			= Answer.objects.filter(question_id=question_id)
+
+    specialty 		= Specialty.objects.get(pk=question.specialty_id)
+    specialty_title = specialty.title
+    specialty_pk 	= specialty.id
+
+    answer_form 	= AnswerForm()
+
+    return render_to_response(
+			'qna/doc_question_answers.html',
+			add_csrf(request, Question=question, Answer=answer,
+            answer_form=answer_form, specialty_title=specialty_title,
+            specialty_id=specialty_pk, question_id=question_id),
+			RequestContext(request))
+
 @login_required
-def get_question(request, pk):
-	question = Question.objects.get(pk=pk)
-	repost_qn_action = reverse("QnA.views.repost_question", args=[pk])
-	conclude_qn_action = reverse("QnA.views.conclude_question", args=[pk])
+def new_question(request, specialty_id):
 
-	try:
-		answer = Answer.objects.filter(question_id=pk)
-		return render(request, 'qna/qna_post.html',
-			add_csrf(request, repost_qn=repost_qn_action, conclude_qn=conclude_qn_action, Question=question, Answer=answer))
-	except Answer.DoesNotExist:
-		return render(request, 'qna/qna_post.html',
-			add_csrf(request, repost_qn=repost_qn_action, conclude_qn=conclude_qn_action, Question=question))
+    specialty = get_object_or_404(Specialty, id=specialty_id)
+    question_form = QuestionForm(data=request.POST)
 
-#meant for public user
-#@login_required
-#def change_question_status(request, ptype, pk):
-#    if ptype == 'conclude':
+    if request.method == 'POST':
 
-#    elif ptype == 'repost':
+        if question_form.is_valid():
 
-#    return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
-#
+            q = question_form.save(commit=False)
+            q.specialty_id = specialty.pk
+            q.save()
 
+            q.posted_by_id = request.user.pk
+            q.save()
+
+    return HttpResponseRedirect(reverse("QnA.views.show_specialty_question", args=[q.pk]))
+
+# for question
+@login_required
+def question_vote(request, votetype, question_id):
+
+    question = get_object_or_404(Question, pk=question_id)
+
+    if votetype == 'upvote':
+        question.upvote += 1
+        question.save()
+    elif votetype == 'downvote':
+        question.downvote -= 1
+        question.save()
+
+    return HttpResponseRedirect(reverse('QnA.views.show_specialty_question', args=[question.id]))
+
+"""
 @login_required
 def repost_question(request, pk):
 	p = request.POST
@@ -105,7 +108,6 @@ def repost_question(request, pk):
 
 	return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
 
-
 @login_required
 def conclude_question(request, pk):
 	p = request.POST
@@ -114,7 +116,7 @@ def conclude_question(request, pk):
 	question.save()
 
 	return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
-
+"""
 
 @login_required
 def answer_question(request, pk):
@@ -123,13 +125,25 @@ def answer_question(request, pk):
 	action = reverse("QnA.views.save_answer", args=[pk])
 	return render_to_response('qna/qna_answer_qn.html', add_csrf(request, action=action, Question=question, Answer=answer))
 
+@login_required
+def save_answer(request, question_id):
 
-def save_answer(request, pk):
-	p = request.POST
-	if p["body"]:
-		question = Question.objects.get(pk=pk)
-		post = Answer.objects.create(question=question, answer=p["body"], answer_provided_by=request.user)
-		question.answered()
-		question.save()
+    question = get_object_or_404(Question, id=question_id)
+    answer_form = AnswerForm(data=request.POST)
 
-	return HttpResponseRedirect(reverse("clinicaladmin"))
+    if request.method == 'POST':
+
+        if answer_form.is_valid():
+
+            a = answer_form.save(commit=False)
+            a.question_id = question.pk
+            a.answer_provided_by_id = request.user.pk
+            a.save()
+
+            question.answered()
+            question.save()
+
+        else:
+            print(answer_form.errors)
+
+    return HttpResponseRedirect(reverse('QnA.views.show_specialty_question', args=[question.id]))

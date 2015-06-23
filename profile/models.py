@@ -1,11 +1,9 @@
 from django.db                  import models
-from spirit.models              import user
 from django.utils               import timezone
 from django.utils.http          import urlquote
 from django.utils.translation   import ugettext_lazy as _
 from django.core.mail           import send_mail
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from spirit.models              import user
 from django.contrib.auth.models import BaseUserManager
 from django.conf                import settings
 
@@ -39,7 +37,7 @@ class UserManager(BaseUserManager):
                                  **extra_fields)
 
 
-class User(AbstractBaseUser, user.AbstractForumUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     """
     A fully featured User model with admin-compliant permissions that uses
     a full-length email field as the username.

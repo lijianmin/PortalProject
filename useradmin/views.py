@@ -9,7 +9,7 @@ from django.template 				import RequestContext
 from django.forms					import ModelForm
 from django.conf 					import settings
 
-from portal.models 					import post, category
+from portal.models 					import article, category
 from profile.models					import User, UserProfile
 from QnA.models						import Question
 

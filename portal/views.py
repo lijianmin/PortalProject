@@ -8,7 +8,7 @@ from django.template 				import RequestContext
 
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
-from portal.models 					import post, category, masterCategory, condition
+from portal.models 					import article, category, masterCategory, condition
 from profile.models					import User
 
 from QnA.models						import Question
@@ -47,13 +47,9 @@ def account_activated(request):
 		request,
 		'authentication/account_activated.html')
 
-def forum_pre_landing(request):
-
-	return HttpResponseRedirect('/forums-disclaimer/')
-
 def news(request):
 
-	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
+	article_list = article.objects.filter(published = True).order_by("timestamp").reverse()
 	paginator = Paginator(article_list, 5)
 
 	page = request.GET.get('page')
@@ -72,6 +68,7 @@ def news(request):
 		'portal/news.html',
 		{'articles' : articles})
 
+#json result
 #def get_category_conditions(request, id):
 
 
@@ -97,7 +94,7 @@ def view_condition(request, slug, id):
 def home(request):
 
 	#list of articles in reverse chronological order
-	article_list = post.objects.filter(published = True).order_by("timestamp").reverse()
+	article_list = article.objects.filter(published = True).order_by("timestamp").reverse()
 
 	#categories
 	#health_threats = category.objects.filter(master_category = 1)
@@ -136,14 +133,14 @@ def add_csrf(request, ** kwargs):
 def view_article(request, slug, id):
 
 	#return post object
-	article = get_object_or_404(post, pk = id)
-	tags = Tag.objects.filter(post__id = id)
+	article_contents = get_object_or_404(article, pk = id)
+	tags = Tag.objects.filter(article__id = id)
 
 	return render_to_response('portal/article.html', {
 		#'health_threats' : category.objects.filter(master_category = 1),
 		#'categories' : category.objects.filter(master_category = 2),
-		'same_cat_articles' : post.objects.filter(category = article.category.id),
-		'post': article,
+		#'same_cat_articles' : article.objects.filter(category = article.category.id),
+		'post': article_contents,
 		'tags': tags
 	}, RequestContext(request))
 
@@ -165,7 +162,7 @@ def view_tagged_under(request, slug, id):
 		'tag': tag,
 		'health_threats' : category.objects.filter(master_category = 1),
 		'categories' : category.objects.filter(master_category = 2),
-		'posts': post.objects.filter(tags__id = id).order_by("timestamp").reverse(),
+		'posts': article.objects.filter(tags__id = id).order_by("timestamp").reverse(),
 		'all_tags': Tag.objects.all()
 	}, RequestContext(request))
 
@@ -179,7 +176,7 @@ def view_category(request, slug, id):
 		'category': category_name,
 		#'health_threats' : category.objects.filter(master_category = 1),
 		#'categories' : category.objects.filter(master_category = 2),
-		'posts': post.objects.filter(category = id, published = True).order_by("timestamp").reverse(),
+		'posts': article.objects.filter(category = id, published = True).order_by("timestamp").reverse(),
 		'question_form': question_form
 	}, RequestContext(request))
 

@@ -6,7 +6,6 @@ from django.utils 					import timezone
 from django.core.context_processors import csrf
 from django.template 				import RequestContext
 
-from portal.models 					import post, category
 from profile.models 				import User, UserProfile, ClinicianProfile, PublicUserProfile
 from registration.forms 			import UserForm, UserProfileForm, PublicUserProfileForm, ClinicalUserProfileForm, ClinicForm
 from django.contrib.auth.models		import Group
@@ -132,7 +131,6 @@ def register_publicuser(request):
 			'registration/public-signup.html',
 			{'user_form': user_form, 'user_profile_form': user_profile_form, 'registered': registered},
 			RequestContext(request))
-
 
 
 def register_clinician(request):

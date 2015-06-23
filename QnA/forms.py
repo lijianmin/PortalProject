@@ -1,4 +1,4 @@
-from QnA.models 				import Question
+from QnA.models 				import Question, Answer
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):
@@ -19,9 +19,21 @@ class QuestionForm(BaseModelForm):
         model = Question
         fields = ('question',)
         help_texts = {
-            'question':'Ask a doctor now!',
+            'question':'Question to doctor here',
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(QuestionForm, self).__init__(*args, **kwargs)
+
+class AnswerForm(BaseModelForm):
+    class Meta:
+        model = Answer
+        fields = ('answer',)
+        help_texts = {
+            'question':'Your response here',
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(AnswerForm, self).__init__(*args, **kwargs)

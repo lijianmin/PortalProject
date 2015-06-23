@@ -1,0 +1,216 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="blog-page">
+    <div class="wrapper">
+      {% include 'portal/header-forums.html' %}
+        <div class="container">
+			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+			<div class="row col-md-12">
+				<h1>Wassup Peeps! <small>on {{ title }}</small></h1>
+        <br/>
+			</div>
+			<div style="row">
+				<div class="col-md-8 col-sm-12" style=" height:250px;">
+					<div id="carousel" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel" data-slide-to="1"></li>
+							<li data-target="#carousel" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner" role="listbox">
+							<div class="item active">
+								<img src="{% static 'assets/images/background/bg-footer-3.jpg' %}" alt="...">
+								<div class="carousel-caption">
+									<h3>{{ title }}</h3>
+									<p>Testing Slide</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="{% static 'assets/images/background/bg-footer-3.jpg' %}" alt="...">
+								<div class="carousel-caption">
+									<h3>{{ title }}</h3>
+									<p>Testing Slide</p>
+								</div>
+							</div>
+							<div class="item">
+								<img src="{% static 'assets/images/background/bg-footer-3.jpg' %}" alt="...">
+								<div class="carousel-caption">
+									<h3>{{ title }}</h3>
+									<p>Testing Slide</p>
+								</div>
+							</div>
+						</div>
+
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-12">
+
+          <form action="{% url 'new_thread' pk %}" method="POST">
+            {% csrf_token %}
+  						<div class="form-group">
+  							<label for="voting" class="control-label">How does (did) It impact your daily activities?</label>
+                {% render_field question_form.impact_scale id="rating1" class+="rating" attr="required" %}
+  						</div>
+  						<div class="form-group">
+  							<label for="voting" class="control-label">Side effects experienced from medications?</label>
+                {% render_field question_form.side_effect_scale id="rating2" class+="rating" attr="required" %}
+  						</div>
+  					  <div class="form-group">
+  							<label class="control-label">Is it costly to manage?</label><br>
+                {% render_field question_form.manage_cost id="rating3" class+="rating" attr="required" %}
+  						</div>
+  						<div class="form-group">
+  							<label class="control-label">How long have you been diagnosed?</label><br>
+                {% render_field question_form.diagnosis_duration id="rating4" class+="rating" attr="required" %}
+  						</div>
+  						<div class="form-group">
+  							<label for="voting" class="control-label">What medications are you currently on?</label>
+                {% render_field question_form.medication class+="form-control" attr="required" rows="1" cols="50" %}
+  						</div>
+              <div class="form-group">
+                <label for="voting" class="control-label">Describe your experience</label>
+                {% render_field question_form.experience class+="form-control" attr="required" rows="5" cols="30" %}
+              </div>
+  						<div class="form-group">
+  							<div class="col-sm-offset-5 col-sm-2">
+  								<button type="submit" class="btn btn-default">Submit Your Experience</button>
+                  <br/>
+                  <br/>
+  							</div>
+  						</div>
+  				</form>
+
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-12 container">
+
+        {% for thread in threads.object_list %}
+        <div style="row">
+					<p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
+            <a href="{% url 'thread' thread.pk %}">{{ thread.experience }}</a>
+            <br/>
+					</p>
+					<div class="col-xs-2 {% cycle '' 'pull-right' %}">
+            <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+            <br/>
+          </div>
+					<div class="col-xs-10">
+            <br/>
+            Replied by
+            {% if thread.creator.userprofile.clinicianprofile %}
+              <span class="color:red;"><b>Dr. {{ thread.creator.last_name }} {{ thread.creator.first_name }}</b></span>
+            {% else %}
+              <b>{{ thread.creator.username }}</b>
+            {% endif %}
+            on <b>{{ thread.created }}</b>
+					</div>
+				</div>
+        {% endfor %}
+
+		  </div>
+			<div class="col-md-4 col-sm-12">
+			</div>
+
+		</div>
+    </div><!--//wrapper-->
+
+    <br/>
+    <br/>
+    <br/>
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.prompt.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$('#textarea').textext({
+			plugins : 'autocomplete suggestions tags filter',
+
+			suggestions: [
+				'JavaScript',
+				'Java',
+				'PHP',
+				'Ruby',
+				'Python',
+				'Closure',
+				'Delphi',
+				'Perl',
+				'OCAML',
+				'Erlang',
+				'Scala',
+				'Haskel',
+				'Groovy',
+				'Fortran',
+				'Basic',
+				'Cobol',
+				'Go'
+			]
+		});
+	</script>
+	<script type="text/javascript">
+        $('#rating1').barrating('show', {
+            wrapperClass: 'br-wrapper-c',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating2').barrating('show', {
+            wrapperClass: 'br-wrapper-c',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating3').barrating('show', {
+            wrapperClass: 'br-wrapper-e',
+            showValues: true,
+            showSelectedRating: false
+        });
+		$('#rating4').barrating('show', {
+            wrapperClass: 'br-wrapper-e',
+            showValues: true,
+            showSelectedRating: false
+        });
+
+	</script>
+</body>
+</html>

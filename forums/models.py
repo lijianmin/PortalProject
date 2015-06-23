@@ -1,8 +1,12 @@
+# Community Forums
+
 from django.conf                import settings
 from django.db 					import models
 from profile.models             import User
+from model_utils.fields         import StatusField
 
 class Forum(models.Model):
+
     title = models.CharField(max_length=60)
     def __str__(self):
         return self.title
@@ -25,6 +29,39 @@ class Thread(models.Model):
     created =	models.DateTimeField(auto_now_add=True)
     creator = 	models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     forum 	= 	models.ForeignKey(Forum)
+    upvote      =   models.IntegerField(default=0)
+    downvote    =   models.IntegerField(default=0)
+
+    # core information fields
+    common_scale_options = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+    )
+
+    impact_scale = models.IntegerField(choices = common_scale_options, default=1)
+    side_effect_scale = models.IntegerField(choices = common_scale_options, default=1)
+
+    manage_cost_option = (
+        (1, 'Not Costly'),
+        (2, 'Costly'),
+        (3, 'Very Costly'),
+    )
+    manage_cost = models.IntegerField(choices = manage_cost_option, default=1)
+
+    diagnosis_duration_option = (
+        (1, '< 1 Year'),
+        (2, '2 - 5 Years'),
+        (3, '> 5 Years'),
+    )
+    diagnosis_duration = models.IntegerField(choices = diagnosis_duration_option, default=1)
+
+    medication = models.TextField(default="")
+    experience = models.TextField(default="")
 
     def __str__(self):
         return self.creator + " - " + self.title
@@ -39,15 +76,21 @@ class Thread(models.Model):
         if self.post_set.count():
             return self.post_set.order_by("created")[0]
 
+
 class Post(models.Model):
     title 	=	models.CharField(max_length=60)
     created = 	models.DateTimeField(auto_now_add=True)
     creator = 	models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     thread 	= 	models.ForeignKey(Thread)
-    body 	=	models.TextField(max_length=10000)
+    body 	=	models.TextField()
+    upvote      =  models.IntegerField(default=0)
+    downvote    =  models.IntegerField(default=0)
 
     def __str__(self):
         return "%s - %s - %s" % (self.creator, self.thread, self.title)
+
+    def totalvotes(self):
+        return self.upvote + self.downvote
 
     def short(self):
         return "%s - %s\n%s" % (self.creator, self.title, self.created.strftime("%b %d, %I:%M %p"))

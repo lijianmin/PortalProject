@@ -63,7 +63,7 @@
 
                                 <div class="form-container">
 
-                                    <form class="signup-form">
+                                    <form id="user_form" method="post" action="{% url 'publicuser_registration' %}" enctype="multipart/form-data">
 
                                       {% csrf_token %}
 

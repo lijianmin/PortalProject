@@ -1,0 +1,88 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+{% include 'static.html' %}
+
+<body class="blog-page" onload="$('#collapseExample2').collapse('show')">
+    <div class="wrapper">
+        <!-- ******HEADER****** -->
+        {% include 'portal/header-forums.html' %}
+
+        <!-- ******BLOG LIST****** -->
+    <div class="container" style="margin-top:100px;">
+			<div class="col-xs-12 col-sm-12 col-md-6">
+				<h2>Wassup Peeps!</h2>
+				<dl class="dl-vertical">
+          {% for f in forums %}
+						<dd><a href="{% url 'forum' f.pk %}">{{ f.title }}</a></dd>
+				  {% endfor %}
+        </dl>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6">
+        <h2>Wassup Doc!</h2>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-xs-12">
+							<label class="switch-light switch-candy" onclick="$('#collapseExample1').collapse('toggle'); $('#collapseExample2').collapse('toggle') ">
+								<input type="checkbox" checked>
+								<span>
+									<span>Medical Speciality</span>
+									<span>Hot Topic</span>
+								</span>
+								<a></a>
+							</label>
+						</div>
+						<div class="col-xs-12">
+							<div class="collapse" id="collapseExample1">
+								<div class="well">
+                  <dl class="dl-horizontal">
+                    {% for s in specialties %}
+                    <dt><a href="{% url 'questions_specialty' s.pk %}">{{ s.title }}</a></dt>
+          				  {% endfor %}
+                  </dl>
+								</div>
+							</div>
+							<div class="collapse" id="collapseExample2">
+								<div class="well">
+									I'VE NO IDEA WHAT AM I DOING
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+        <h2>Your Activities</h2>
+        <p><a href="{% url 'view_activities' %}">View here</a></p>
+			</div>
+		</div>
+    </div><!--//wrapper-->
+
+    <br/>
+    <br/>
+    <br/>
+
+    {% include 'footer.html' %}
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+
+    <!-- blog page specific js starts -->
+    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
+    <!-- blog page specific js ends -->
+
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
+
+
+</body>
+</html>
