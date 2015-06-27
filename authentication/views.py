@@ -11,9 +11,13 @@ from django.contrib.auth            import authenticate, login, logout
 from profile.models					import User
 from django.contrib.auth.decorators import login_required
 
-def portal_login(request):
+def account_inactive(request):
+    return render(
+		request,
+		'authentication/account_disabled.html')
 
-	return render(request, 'portal/login.html')
+def portal_login(request):
+	return render(request, 'authentication/login.html')
 
 #need unit test case
 def user_login(request):
@@ -45,11 +49,11 @@ def user_login(request):
 				print(usergroup[0].name)
 
 				if usergroup[0].name == "User":
-					print("User login happened")
+					#print("User login happened")
 					return HttpResponseRedirect('/')
 				else:
-					print("Clinician User login happened")
-					return HttpResponseRedirect('/clinicaladmin/')
+					#print("Clinician User login happened")
+					return HttpResponseRedirect('/')
 			else:
 				# An inactive account was used - no logging in!
 				return HttpResponseRedirect('/account-inactive/')

@@ -22,9 +22,9 @@
                 <div class="row">
                     <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
                         <div class="form-box-inner">
-                            <h2 class="title text-center">UH OH. Your account is currently inactive</h2>
+                            <h2 class="title text-center">SHUCKS! Timeout!</h2>
                             <div class="row">
-                                <p align=center>Your account is currently inactive. Please contact support for help. Meanwhile, you can still stay healthy by reading our hand-picked articles or browsing the forums for health tips!</p>
+                                <p align=center>Your account is has not been activated. Enter your email address to have another activation link sent to you. Meanwhile, you can still stay healthy by reading our hand-picked articles or browsing the forums for health tips!</p>
                             </div><!--//row-->
                         </div><!--//form-box-inner-->
                     </div><!--//form-box-->
@@ -49,3 +49,34 @@
 
 </body>
 </html>
+
+{% include 'header.html' %}
+
+{% load humanize %}
+
+{% load staticfiles %}
+ 	<br/>
+
+	<div class="row">
+
+        <br/>
+        <br/>
+
+		<h2 class="article-heading" align=left><b>Shucks! Timeout!</b></h2>
+
+        <p align=center>Your account is has not been activated. Enter your email address to have another activation link sent to you. Meanwhile, you can still stay healthy by reading our hand-picked articles or browsing the forums for health tips!</p>
+
+		<br/>
+
+        <div class="large-2 columns">
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+
+	</div>
+
+{% include 'auth.html' %}
+
+{% include 'footer.html' %}

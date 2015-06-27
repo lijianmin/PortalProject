@@ -14,7 +14,7 @@ from profile.models					import UserProfile
 from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from django.contrib.auth.models		import User
-from dashboard.forms 				import *
+from dashboard.forms 				import UserProfileForm, UserForm, PublicUserProfileForm
 
 # Create your views here.
 
@@ -32,38 +32,45 @@ def view_activities(request):
 
     return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns,'user_posts':user_forum_posts, })
 
-"""
 @login_required
 def edit_profile(request):
 
-	p_user = request.user.userprofile
+    p_user = request.user
+    saved = False
 
-	if request.method == 'POST':
+    if request.method == 'POST':
 
-		p_user_profile_form = UserProfileForm(request.POST, instance = p_user.userprofile)
+        p_user_profile_form = UserProfileForm(request.POST, instance = p_user.userprofile)
+        p_user_form = UserForm(request.POST, instance = p_user)
+        p_user_healthprofile_form = PublicUserProfileForm(request.POST, instance=p_user.userprofile.publicuserprofile)
 
-		if p_user_profile_form.is_valid():
+        if p_user_profile_form.is_valid() and p_user_form.is_valid() and p_user_healthprofile_form.is_valid():
 
-			profile = p_user_profile_form.save(commit=False) #one insert statement
+            profile = p_user_profile_form.save(commit=False) #one insert statement
 
-			if profile:
-				profile.save()
-			else:
-				profile.userprofile = p_user
-				profile.save()
+            if profile:
+                profile.save()
+                p_user_form.save()
+                p_user_healthprofile_form.save()
+                saved = True
+            else:
+                profile.userprofile = p_user
+                profile.save()
 
-			return HttpResponseRedirect(reverse("useradmin", args=[request.user.pk]))
+                return HttpResponseRedirect(reverse("profile", args=[request.user.pk]))
 
-		else:
+        else:
+            print(p_user_profile_form.errors)
 
-			print(p_user_profile_form.errors)
+    else:
+        p_user_profile_form = UserProfileForm(instance = p_user.userprofile)
+        p_user_form = UserForm(instance = p_user)
+        p_user_healthprofile_form = PublicUserProfileForm(instance=p_user.userprofile.publicuserprofile)
 
-	else:
-
-		p_user_profile_form = PublicUserProfileForm(instance = p_user.publicuserprofile)
-
-	return render_to_response(
+    return render_to_response(
 		'dashboard/dashboard_profile.html', {
-		'p_user_profile_form': p_user_profile_form},
+		'p_user_profile_form': p_user_profile_form,
+        'p_user_form':p_user_form,
+        'p_user_healthprofile_form':p_user_healthprofile_form,
+        'saved':saved },
 		RequestContext(request))
-"""

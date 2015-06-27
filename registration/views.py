@@ -16,6 +16,16 @@ from django.conf					import settings
 
 import hashlib, datetime, random
 
+def account_timeout(request):
+    return render(
+		request,
+		'registration/account_activation_timeout.html')
+
+def account_activated(request):
+    return render(
+		request,
+		'registration/account_activated.html')
+
 def register_confirm(request, activation_key):
     #check if user is already logged in and if he is redirect him to some other url, e.g. home
 	if request.user.is_authenticated():
@@ -89,7 +99,7 @@ def register_publicuser(request):
 			# Now sort out the UserProfile instance.
 			# Since we need to set the user attribute ourselves, we set commit=False.
 			# This delays saving the model until we're ready to avoid integrity problems.
-			profile = profile_form.save(commit=False)
+			profile = user_profile_form.save(commit=False)
 			profile.user = user
 
 			# Generate activation key

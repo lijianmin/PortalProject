@@ -50,24 +50,23 @@ urlpatterns = patterns('',
     url(r'^register/clinician/$', 'registration.views.register_clinician', name='clinician_registration'),
     url(r'^register/confirm/(?P<activation_key>\w+)/', 'registration.views.register_confirm'),
 
-    url(r'^account-activated/$','portal.views.account_activated', name='account-activated'),
-    url(r'^activation-timeout/$','portal.views.account_timeout', name='account-timeout'),
+    url(r'^account-activated/$','registration.views.account_activated', name='account-activated'),
+    url(r'^activation-timeout/$','registration.views.account_timeout', name='account-timeout'),
 
     # User Authentication
     url(r'^login-account/$', 'authentication.views.portal_login', name='portal_login'),
     url(r'^login/$', 'authentication.views.user_login', name='login'),
 	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
-
-    url(r'^account-inactive/$','portal.views.account_inactive', name='account-inactive'),
+    url(r'^account-inactive/$','authentication.views.account_inactive', name='account-inactive'),
 
     # dashboard
     url(r'^dashboard/$', 'dashboard.views.index', name='dashboard_index'),
-    #url(r'^dashboard/profile/$', 'dashboard.views.edit_profile', name='edit_profile'),
+    url(r'^dashboard/profile/$', 'dashboard.views.edit_profile', name='profile'),
     url(r'^dashboard/activities/$', 'dashboard.views.view_activities', name='view_activities'),
 
     # User Admin
-    url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
-    url(r'^useradmin/edit/health/$', 'useradmin.views.manage_healthprofile', name='manage_healthprofile'),
+    #url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
+    #url(r'^useradmin/edit/health/$', 'useradmin.views.manage_healthprofile', name='manage_healthprofile'),
 
     # Clinical Admin
     url(r'^clinicaladmin/$', 'clinicaladmin.views.main', name='clinicaladmin'),

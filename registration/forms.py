@@ -75,7 +75,7 @@ class ClinicalUserProfileForm(BaseModelForm):
                     'grad_year', 'degree_type',)
 
 
-class AdminProfileForm(BaseModelForm):
+class ProfileAvatarForm(BaseModelForm):
 	class Meta:
 		model = UserProfile
 		fields = ('avatar',)

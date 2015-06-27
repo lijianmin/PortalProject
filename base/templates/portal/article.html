@@ -27,14 +27,14 @@
                             <div class="meta">
                                 <ul class="meta-list list-inline">
                                   <li class="post-time">Posted on {{ post.timestamp }} ({{ post.timestamp | naturaltime }})</li>
-                                  <li class="post-author">by <a href="#">{{ post.author }}</a></li>
+                                  <li class="post-author">by <a href="#">{{ post.author.username }}</a></li>
                                 </ul><!--//meta-list-->
 
                               Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
                               <br/>
                               Tagged under:
                               {% for tag in tags %}
-                                <a href="{% url 'view_tagged' tag.id tag.slug %}">{{ tag | title }}</a>
+                                <a href="{% url 'view_tagged' tag.id tag.slug %}">{{ tag | title | upper }}</a>
                               {% endfor %}
 
                             </div><!--meta-->

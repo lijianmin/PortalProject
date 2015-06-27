@@ -16,37 +16,6 @@ from taggit.models					import Tag
 
 from QnA.forms 						import QuestionForm
 
-def account_timeout(request):
-
-	#categories
-	#health_threats = category.objects.filter(master_category = 1)
-	#categories = category.objects.filter(master_category = 2)
-
-	return render(
-		request,
-		'authentication/account_activation_timeout.html')
-
-
-def account_inactive(request):
-
-	#categories
-	#health_threats = category.objects.filter(master_category = 1)
-	#categories = category.objects.filter(master_category = 2)
-
-	return render(
-		request,
-		'authentication/account_disabled.html')
-
-def account_activated(request):
-
-	#categories
-	#health_threats = category.objects.filter(master_category = 1)
-	#categories = category.objects.filter(master_category = 2)
-
-	return render(
-		request,
-		'authentication/account_activated.html')
-
 def news(request):
 
 	article_list = article.objects.filter(published = True).order_by("timestamp").reverse()
