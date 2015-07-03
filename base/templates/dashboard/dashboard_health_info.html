@@ -1,0 +1,51 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block dashboardfunction %}
+<br/>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        {% load widget_tweaks %}
+        <br/>
+        {% if saved %}
+          <div class="alert alert-success" role="alert">Saved!</div>
+        {% endif %}
+        <h1>Your Health Information<span class="sub_icon glyphicon glyphicon-heart"></span></h1>
+        <br/>
+
+        <div class="form-container">
+
+          <form id="user_form" method="post" action="{% url 'healthinfo' %}" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <h4>Your Health Information</h4>
+            <hr/>
+            <div class="form-group">
+              <label>Height: </label>
+              {% render_field p_user_healthprofile_form.height type="text" class+="form-control" %}
+              <br/>
+              <label>Weight: </label>
+              {% render_field p_user_healthprofile_form.weight type="text" class+="form-control" %}
+              <br/>
+              <label>Known Allergies: </label>
+              {% render_field p_user_healthprofile_form.allergies type="text" class+="form-control"  rows=5%}
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="form-group form-inline">
+              <button type="submit" class="btn btn-block btn-cta-primary">Save</button>
+            </div>
+
+          </form>
+          <br/>
+          <br/>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

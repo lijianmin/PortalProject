@@ -61,8 +61,11 @@ urlpatterns = patterns('',
 
     # dashboard
     url(r'^dashboard/$', 'dashboard.views.index', name='dashboard_index'),
-    url(r'^dashboard/profile/$', 'dashboard.views.edit_profile', name='profile'),
+    url(r'^dashboard/account/$', 'dashboard.views.edit_profile', name='profile'),
+    url(r'^dashboard/healthinfo/$', 'dashboard.views.edit_healthinfo', name='healthinfo'),
     url(r'^dashboard/activities/$', 'dashboard.views.view_activities', name='view_activities'),
+    url(r'^dashboard/askadoc/save/$', 'dashboard.views.askadoc_save', name='save_doc_form'),
+    url(r'^dashboard/commforums/save/$', 'dashboard.views.commforums_save', name='save_comm_form'),
 
     # User Admin
     #url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),

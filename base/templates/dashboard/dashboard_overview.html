@@ -1,57 +1,124 @@
-{% load staticfiles %}
+{% extends 'dashboard/dashboard_base.html' %}
+{% load humanize %}
 {% load widget_tweaks %}
 
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-{% include 'static.html' %}
-
-<body class="blog-page">
-    <div class="wrapper">
-      {% include 'portal/header-forums.html' %}
-        <div class="container">
-			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
-			<div class="row col-md-12">
-				<h1>Overview</h1>
-			</div>
-			<div class="col-md-10 col-sm-12 container">
-        <h4 align="left">Username: </h4>{{ user.username }}<br/>
-        <h4 align="left">Email: </h4>{{ user.email }}<br/>
+{% block dashboardfunction %}
+<br/>
+<div id="page-content-wrapper">
+  <h1>In a glance<span class="sub_icon glyphicon glyphicon-globe"></span></h1>
+  <br/>
+  <br/>
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
       </div>
-			{% include 'dashboard/dashboard_userpanel.html' %}
-		</div>
-    </div><!--//wrapper-->
+      <div class="col-sm-5 col-sm-offset-1">
+        <div class="box">
+          <div class="icon">
+            <div class="image"><i class="fa fa-flag"></i></div>
+            <div class="info">
+              <h2 class="title">Latest News</h2>
+              <hr/>
+              {% for article in articles %}
+                <h4>
+                  {{ article.title }}
+                  <br/>
+                  <small>By {{ article.author.username }}<br/>on {{ article.timestamp | naturaltime }}</small>
+                </h4>
+                <p>
+                  {{ article.bodytext | safe | truncatechars_html:500 | striptags }}
+                </p>
+                <div class="more">
+                  <a href="{{ article.get_absolute_url }}" target=blank title="Title Link">
+                    Read More <i class="fa fa-angle-double-right"></i>
+                  </a>
+                </div>
+                <hr/>
+              {% endfor %}
 
-    {% include 'footer.html' %}
+            </div>
+          </div>
+          <div class="space"></div>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="box">
+          <div class="icon">
+            <div class="image"><i class="fa fa-flag"></i></div>
+            <div class="info">
+              <h2 class="title">Ask a doctor!</h2>
+              <hr/>
 
-    <!-- Javascript -->
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js"></script>
-
-    <!-- blog page specific js starts -->
-    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js"></script>
-    <script type="text/javascript" src="{% static 'assets/js/blog.js"></script>
-    <!-- blog page specific js ends -->
-
-    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
-    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.promt.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
-
-</body>
-</html>
+                <form action="{% url 'save_doc_form' %}" method="POST">
+                  {% csrf_token %}
+      						<div class="form-group">
+                    <label for="voting" class="control-label">Question</label>
+                    {% render_field doc_question_form.question class+="form-control" attr="required":textarea rows="4" %}
+                    <br/>
+                    <label for="voting" class="control-label">Specialty</label>
+                    {% render_field doc_question_form.specialty class+="form-control" attr="required"%}
+                    <br/>
+                    <button type="submit" class="btn btn-default">Submit!</button>
+      						</div>
+      					</form>
+                <hr/>
+            </div>
+          </div>
+          <div class="space"></div>
+        </div>
+        <div class="box">
+          <div class="icon">
+            <div class="image"><i class="fa fa-flag"></i></div>
+            <div class="info">
+              <h2 class="title">Share an experience!</h2>
+              <hr/>
+              <p>
+                <form action="{% url 'save_comm_form' %}" method="POST">
+                  {% csrf_token %}
+                    <div class="form-group">
+                      <label for="voting" class="control-label">Category</label>
+                      {% render_field comm_question_form.forum class+="form-control" attr="required" %}
+                    </div>
+        						<div class="form-group">
+        							<label for="voting" class="control-label">How does (did) It impact your daily activities?</label>
+                      {% render_field comm_question_form.impact_scale id="rating1" class+="rating" attr="required" %}
+        						</div>
+        						<div class="form-group">
+        							<label for="voting" class="control-label">Side effects experienced from medications?</label>
+                      {% render_field comm_question_form.side_effect_scale id="rating2" class+="rating" attr="required" %}
+        						</div>
+        					  <div class="form-group">
+        							<label class="control-label">Is it costly to manage?</label><br>
+                      {% render_field comm_question_form.manage_cost id="rating3" class+="rating" attr="required" %}
+        						</div>
+        						<div class="form-group">
+        							<label class="control-label">How long have you been diagnosed?</label><br>
+                      {% render_field comm_question_form.diagnosis_duration id="rating4" class+="rating" attr="required" %}
+        						</div>
+        						<div class="form-group">
+        							<label for="voting" class="control-label">What medications are you currently on?</label>
+                      {% render_field comm_question_form.medication class+="form-control" attr="required" rows="1" cols="50" %}
+        						</div>
+                    <div class="form-group">
+                      <label for="voting" class="control-label">Describe your experience</label>
+                      {% render_field comm_question_form.experience class+="form-control" attr="required" rows="5" cols="30" %}
+                    </div>
+        						<div class="form-group">
+        							<div class="col-sm-offset-5 col-sm-2">
+        								<button type="submit" class="btn btn-default">Submit Your Experience</button>
+                        <br/>
+                        <br/>
+        							</div>
+        						</div>
+        				</form>
+              </p>
+              <br/>
+            </div>
+          </div>
+          <div class="space"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

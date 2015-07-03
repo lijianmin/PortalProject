@@ -50,7 +50,7 @@ def user_login(request):
 
 				if usergroup[0].name == "User":
 					#print("User login happened")
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect(reverse("dashboard.views.index"))
 				else:
 					#print("Clinician User login happened")
 					return HttpResponseRedirect('/')

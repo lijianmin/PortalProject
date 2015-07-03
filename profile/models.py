@@ -193,6 +193,34 @@ class Clinic(models.Model):
 # User Model for Clinician - with some common features from the UserProfile class
 class ClinicianProfile(models.Model):
 
+    """
+    - Medical Career Grade (
+        'Medical Officer',
+        'Senior Medical Officer',
+        'Registrar',
+        'Associate Consultant',
+        'Consultant',
+        'Senior Consultant',
+        'Family Physician',
+        'Family Physician Associate Consultant',
+        'Family Physician Consultant',
+        'Family Physician Senior Consultant',
+        'Resident',
+        'Senior Resident',
+        'Principal Resident'
+      ) (choose one)
+    - Specialty (list of all the specialties) *ADDED*
+    - Place(s) of practice (will be linked to the clinic’s page) *ADDED*
+    - Years of practice
+    - About Me (allow docs to type a write up about themselves to market themselves)
+    - My Education (institutions)(from yyyy - yyyy) provide 3 rows and allow to add
+    - My Medical Training (hospital)(from yyyy - yyyy) provide 3 rows and allow to add
+    - My Medical Memberships (free text)
+    - My Publications (free text)
+    - My Affiliations* (free text)
+    - My Awards* (free text)
+    """
+
     userprofile = models.OneToOneField(UserProfile)
 
     clinic_of_practice = models.ForeignKey(Clinic, default=1)
