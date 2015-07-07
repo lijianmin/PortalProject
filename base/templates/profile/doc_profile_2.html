@@ -1,0 +1,81 @@
+{% extends 'common/common_base.html' %}
+{% load staticfiles %}
+{% block title %}
+<a href="{% url 'forums' %}">Wassuphealth!
+  <span class="sub">Doctor Profile</span>
+</a>
+{% endblock %}
+{% block wsh_content %}
+<div class="container">
+
+  <div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+  <div class="row">
+    <!-- Boxes de Acoes -->
+    <div class="col-xs-12 col-sm-12">
+      <div class="share">
+        <span class="fa fa-4x fa-share-alt-square"></span>
+      </div>
+      <div class="box">
+        <div class="icon">
+          <div class="image"><img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" /></div>
+          <div class="info">
+            <h3 class="title"><strong>Dr. {{ user_details.first_name }} {{ user_details.last_name }}</strong></h3>
+            <h3 class="subtitle">{{ clinician_profile.get_medical_careergrade_display }}, {{ clinician_profile.get_clinical_specialty_display }}</h3>
+            <h3 class="subinfo">{{ clinician_profile.clinic_of_practice.name }} | 10 Years of Experience</h3>
+            <hr/>
+            <p>
+              {{ clinician_profile.writeup_text | safe }}
+            </p>
+            <hr/>
+            <br/>
+            <div class="information row">
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Education</dt>
+                  <dd>{{ clinician_profile.degree_type }}, {{ clinician_profile.grad_school }}</dd>
+                </dl>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Medical Membership</dt>
+                  <dd>{{ clinician_profile.medical_memberships | safe }}</dd>
+                </dl>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Medical Training</dt>
+                  <dd>Some Medical School too!</dd>
+                </dl>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Publications</dt>
+                  <dd>{{ clinician_profile.publications }}</dd>
+                </dl>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Affiliations</dt>
+                  <dd>{{ clinician_profile.affiliations }}</dd>
+                </dl>
+              </div>
+              <div class="col-md-4 col-sm-6">
+                <dl>
+                  <dt>Awards</dt>
+                  <dd>{{ clinician_profile.awards }}</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="more">
+              <a href="#" title="Title Link">
+                Thank this Doctor! <i class="fa fa-angle-double-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="space"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

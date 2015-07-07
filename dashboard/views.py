@@ -15,7 +15,7 @@ from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from portal.models 					import article
 from django.contrib.auth.models		import User
-from dashboard.forms 				import UserProfileForm, UserForm, PublicUserProfileForm, DocQuestionForm, CommQuestionForm
+from dashboard.forms 				import UserProfileForm, UserForm, PublicUserProfileForm, ClinicianUserProfileForm, DocQuestionForm, CommQuestionForm
 
 # Create your views here.
 def add_csrf(request, ** kwargs):
@@ -35,6 +35,7 @@ def index(request):
             add_csrf(request, doc_question_form=doc_question_form, comm_question_form=comm_question_form, articles=article_list),
             RequestContext(request))
 
+@login_required
 def askadoc_save(request):
 
     question_form = DocQuestionForm(data=request.POST)
@@ -49,6 +50,7 @@ def askadoc_save(request):
 
     return HttpResponseRedirect(reverse("QnA.views.show_specialty_question", args=[q.pk]))
 
+@login_required
 def commforums_save(request):
 
     question_form = CommQuestionForm(data=request.POST)
@@ -101,6 +103,34 @@ def edit_healthinfo(request):
         'saved':saved },
 		RequestContext(request))
 
+@login_required
+def edit_clinicianinfo(request):
+
+    p_clinician = request.user
+    saved = False
+
+    if request.method == 'POST':
+
+        p_clinicianprofile_form = ClinicianUserProfileForm(request.POST, instance=p_clinician.userprofile.clinicianprofile)
+
+        if  p_clinicianprofile_form.is_valid():
+
+            p_clinicianprofile_form.save()
+            saved = True
+
+            return HttpResponseRedirect(reverse("clinicianinfo"))
+
+        else:
+            print(p_clinicianprofile_form.errors)
+
+    else:
+        p_clinicianprofile_form = ClinicianUserProfileForm(instance=p_clinician.userprofile.clinicianprofile)
+
+    return render_to_response(
+		'dashboard/dashboard_clinician_info.html', {
+        'p_clinicianprofile_form':p_clinicianprofile_form,
+        'saved':saved },
+		RequestContext(request))
 
 @login_required
 def edit_profile(request):

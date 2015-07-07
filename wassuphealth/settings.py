@@ -51,8 +51,6 @@ INSTALLED_APPS = (
     'portal',
 	'registration',
 	'authentication',
-	'useradmin',
-	'clinicaladmin',
     'forums',
 	'profile',
 	'QnA',

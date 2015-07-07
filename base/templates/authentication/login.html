@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
@@ -65,15 +66,15 @@
     {% include 'footer.html' %}
 
     <!-- Javascript -->
-    <script type="text/javascript" src="assets/plugins/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/bootstrap-hover-dropdown.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
-    <script type="text/javascript" src="assets/plugins/jquery-placeholder/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="assets/plugins/FitVids/jquery.fitvids.js"></script>
-    <script type="text/javascript" src="assets/plugins/flexslider/jquery.flexslider-min.js"></script>
-    <script type="text/javascript" src="assets/js/main.js"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
 
 
 </body>

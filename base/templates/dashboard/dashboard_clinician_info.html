@@ -1,0 +1,116 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block dashboardfunction %}
+<br/>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        {% load widget_tweaks %}
+        <br/>
+        {% if saved %}
+          <div class="alert alert-success" role="alert">Saved!</div>
+        {% endif %}
+        <h1>Your Professional Information<span class="sub_icon glyphicon glyphicon-heart"></span></h1>
+        <p><br/>It is <b>important</b> to keep your profile current as this will be viewed by the public users</p>
+        <br/>
+
+        <div class="form-container">
+
+          <form id="user_form" method="post" action="{% url 'clinicianinfo' %}" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <h4><span class="glyphicon glyphicon-time"></span> Basic Practice Information & Medical Interests</h4>
+            <hr/>
+            <div class="form-group form-inline">
+              <label>Medical Practice Registration No </label>
+              {% render_field p_clinicianprofile_form.medical_reg_no type="text" class+="form-control" editable=false %}
+              &nbsp
+              <label>Date Registered </label>
+              {% render_field p_clinicianprofile_form.registered_date type="text" class+="form-control" %}
+            </div>
+
+            <div class="form-group form-inline">
+              <label>Specialty </label>
+              {% render_field p_clinicianprofile_form.clinical_specialty type="text" class+="form-control" %}
+              &nbsp
+              <label>Career Grade </label>
+              {% render_field p_clinicianprofile_form.medical_careergrade type="text" class+="form-control" %}
+            </div>
+
+            <div class="form-group form-inline">
+              <label>Years in Practice </label>
+              {% render_field p_clinicianprofile_form.years_of_practice type="text" class+="form-control" %}
+            </div>
+
+            <div class="form-group">
+              <label>Medical Interests </label>
+              {% render_field p_clinicianprofile_form.medical_interests type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <br/>
+            <br/>
+
+            <h4><span class="glyphicon glyphicon-book"></span> Your Medical Education</h4>
+            <hr/>
+            <div class="form-group form-inline">
+
+              <label>Graduated From </label>
+              {% render_field p_clinicianprofile_form.grad_school class+="form-control" %}
+              &nbsp
+              <label>Year Graduated </label>
+              {% render_field p_clinicianprofile_form.grad_year type="text" class+="form-control" %}
+            </div>
+
+            <div class="form-group form-inline">
+              <label>Degree Type </label>
+              {% render_field p_clinicianprofile_form.degree_type class+="form-control" %}
+            </div>
+
+            <br/>
+            <br/>
+
+            <h4><span class="glyphicon glyphicon-user"></span> More About Yourself </h4>
+            <hr/>
+            <div class="form-group">
+              <label>About Yourself </label>
+              {% render_field p_clinicianprofile_form.writeup_text type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <div class="form-group">
+              <label>Medical Memberships </label>
+              {% render_field p_clinicianprofile_form.medical_memberships type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <div class="form-group">
+              <label>Publications </label>
+              {% render_field p_clinicianprofile_form.publications type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <div class="form-group">
+              <label>Affiliations </label>
+              {% render_field p_clinicianprofile_form.affiliations type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <div class="form-group">
+              <label>Awards </label>
+              {% render_field p_clinicianprofile_form.awards type="text" class+="form-control" rows=5 %}
+            </div>
+
+            <br/>
+            <br/>
+
+            <div class="form-group form-inline">
+              <button type="submit" class="btn btn-block btn-cta-primary">Save</button>
+            </div>
+
+          </form>
+          <br/>
+          <br/>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

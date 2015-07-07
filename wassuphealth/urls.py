@@ -49,7 +49,6 @@ urlpatterns = patterns('',
     url(r'^register/public/$', 'registration.views.register_publicuser', name='publicuser_registration'),
     url(r'^register/clinician/$', 'registration.views.register_clinician', name='clinician_registration'),
     url(r'^register/confirm/(?P<activation_key>\w+)/', 'registration.views.register_confirm'),
-
     url(r'^account-activated/$','registration.views.account_activated', name='account-activated'),
     url(r'^activation-timeout/$','registration.views.account_timeout', name='account-timeout'),
 
@@ -66,17 +65,10 @@ urlpatterns = patterns('',
     url(r'^dashboard/activities/$', 'dashboard.views.view_activities', name='view_activities'),
     url(r'^dashboard/askadoc/save/$', 'dashboard.views.askadoc_save', name='save_doc_form'),
     url(r'^dashboard/commforums/save/$', 'dashboard.views.commforums_save', name='save_comm_form'),
+    url(r'^dashboard/professionalinfo/$', 'dashboard.views.edit_clinicianinfo', name='clinicianinfo'),
 
-    # User Admin
-    #url(r'^useradmin/(\d+)/$', 'useradmin.views.user_admin', name='useradmin'),
-    #url(r'^useradmin/edit/health/$', 'useradmin.views.manage_healthprofile', name='manage_healthprofile'),
-
-    # Clinical Admin
-    url(r'^clinicaladmin/$', 'clinicaladmin.views.main', name='clinicaladmin'),
-    url(r'^clinicaladmin/edit/$', 'clinicaladmin.views.manage_clinicalprofile', name='manage_profile'),
-
-    # Doctors Directory
-    url(r'^lookforadoc/$', 'docdirectory.views.main', name='docdir'),
+    # Profile
+    url(r'^doctors/view/(\d+)/$', 'profile.views.view_doctor_profile', name='view_doctor'),
 
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),

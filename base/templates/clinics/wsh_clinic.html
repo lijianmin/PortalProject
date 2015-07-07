@@ -1,0 +1,14 @@
+{% extends 'common/common_base.html' %}
+{% block title %}
+  <a href="/">Wassuphealth! <span class="sub">Clinics</span></a>
+{% endblock %}
+{% block wsh_content %}
+
+  {% load staticfiles %}
+  {% load widget_tweaks %}
+
+    {% block content %}
+      {{ flatpage.content }}
+    {% endblock %}
+
+{% endblock %}

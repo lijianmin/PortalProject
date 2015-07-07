@@ -1,11 +1,12 @@
 {% load staticfiles %}
+{% load portal_tags %}
 
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>WassupHealth Forums</title>
+    <title>WassupHealth Dashboard</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +71,15 @@
           <li><a href="{% url 'dashboard_index' %}">In a Glance<span class="sub_icon glyphicon glyphicon-globe"></span></a></li>
 					<li><a href="{% url 'view_activities' %}">Your Activities<span class="sub_icon glyphicon glyphicon-tasks"></span></a></li>
 					<li><a href="{% url 'profile' %}">Your Account & Profile<span class="sub_icon glyphicon glyphicon-user"></span></a></li>
+
+          {% ifusergroup User %}
           <li><a href="{% url 'healthinfo' %}">Your Health Information<span class="sub_icon glyphicon glyphicon-heart"></span></a></li>
+          {% endifusergroup %}
+
+          {% ifusergroup Clinician %}
+          <li><a href="{% url 'clinicianinfo' %}">Your Professional Profile<span class="sub_icon glyphicon glyphicon-heart"></span></a></li>
+          {% endifusergroup %}
+
           <li><a>Settings<span class="sub_icon glyphicon glyphicon-cog"></span></a></li>
           <li><a>Feedback<span class="sub_icon glyphicon glyphicon-bullhorn"></span></a></li>
           <li><a href="{% url 'logout' %}">Logout<span class="sub_icon glyphicon glyphicon-off"></span></a></li>

@@ -1,4 +1,4 @@
-from profile.models 			import User, UserProfile, PublicUserProfile
+from profile.models 			import User, UserProfile, ClinicianProfile, PublicUserProfile
 from QnA.models 				import Question
 from forums.models              import Thread
 from django 					import forms
@@ -36,6 +36,16 @@ class PublicUserProfileForm(BaseModelForm):
     class Meta:
         model = PublicUserProfile
         fields = (  'allergies', 'height', 'weight', )
+
+class ClinicianUserProfileForm(BaseModelForm):
+
+    class Meta:
+        model = ClinicianProfile
+        fields = ('medical_reg_no','registered_date','clinical_specialty',
+                    'medical_careergrade','grad_school','grad_year',
+                    'degree_type','years_of_practice','medical_interests',
+                    'writeup_text','medical_memberships','publications',
+                    'affiliations','awards',)
 
 class CommQuestionForm(BaseModelForm):
     class Meta:

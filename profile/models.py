@@ -189,36 +189,12 @@ class Clinic(models.Model):
     # Services in semi-colon delimited fashion
     services = models.TextField('Provided Services')
 
-
 # User Model for Clinician - with some common features from the UserProfile class
 class ClinicianProfile(models.Model):
 
     """
-    - Medical Career Grade (
-        'Medical Officer',
-        'Senior Medical Officer',
-        'Registrar',
-        'Associate Consultant',
-        'Consultant',
-        'Senior Consultant',
-        'Family Physician',
-        'Family Physician Associate Consultant',
-        'Family Physician Consultant',
-        'Family Physician Senior Consultant',
-        'Resident',
-        'Senior Resident',
-        'Principal Resident'
-      ) (choose one)
-    - Specialty (list of all the specialties) *ADDED*
-    - Place(s) of practice (will be linked to the clinic’s page) *ADDED*
-    - Years of practice
-    - About Me (allow docs to type a write up about themselves to market themselves)
-    - My Education (institutions)(from yyyy - yyyy) provide 3 rows and allow to add
-    - My Medical Training (hospital)(from yyyy - yyyy) provide 3 rows and allow to add
-    - My Medical Memberships (free text)
-    - My Publications (free text)
-    - My Affiliations* (free text)
-    - My Awards* (free text)
+    - My Education (institutions)(from yyyy - yyyy) provide 3 rows and allow to add *Do It Later*
+    - My Medical Training (hospital)(from yyyy - yyyy) provide 3 rows and allow to add *Do It Later*
     """
 
     userprofile = models.OneToOneField(UserProfile)
@@ -258,10 +234,21 @@ class ClinicianProfile(models.Model):
         (30, 'Urology')
     )
 
-    # Available fields: medical_reg_no, registered_date, practice_address,
-    # practice_contact_no, practice_country, practice_website,
-    # practice_email_add, clinical_specialty, medical_interests, grad_school,
-    # grad_year, degree_type, writeup_text
+    medical_careergrade_choices = (
+        (1, 'Medical Officer'),
+        (2, 'Senior Medical Officer'),
+        (3, 'Registrar'),
+        (4, 'Associate Consultant'),
+        (5, 'Consultant'),
+        (6, 'Senior Consultant'),
+        (7, 'Family Physician'),
+        (8, 'Family Physician Associate Consultant'),
+        (9, 'Family Physician Consultant'),
+        (10, 'Family Physician Senior Consultant'),
+        (11, 'Resident'),
+        (12, 'Senior Resident'),
+        (13, 'Principal Resident')
+    )
 
     # Professional License
     # for SG: SMC MCR Number
@@ -271,11 +258,9 @@ class ClinicianProfile(models.Model):
 
     registered_date = models.DateTimeField(null=True)
 
-    # to be semi colon separated
     clinical_specialty = models.IntegerField(choices = specialty_choices, default=1)
 
-    # semi-colon delimited
-    medical_interests = models.TextField()
+    medical_careergrade = models.IntegerField(choices = medical_careergrade_choices, default=1)
 
     # Graduate School
     grad_school = models.CharField(
@@ -290,9 +275,16 @@ class ClinicianProfile(models.Model):
         max_length = 7
     )
 
-    # text profile of clinician
-    writeup_text = models.TextField()
+    years_of_practice = models.IntegerField(default=0)
 
+    # Free Text Fields
+    # text profile of clinician - about me
+    medical_interests = models.TextField(default="")
+    writeup_text = models.TextField(default="")
+    medical_memberships = models.TextField(default="")
+    publications = models.TextField(default="")
+    affiliations = models.TextField(default="")
+    awards = models.TextField(default="")
 
 # User Model for User - with some common features from the UserProfile class
 class PublicUserProfile(models.Model):

@@ -1,16 +1,15 @@
-{% load staticfiles %}
-{% load widget_tweaks %}
+{% extends 'common/common_base.html' %}
+{% block title %}
+<a href="{% url 'forums' %}">Wassuphealth!
+  <span class="sub">Forums</span>
+</a>
+{% endblock %}
+{% block wsh_content %}
 
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-{% include 'static.html' %}
+  {% load staticfiles %}
+  {% load widget_tweaks %}
 
-<body class="blog-page">
-    <div class="wrapper">
-      {% include 'portal/header-forums.html' %}
-        <div class="container">
+    <div class="container">
 			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
 			<div class="row col-md-12">
 				<h1>Wassup Peeps! <small>on {{ title }}</small></h1>
@@ -128,89 +127,5 @@
 			</div>
 
 		</div>
-    </div><!--//wrapper-->
 
-    <br/>
-    <br/>
-    <br/>
-
-    {% include 'footer.html' %}
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
-
-    <!-- blog page specific js starts -->
-    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
-    <!-- blog page specific js ends -->
-
-    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
-    <script src="{% static 'assets/js/star-rating.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.core.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.ajax.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.autocomplete.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.clear.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.filter.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.prompt.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.suggestions.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/textext.plugin.tags.js' %}" type="text/javascript"></script>
-	<script src="{% static 'assets/js/jquery.barrating.min.js' %}" type="text/javascript"></script>
-
-	<script type="text/javascript">
-		$('#textarea').textext({
-			plugins : 'autocomplete suggestions tags filter',
-
-			suggestions: [
-				'JavaScript',
-				'Java',
-				'PHP',
-				'Ruby',
-				'Python',
-				'Closure',
-				'Delphi',
-				'Perl',
-				'OCAML',
-				'Erlang',
-				'Scala',
-				'Haskel',
-				'Groovy',
-				'Fortran',
-				'Basic',
-				'Cobol',
-				'Go'
-			]
-		});
-	</script>
-	<script type="text/javascript">
-        $('#rating1').barrating('show', {
-            wrapperClass: 'br-wrapper-c',
-            showValues: true,
-            showSelectedRating: false
-        });
-		$('#rating2').barrating('show', {
-            wrapperClass: 'br-wrapper-c',
-            showValues: true,
-            showSelectedRating: false
-        });
-		$('#rating3').barrating('show', {
-            wrapperClass: 'br-wrapper-e',
-            showValues: true,
-            showSelectedRating: false
-        });
-		$('#rating4').barrating('show', {
-            wrapperClass: 'br-wrapper-e',
-            showValues: true,
-            showSelectedRating: false
-        });
-
-	</script>
-</body>
-</html>
+{% endblock %}

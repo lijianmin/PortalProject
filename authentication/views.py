@@ -53,7 +53,7 @@ def user_login(request):
 					return HttpResponseRedirect(reverse("dashboard.views.index"))
 				else:
 					#print("Clinician User login happened")
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect(reverse("dashboard.views.index"))
 			else:
 				# An inactive account was used - no logging in!
 				return HttpResponseRedirect('/account-inactive/')
