@@ -69,7 +69,7 @@
                 <br/>
                 Answered by
                 {% if ans.answer_provided_by.userprofile.clinicianprofile %}
-                  <span align="{% cycle 'right' 'left' %}" style="color:red;"> Clinician <b>Dr. {{ ans.answer_provided_by.first_name }} {{ ans.answer_provided_by.last_name }}</b> </span>
+                  <span align="{% cycle 'right' 'left' %}" style="color:red;"> Clinician <a href="{% url 'view_doctor' ans.answer_provided_by.userprofile.clinicianprofile.id %}"><b><u>Dr. {{ ans.answer_provided_by.first_name }} {{ ans.answer_provided_by.last_name }}</u></b></a> </span>
                 {% else %}
                   <span align="{% cycle 'right' 'left' %}"><b>{{ ans.answer_provided_by.username }}</b> </span>
                 {% endif %}

@@ -18,7 +18,7 @@
 			</div><!--//navbar-header-->
 			<div id="navbar-collapse" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active nav-item"><a href="/">Home</a></li>
+					<li class="nav-item"><a href="/">Home</a></li>
 					<li class="nav-item"><a href="/about-wassuphealth/">About Us</a></li>
 					<li class="nav-item"><a href="/forums/">Forums</a></li>
 					<li class="nav-item dropdown">
@@ -31,16 +31,19 @@
 					{% if user.is_authenticated %}
 
 						{% ifusergroup User %}
-						<li class="nav-item">Hello, {{ user.username }}</a></li>
-						{% else %}
-						<li class="nav-item">Hello clinician, {{ user.username }}</a></li>
+						<li class="nav-item"><a href="{% url 'dashboard_index' %}">Hello, {{ user.username }}!</a></li>
+						{% endifusergroup %}
+
+						{% ifusergroup Clinician %}
+						<li class="nav-item"><a href="{% url 'dashboard_index' %}">Hello clinician, {{ user.username }}!</a></li>
 						{% endifusergroup %}
 
 						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'logout' %}">Sign Out</a></li>
 
 					{% else %}
 						<li class="nav-item"><a href="{% url 'portal_login' %}">Log in</a></li>
-						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'publicuser_registration' %}">Sign Up Free</a></li>
+						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'publicuser_registration' %}"><span class="glyphicon glyphicon-user"></span> Sign Up Free</a></li>
+						<li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="{% url 'clinician_registration' %}"><span class="glyphicon glyphicon-heart-empty"></span> Clinician?</a></li>
 					{% endif %}
 
 				</ul><!--//nav-->

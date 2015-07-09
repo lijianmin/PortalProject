@@ -24,7 +24,7 @@
 
                     <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
                         <div class="form-box-inner">
-                          <h2 class="title text-center">Sign up now</h2>
+                          <h2 class="title text-center">Clinicians, sign up now and contribute!</h2>
                           <p class="intro text-center">It only takes less than 5 minutes!</p>
                         <div class="row">
 
@@ -120,8 +120,12 @@
 
 									</div><!--//form-container-->
 
-									<button type="submit" class="btn btn-block btn-cta-primary">Sign up</button>
-
+                  <hr/>
+                  <p class="note">By signing up, you agree to our terms of services and privacy policy.</p>
+                  <p class="note">Please note that we will conduct a background verification for every registration. Your account will be activated once all details have been verified.</p>
+                  <hr/>
+                  <button type="submit" class="btn btn-block btn-cta-primary">Sign up</button>
+                  <p class="lead">Already have an account? <a class="login-link" id="login-link" href="{% url 'portal_login' %}">Log in</a></p>
 								</form>
 
                 {% endif %}

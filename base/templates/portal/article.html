@@ -24,20 +24,6 @@
                     <header class="blog-entry-heading">
                         <div class="container text-center">
                             <h2 class="title">{{ post.title }}</h2>
-                            <div class="meta">
-                                <ul class="meta-list list-inline">
-                                  <li class="post-time">Posted on {{ post.timestamp }} ({{ post.timestamp | naturaltime }})</li>
-                                  <li class="post-author">by <a href="#">{{ post.author.username }}</a></li>
-                                </ul><!--//meta-list-->
-
-                              Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
-                              <br/>
-                              Tagged under:
-                              {% for tag in tags %}
-                                <a href="{% url 'view_tagged' tag.id tag.slug %}">{{ tag | title | upper }}</a>
-                              {% endfor %}
-
-                            </div><!--meta-->
                         </div><!--//container-->
                         <nav class="post-nav post-nav-top">
     						<span class="nav-previous"><a href="#" rel="prev"><i class="fa fa-long-arrow-left"></i>Previous post</a></span>
@@ -48,8 +34,22 @@
                     <div class="container">
                         <div class="row">
                             <div class="blog-entry-content col-md-8 col-sm-10 col-xs-12 col-md-offset-2 col-sm-offset-1 col-xs-offset-0">
+                              <div class="meta" style="font-size:16px; text-align:center;">
+                                  <hr/>
+                                  <ul class="meta-list list-inline">
+                                    <li class="post-time">Posted on <b>{{ post.timestamp }} ({{ post.timestamp | naturaltime }})</b></li>
+                                    <li class="post-author">by {{ post.author.username }}</li>
+                                  </ul><!--//meta-list-->
+                                Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a>
+                                <br/>
+                                Tagged under:
+                                {% for tag in tags %}
+                                  <a href="{% url 'view_tagged' tag.id tag.slug %}"><span class="label label-info">{{ tag | title | upper }}</span></a>
+                                {% endfor %}
+                                <hr/>
+                              </div><!--meta-->
 
-                                <article>
+                                <article align=justify>
                                   {% block content %}
                           			   {{ post.bodytext | safe }}
                           			   {% endblock %}

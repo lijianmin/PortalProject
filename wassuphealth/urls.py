@@ -46,6 +46,7 @@ urlpatterns = patterns('',
     url(r'^conditions/view/(?P<id>\d+)/(?P<slug>[^\.]+)', 'portal.views.view_condition', name='view_condition'),
 
  	# Registration
+    url(r'^register/$','registration.views.index', name='registration'),
     url(r'^register/public/$', 'registration.views.register_publicuser', name='publicuser_registration'),
     url(r'^register/clinician/$', 'registration.views.register_clinician', name='clinician_registration'),
     url(r'^register/confirm/(?P<activation_key>\w+)/', 'registration.views.register_confirm'),

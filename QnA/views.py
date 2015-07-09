@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
 from portal.models 					import category
-from profile.models					import User, UserProfile
+from profile.models					import User, UserProfile, ClinicianProfile
 from QnA.models						import Question, Answer, Specialty
 
 from QnA.forms 						import QuestionForm, AnswerForm
@@ -34,10 +34,12 @@ def show_specialty(request, specialty_id):
     qns = Question.objects.filter(status='ANSWERED').filter(specialty_id=specialty_id).order_by("upvote").reverse()
     question_form = QuestionForm()
 
+    related_specialists = ClinicianProfile.objects.filter(medical_interests__contains = title)
+
 	# Render the template depending on the context.
     return render_to_response(
 			'qna/doc_specialty_questions.html',
-			add_csrf(request, question_form=question_form, qns=qns, title=title, specialty_id=specialty_id),
+			add_csrf(request, question_form=question_form, qns=qns, title=title, specialty_id=specialty_id, related_specialists=related_specialists),
 			RequestContext(request))
 
 

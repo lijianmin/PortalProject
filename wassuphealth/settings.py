@@ -21,9 +21,9 @@ SECRET_KEY = 'rc&)i4*i1(2^0=7!ujry9)eb3r9v&2w&1jbo1)et&4ja+79dc5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1',]
 
 ROBOTS_USE_SITEMAP = False
 
@@ -53,6 +53,7 @@ INSTALLED_APPS = (
 	'authentication',
     'forums',
 	'profile',
+	'feedback',
 	'QnA',
 	'djconfig',
 	'widget_tweaks',
@@ -137,7 +138,7 @@ STATICFILES_DIRS = (
 
 
 TEMPLATE_DIRS = (
-	"/templates/",
+	"base/templates/",
 )
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP

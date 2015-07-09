@@ -16,6 +16,9 @@ from django.conf					import settings
 
 import hashlib, datetime, random
 
+def index(request):
+    return render(request,'registration/signup.html')
+
 def account_timeout(request):
     return render(
 		request,
