@@ -1,0 +1,45 @@
+{% extends 'common/portal_base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block wsh_content %}
+
+    <div class="headline-bg about-headline-bg">
+    </div><!--//headline-bg-->
+
+    <!-- ******Video Section****** -->
+    <section class="story-section section">
+        <h2 class="title container text-center">Your Feedback (or just say Wassup?)</h2>
+        <div class="story-container container text-center">
+          <div class="story-container-inner" >
+            <div class="form-group">
+
+              {% if submitted %}
+                <p>Thanks!</p>
+              {% else %}
+              <p align=justify>Your feedback is important to us for improving the services to you. We appreciate them whether or not they are positive and negative. Thank you once again for using Wassuphealth for your health needs. <br/><br/>No feedback? Just say Wassup and we will say Hi!</p>
+              <hr/>
+              <form action="{% url 'save_feedback' %}" method="POST">
+                {% csrf_token %}
+                <label for="voting" class="control-label">Your Name*:</label>
+                {% render_field feedback_form.submitter_name class+="form-control" attr="required" %}
+                <br/>
+                <label for="voting" class="control-label">Your Email*:</label>
+                {% render_field feedback_form.submitter_email class+="form-control" attr="required" %}
+                <br/>
+                <label for="voting" class="control-label">Your Feedback*:</label>
+                {% render_field feedback_form.feedback_text class+="form-control" attr="required":textarea rows="4" %}
+                <br/>
+                <button type="submit" class="btn btn-default">Submit Feedback</button>
+              </form>
+              {% endif %}
+
+              <hr/>
+
+            </div><!--form-group-->
+          </div><!--story-container-inner-->
+        </div><!--story-container-->
+      </div><!--//container-->
+    </section><!--//story-video-->
+
+  {% endblock %}

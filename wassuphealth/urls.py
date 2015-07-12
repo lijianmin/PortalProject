@@ -63,13 +63,22 @@ urlpatterns = patterns('',
     url(r'^dashboard/$', 'dashboard.views.index', name='dashboard_index'),
     url(r'^dashboard/account/$', 'dashboard.views.edit_profile', name='profile'),
     url(r'^dashboard/healthinfo/$', 'dashboard.views.edit_healthinfo', name='healthinfo'),
-    url(r'^dashboard/activities/$', 'dashboard.views.view_activities', name='view_activities'),
+    url(r'^dashboard/activities/$', 'dashboard.views.view_user_activities', name='view_activities'),
+    url(r'^dashboard/questions/all/$', 'dashboard.views.view_all_activities', name='view_all_activities'),
     url(r'^dashboard/askadoc/save/$', 'dashboard.views.askadoc_save', name='save_doc_form'),
     url(r'^dashboard/commforums/save/$', 'dashboard.views.commforums_save', name='save_comm_form'),
     url(r'^dashboard/professionalinfo/$', 'dashboard.views.edit_clinicianinfo', name='clinicianinfo'),
+    url(r'^dashboard/profile/upload/$', 'dashboard.views.profile_avatar_upload', name="profile_avatar"),
+    url(r'^dashboard/feedback/$', 'dashboard.views.feedback', name="dfeedback"),
+    url(r'^dashboard/feedback/submit/$', 'dashboard.views.submit_feedback', name="d_save_feedback"),
+
 
     # Profile
     url(r'^doctors/view/(\d+)/$', 'profile.views.view_doctor_profile', name='view_doctor'),
+
+    # Feedback
+    url(r'^feedback/$','feedback.views.index', name='feedback'),
+    url(r'^feedback/submit/$','feedback.views.submit_feedback',name='save_feedback'),
 
     # Static Pages
     url(r'', include('django.contrib.flatpages.urls')),

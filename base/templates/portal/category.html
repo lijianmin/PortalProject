@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-{% load humanize %}
-{% include 'static.html' %}
-{% load staticfiles %}
+{% extends 'common/common_base.html' %}
+{% block title %}
+<a href="{% url 'news' %}">Wassuphealth!
+  <span class="sub">{{ category }}</span>
+</a>
+{% endblock %}
 
+{% load staticfiles %}
+{% load humanize %}
+
+{% block wsh_content %}
 <body class="blog-page">
     <div class="wrapper">
-
-      {% include 'portal/header-conditions.html' %}
 
         <section class="featured-blog-posts section">
             <div class="flexslider blog-slider">
@@ -100,26 +101,4 @@
         </div><!--//blog-->
     </div><!--//wrapper-->
 
-	<?php include 'footer.html'; ?>
-
-    <!-- Javascript -->
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-1.11.2.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-migrate-1.2.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/bootstrap-hover-dropdown.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/back-to-top.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/jquery-placeholder/jquery.placeholder.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/FitVids/jquery.fitvids.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/flexslider/jquery.flexslider-min.js' %}"></script>
-
-    <!-- blog page specific js starts -->
-    <script type="text/javascript" src="{% static 'assets/plugins/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/plugins/masonry.pkgd.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'assets/js/blog.js' %}"></script>
-    <!-- blog page specific js ends -->
-
-    <script type="text/javascript" src="{% static 'assets/js/main.js' %}"></script>
-
-
-</body>
-</html>
+{% endblock %}

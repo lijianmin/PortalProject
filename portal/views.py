@@ -43,9 +43,7 @@ def news(request):
 
 def view_all_conditions(request):
 
-	# might need AJAX
-	# view all conditions
-	conditions = condition.objects.select_related('category').filter(category__mastercategory = 4)
+	conditions = condition.objects.select_related('category').filter(category__master_category = 4)
 
 	return render_to_response('portal/conditions.html', {
 		'conditions': conditions,

@@ -1,0 +1,41 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% load widget_tweaks %}
+{% block dashboardfunction %}
+<br/>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        {% load widget_tweaks %}
+
+        <br/>
+        {% if saved %}
+          <div class="alert alert-success" role="alert">Saved!</div>
+        {% endif %}
+        <h1>Upload/Change Avatar<span class="sub_icon glyphicon glyphicon-user"></span></h1>
+        <br/>
+
+        <div class="form-container">
+
+          <form enctype="multipart/form-data" action="{% url 'profile_avatar' %}" method="POST">
+              {% csrf_token %}
+              {% if img %}
+                <p><img border="0" alt="Profile Pic" src="{{ media_url }}{{ img }}" /></p>
+              {% endif %}
+              <hr/>
+              <div class="form-group">
+                <label>New Profile Pic: </label>
+                {% render_field pf.avatar class+="form-control" %}
+              </div>
+
+              <div class="form-group form-inline">
+                <button type="submit" class="btn btn-block btn-cta-primary">Save</button>
+              </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

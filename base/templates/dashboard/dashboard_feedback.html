@@ -1,0 +1,38 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block dashboardfunction %}
+<br/>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        {% load widget_tweaks %}
+        <br/>
+        <h1>Feedback<span class="sub_icon glyphicon glyphicon-bullhorn"></span></h1>
+        <br/>
+
+        <div class="form-container">
+          <div class="form-group">
+
+            {% if submitted %}
+              <p>Thanks!</p>
+            {% else %}
+            <p align=justify>Your feedback is important to us for improving the services to you. We appreciate them whether or not they are positive and negative. Thank you once again for using Wassuphealth for your health needs. <br/><br/>No feedback? Just say Wassup and we will say Hi!</p>
+            <hr/>
+            <form action="{% url 'd_save_feedback' %}" method="POST">
+              {% csrf_token %}
+              <label for="voting" class="control-label">Your Feedback*:</label>
+              {% render_field feedback_form.feedback_text class+="form-control" attr="required":textarea rows="5" %}
+              <br/>
+              <button type="submit" class="btn btn-default">Submit Feedback</button>
+            </form>
+            {% endif %}
+
+            <hr/>
+
+          </div><!--form-group-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

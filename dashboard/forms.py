@@ -1,6 +1,7 @@
 from profile.models 			import User, UserProfile, ClinicianProfile, PublicUserProfile
 from QnA.models 				import Question
 from forums.models              import Thread
+from feedback.models            import Feedback
 from django 					import forms
 
 class BaseModelForm(forms.ModelForm):
@@ -16,6 +17,17 @@ class BaseModelForm(forms.ModelForm):
                     'placeholder': field.help_text
                 })
 
+class FeedbackForm(BaseModelForm):
+    class Meta:
+        model = Feedback
+        fields = ('feedback_text',)
+        help_texts = {
+            'feedback_text':'Feedback in proper',
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(FeedbackForm, self).__init__(*args, **kwargs)
 
 class UserForm(BaseModelForm):
 
@@ -23,13 +35,16 @@ class UserForm(BaseModelForm):
         model = User
         fields = ('username','first_name','last_name','email')
 
+class AvatarForm(BaseModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('avatar',)
 
 class UserProfileForm(BaseModelForm):
 
     class Meta:
         model = UserProfile
         fields = ('country','gender','zip_code','birthday','home_address','mobile_no')
-
 
 class PublicUserProfileForm(BaseModelForm):
 

@@ -15,7 +15,10 @@ from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from portal.models 					import article
 from django.contrib.auth.models		import User
-from dashboard.forms 				import UserProfileForm, UserForm, PublicUserProfileForm, ClinicianUserProfileForm, DocQuestionForm, CommQuestionForm
+from dashboard.forms 				import *
+
+from PIL                            import Image as PImage
+from os.path                        import join as pjoin
 
 # Create your views here.
 def add_csrf(request, ** kwargs):
@@ -34,6 +37,28 @@ def index(request):
             'dashboard/dashboard_overview.html',
             add_csrf(request, doc_question_form=doc_question_form, comm_question_form=comm_question_form, articles=article_list),
             RequestContext(request))
+
+@login_required
+def profile_avatar_upload(request):
+    """Edit user profile."""
+    profile = UserProfile.objects.get(user=request.user.pk)
+    img = None
+
+    if request.method == "POST":
+        pf = AvatarForm(request.POST, request.FILES, instance=profile)
+        if pf.is_valid():
+            pf.save()
+            # resize and save image under same filename
+            imfn = pjoin(MEDIA_ROOT, profile.avatar.name)
+            im = PImage.open(imfn)
+            im.thumbnail((200,200), PImage.ANTIALIAS)
+            im.save(imfn, "JPEG")
+    else:
+        pf = AvatarForm(instance=profile)
+
+    if profile.avatar:
+        img = "/media/" + profile.avatar.name
+    return render_to_response("dashboard/dashboard_profilephoto.html", add_csrf(request, pf=pf, img=img))
 
 @login_required
 def askadoc_save(request):
@@ -67,10 +92,18 @@ def commforums_save(request):
     return HttpResponseRedirect(reverse("forums.views.show_thread", args=[q.pk]))
 
 @login_required
-def view_activities(request):
+def view_user_activities(request):
 
     user_doc_qns = Question.objects.filter(posted_by=request.user)
     user_forum_posts = Thread.objects.filter(creator=request.user)
+
+    return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns,'user_posts':user_forum_posts, })
+
+@login_required
+def view_all_activities(request):
+
+    user_doc_qns = Question.objects.all()
+    user_forum_posts = Thread.objects.all()
 
     return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns,'user_posts':user_forum_posts, })
 
@@ -170,3 +203,35 @@ def edit_profile(request):
         'p_user_form':p_user_form,
         'saved':saved },
 		RequestContext(request))
+
+@login_required
+def feedback(request):
+
+    feedback_form 	= FeedbackForm()
+
+    return render_to_response(
+        'dashboard/dashboard_feedback.html',
+        add_csrf(request, feedback_form=feedback_form),
+        RequestContext(request))
+
+@login_required
+def submit_feedback(request):
+
+    submitted = False
+
+    feedback_form = FeedbackForm(data=request.POST)
+
+    if request.method == 'POST':
+
+        if feedback_form.is_valid():
+
+            f = feedback_form.save(commit=False)
+            f.submitter_name = request.user.first_name + " " +  request.user.last_name
+            f.submitter_email = request.user.email
+            f.save()
+            submitted = True
+
+    return render_to_response(
+        'dashboard/dashboard_feedback.html',
+        {'submitted':submitted,},
+        RequestContext(request))

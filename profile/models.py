@@ -147,7 +147,7 @@ class UserProfile(models.Model):
 
     home_address = models.TextField()
 
-    avatar = models.ImageField("Profile Pic", upload_to='images/avatars/', blank=True, null=True)
+    avatar = models.ImageField("Profile Pic", upload_to='avatars/', blank=True, null=True)
 
     mobile_no = models.CharField(
     	max_length = 20
