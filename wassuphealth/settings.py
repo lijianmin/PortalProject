@@ -27,6 +27,8 @@ ALLOWED_HOSTS = ['127.0.0.1',]
 
 ROBOTS_USE_SITEMAP = False
 
+LOGIN_URL = '/login/'
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -53,6 +55,7 @@ INSTALLED_APPS = (
 	'authentication',
     'forums',
 	'profile',
+	'appointments',
 	'feedback',
 	'QnA',
 	'djconfig',

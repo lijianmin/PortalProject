@@ -54,9 +54,9 @@ urlpatterns = patterns('',
     url(r'^activation-timeout/$','registration.views.account_timeout', name='account-timeout'),
 
     # User Authentication
-    url(r'^login-account/$', 'authentication.views.portal_login', name='portal_login'),
-    url(r'^login/$', 'authentication.views.user_login', name='login'),
-	url(r'^logout/$', 'authentication.views.user_logout', name='logout'),
+    url(r'^login/$', 'authentication.views.portal_login', name='portal_login'),
+    url(r'^login-account/$', 'authentication.views.user_login', name='login'),
+	url(r'^logout-account/$', 'authentication.views.user_logout', name='logout'),
     url(r'^account-inactive/$','authentication.views.account_inactive', name='account-inactive'),
 
     # dashboard
@@ -69,9 +69,16 @@ urlpatterns = patterns('',
     url(r'^dashboard/commforums/save/$', 'dashboard.views.commforums_save', name='save_comm_form'),
     url(r'^dashboard/professionalinfo/$', 'dashboard.views.edit_clinicianinfo', name='clinicianinfo'),
     url(r'^dashboard/profile/upload/$', 'dashboard.views.profile_avatar_upload', name="profile_avatar"),
-    url(r'^dashboard/feedback/$', 'dashboard.views.feedback', name="dfeedback"),
-    url(r'^dashboard/feedback/submit/$', 'dashboard.views.submit_feedback', name="d_save_feedback"),
+    url(r'^dashboard/feedback/$', 'dashboard.views.feedback', name='dfeedback'),
+    url(r'^dashboard/feedback/submit/$', 'dashboard.views.submit_feedback', name='d_save_feedback'),
+    #url(r'^dashboard/appointments/$','dashboard.views.get_all_appointments',name='get_all_appointments')
 
+    # appointments
+    url(r'^appointments/book/doctor/(\d+)/$', 'appointments.views.book_appointment', name='book_appointment'),
+    url(r'^appointments/save/(\d+)/$', 'appointments.views.save_appointment', name='save_appointment'),
+    url(r'^appointments/edit/$', 'appointments.views.edit_appointment', name='edit_appointment'),
+    url(r'^appointments/delete/$', 'appointments.views.delete_appointment', name='delete_appointment'),
+    url(r'^appointments/viewall/$', 'appointments.views.get_all_appointments', name='get_all_appointments'),
 
     # Profile
     url(r'^doctors/view/(\d+)/$', 'profile.views.view_doctor_profile', name='view_doctor'),

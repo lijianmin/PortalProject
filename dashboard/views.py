@@ -14,7 +14,6 @@ from profile.models					import UserProfile
 from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from portal.models 					import article
-from django.contrib.auth.models		import User
 from dashboard.forms 				import *
 
 from PIL                            import Image as PImage
