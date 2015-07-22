@@ -10,13 +10,13 @@
   {% load widget_tweaks %}
 
     <div class="container">
-			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+			<div class="hidden-xs hidden-sm" style="margin-top:50px;"></div>
 			<div class="row col-md-12">
 				<h1>Wassup Peeps! <small>on {{ title }}</small></h1>
         <br/>
 			</div>
 			<div style="row">
-				<div class="col-md-8 col-sm-12" style=" height:250px;">
+				<div class="col-md-8 col-sm-12">
 					<div id="carousel" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
 							<li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -47,82 +47,105 @@
 							</div>
 						</div>
 
-					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
+					  <!-- Controls -->
+					  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+						        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						        <span class="sr-only">Previous</span>
+					  </a>
+
+					  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+						        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						        <span class="sr-only">Next</span>
+					  </a>
+
 					</div>
-				</div>
+
+          <div class="hidden-xs hidden-sm" style="margin-top:30px;"></div>
+
+          <div class="col-md-12 col-sm-12 container">
+
+            <h3>Discussions</h3>
+            <hr/>
+            {% for thread in threads.object_list %}
+            <div style="row">
+    					<p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
+                {{ thread.condition_desc }}
+                <br/>
+                <a href="{% url 'thread' thread.pk %}">{{ thread.experience }}</a>
+                <br/>
+    					</p>
+    					<div class="col-xs-2 {% cycle '' 'pull-right' %}">
+                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+                <br/>
+              </div>
+    					<div class="col-xs-10">
+                <br/>
+                Replied by
+                {% if thread.creator.userprofile.clinicianprofile %}
+                  <span class="color:red;"><b>Dr. {{ thread.creator.last_name }} {{ thread.creator.first_name }}</b></span>
+                {% else %}
+                  <b>{{ thread.creator.username }}</b>
+                {% endif %}
+                on <b>{{ thread.created }}</b>
+    					</div>
+    				</div>
+            {% endfor %}
+
+    		  </div>
+        </div>
+
 				<div class="col-md-4 col-sm-12">
 
-          <form action="{% url 'new_thread' pk %}" method="POST">
-            {% csrf_token %}
-  						<div class="form-group">
-  							<label for="voting" class="control-label">How does (did) It impact your daily activities?</label>
-                {% render_field question_form.impact_scale id="rating1" class+="rating" attr="required" %}
-  						</div>
-  						<div class="form-group">
-  							<label for="voting" class="control-label">Side effects experienced from medications?</label>
-                {% render_field question_form.side_effect_scale id="rating2" class+="rating" attr="required" %}
-  						</div>
-  					  <div class="form-group">
-  							<label class="control-label">Is it costly to manage?</label><br>
-                {% render_field question_form.manage_cost id="rating3" class+="rating" attr="required" %}
-  						</div>
-  						<div class="form-group">
-  							<label class="control-label">How long have you been diagnosed?</label><br>
-                {% render_field question_form.diagnosis_duration id="rating4" class+="rating" attr="required" %}
-  						</div>
-  						<div class="form-group">
-  							<label for="voting" class="control-label">What medications are you currently on?</label>
-                {% render_field question_form.medication class+="form-control" attr="required" rows="1" cols="50" %}
-  						</div>
-              <div class="form-group">
-                <label for="voting" class="control-label">Describe your experience</label>
-                {% render_field question_form.experience class+="form-control" attr="required" rows="5" cols="30" %}
-              </div>
-  						<div class="form-group">
-  							<div class="col-sm-offset-5 col-sm-2">
-  								<button type="submit" class="btn btn-default">Submit Your Experience</button>
-                  <br/>
-                  <br/>
-  							</div>
-  						</div>
-  				</form>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Share Your Experience</h3>
+            </div>
+            <div class="panel-body">
+              <form action="{% url 'new_thread' pk %}" method="POST">
+                {% csrf_token %}
+                  <div class="form-group">
+                    <label class="control-label">What is your diagnosis?</label>
+                    {% render_field question_form.condition_desc class="form-control" rows=5 attr="required" %}
+                  </div>
+      						<div class="form-group">
+      							<label for="voting" class="control-label">How does (did) It impact your daily activities?</label>
+                    {% render_field question_form.impact_scale id="rating1" class+="rating" attr="required" %}
+      						</div>
+      						<div class="form-group">
+      							<label for="voting" class="control-label">Side effects experienced from medications?</label>
+                    {% render_field question_form.side_effect_scale id="rating2" class+="rating" attr="required" %}
+      						</div>
+      					  <div class="form-group">
+      							<label class="control-label">Is it costly to manage?</label><br>
+                    {% render_field question_form.manage_cost id="rating3" class+="rating" attr="required" %}
+      						</div>
+      						<div class="form-group">
+      							<label class="control-label">How long have you been diagnosed?</label><br>
+                    {% render_field question_form.diagnosis_duration id="rating4" class+="rating" attr="required" %}
+      						</div>
+      						<div class="form-group">
+      							<label for="voting" class="control-label">What medications are you currently on?</label>
+                    {% render_field question_form.medication class+="form-control" attr="required" rows="1" cols="50" %}
+      						</div>
+                  <div class="form-group">
+                    <label for="voting" class="control-label">Describe your experience</label>
+                    {% render_field question_form.experience class+="form-control" attr="required" rows="5" cols="30" %}
+                  </div>
+      						<div class="form-group">
+      							<div class="col-sm-offset-5 col-sm-2">
+      								<button type="submit" class="btn btn-default">Submit Your Experience</button>
+                      <br/>
+                      <br/>
+      							</div>
+      						</div>
+      				</form>
+            </div><!--panel body-->
+          </div><!--panel-->
 
 				</div>
+
 			</div>
-			<div class="col-md-8 col-sm-12 container">
 
-        {% for thread in threads.object_list %}
-        <div style="row">
-					<p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
-            <a href="{% url 'thread' thread.pk %}">{{ thread.experience }}</a>
-            <br/>
-					</p>
-					<div class="col-xs-2 {% cycle '' 'pull-right' %}">
-            <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
-            <br/>
-          </div>
-					<div class="col-xs-10">
-            <br/>
-            Replied by
-            {% if thread.creator.userprofile.clinicianprofile %}
-              <span class="color:red;"><b>Dr. {{ thread.creator.last_name }} {{ thread.creator.first_name }}</b></span>
-            {% else %}
-              <b>{{ thread.creator.username }}</b>
-            {% endif %}
-            on <b>{{ thread.created }}</b>
-					</div>
-				</div>
-        {% endfor %}
-
-		  </div>
 			<div class="col-md-4 col-sm-12">
 			</div>
 

@@ -27,7 +27,7 @@ class Appointment(models.Model):
 class AppointmentForm(BaseModelForm):
     class Meta:
         model = Appointment
-        fields = ('contact_no','email_address','remarks',)
+        fields = ('contact_no','email_address','remarks','booking_datetime',)
         help_texts = {
             'contact_no':'Your home/mobile number for clinic to contact',
             'email_address':'Your email address for a confirmation to be sent to',

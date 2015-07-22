@@ -102,9 +102,8 @@ def view_user_activities(request):
 def view_all_activities(request):
 
     user_doc_qns = Question.objects.all()
-    user_forum_posts = Thread.objects.all()
 
-    return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns,'user_posts':user_forum_posts, })
+    return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns, })
 
 @login_required
 def edit_healthinfo(request):

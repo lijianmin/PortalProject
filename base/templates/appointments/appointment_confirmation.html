@@ -1,0 +1,32 @@
+{% extends 'common/common_base.html' %}
+{% block title %}
+<a href="#">Wassuphealth!
+  <span class="sub">Appointment Booking</span>
+</a>
+{% endblock %}
+{% load widget_tweaks %}
+{% block wsh_content %}
+<div class="container">
+  <div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+	<div class="row">
+    <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
+      <h3>Thank you for booking. Please see details below:</h3>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Appointment Information</h3>
+        </div>
+        <div class="panel-body">
+          <p><b>Doctor: </b>{{ doctor.first_name }} {{ doctor.last_name }}</p>
+          <hr/>
+          <p><b>Date and Time: </b>{{ appt.booking_datetime }}</p>
+          <p><b>Email: </b>{{ appt.email_address }}</p>
+          <p><b>Contact No: </b>{{ appt.contact_no }}</p>
+          <p><b>Remarks: </b>{{ appt.remarks }}</p>
+          <hr/>
+          <p><b>Appointment Serial #: </b>{{ appt.appointment_UUID }}</p>
+        </div>
+      </div>
+    </div>
+  </div><!--/row-->
+</div>
+{% endblock %}

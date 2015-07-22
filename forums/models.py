@@ -26,13 +26,14 @@ class Forum(models.Model):
 
 class Thread(models.Model):
     title 	= 	models.CharField(max_length=60)
+    condition_desc 	= 	models.TextField(blank=True, default="")
     created =	models.DateTimeField(auto_now_add=True)
     creator = 	models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True)
     forum 	= 	models.ForeignKey(Forum)
     upvote      =   models.IntegerField(default=0)
     downvote    =   models.IntegerField(default=0)
 
-    # core information fields
+    # core information fields - setup core lookup tables for common_scale_options, manage_cost_option, diagnosis_duration_option
     common_scale_options = (
         (1, '1'),
         (2, '2'),

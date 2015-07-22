@@ -21,10 +21,11 @@ class CustomUserChangeForm(UserChangeForm):
     the user, but replaces the password field with admin's
     password hash display field.
     """
-
+    
     def __init__(self, *args, **kargs):
         super(CustomUserChangeForm, self).__init__(*args, **kargs)
         del self.fields['username']
 
     class Meta:
         model = User
+        fields = ("email","username","first_name","last_name","initial","is_staff",)

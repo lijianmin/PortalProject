@@ -12,5 +12,9 @@ class Appointment(models.Model):
     remarks             = models.TextField(default="")
     email_address       = models.EmailField(max_length=254)
     contact_no          = models.CharField(max_length=25)
+
+    #Change to appointment id of format <year><month><day>-000X where X starts from 1
     appointment_UUID    = UUIDField(blank=True, null=True)
+
     #image upload in future
+    #acknowledged

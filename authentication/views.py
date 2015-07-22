@@ -51,7 +51,11 @@ def user_login(request):
 				# We'll send the user back to the homepage.
                 login(request, user)
 
-                return HttpResponseRedirect(reverse("dashboard.views.index"))
+                if request.POST.get('next'):
+                    print('test')
+                    return HttpResponseRedirect(request.POST.get('next'))
+                else:
+                    return HttpResponseRedirect(reverse("dashboard.views.index"))
 
             else:
 				# An inactive account was used - no logging in!

@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700,700italic,900,900italic,300italic,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?fam ily=Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
     <!-- Global CSS -->
     <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}">
     <!-- Plugins CSS -->
@@ -75,7 +75,7 @@
           {% ifusergroup User %}
           <li><a href="{% url 'healthinfo' %}">Your Health Information<span class="sub_icon glyphicon glyphicon-heart"></span></a></li>
           <li><a href="{% url 'view_activities' %}">Your Activities<span class="sub_icon glyphicon glyphicon-tasks"></span></a></li>
-          <li><a href="{% url 'view_activities' %}">Your Appointments<span class="sub_icon glyphicon glyphicon-tasks"></span></a></li>  
+          <li><a href="{% url 'view_activities' %}">Your Appointments<span class="sub_icon glyphicon glyphicon-time"></span></a></li>
           {% endifusergroup %}
 
           {% ifusergroup Clinician %}

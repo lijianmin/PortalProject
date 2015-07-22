@@ -17,7 +17,7 @@ class BaseModelForm(forms.ModelForm):
 class QuestionForm(BaseModelForm):
     class Meta:
         model = Thread
-        fields = ('impact_scale','side_effect_scale','manage_cost','diagnosis_duration','medication','experience')
+        fields = ('condition_desc','impact_scale','side_effect_scale','manage_cost','diagnosis_duration','medication','experience')
         help_texts = {
             'experience':'E.g. It has been too tiring for me to juggle between work and health and has taken a toll on my mental wellbeing',
         }

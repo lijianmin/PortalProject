@@ -47,14 +47,13 @@ def save_appointment(request, doctor_id):
 
             appt = appt_form.save(commit=False)
             appt.doctor_id = doctor_details.pk
-            appt.user_id = request.user.userprofile.publicuserprofile.pk
-            appt.booking_datetime = "2015-01-01 00:00"
+            appt.user_id = request.user.userprofile.pk
             appt.save()
 
         else:
             print(appt_form.errors)
 
-    return render_to_response('appointments/appointment.html', {'booked':booked,}, RequestContext(request))
+    return render_to_response('appointments/appointment_confirmation.html', {'appt':appt,'doctor':doctor_details,}, RequestContext(request))
 
 @login_required
 def get_all_appointments(request):

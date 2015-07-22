@@ -9,10 +9,10 @@
   {% load staticfiles %}
   {% load widget_tweaks %}
 
-        <div class="container">
-			<div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
+    <div class="container">
+			<div class="hidden-xs hidden-sm" style="margin-top:50px;"></div>
 			<div class="row col-md-12">
-				<h1>Wassup Doc!<small> on {{ title }}</small></p>
+				<h1>Wassup Doc!<small> on {{ title }}</small></h1>
 			</div>
 			<div class="col-md-8 col-sm-12 container">
         <h4 align="left">Answered Questions</h4>
@@ -51,6 +51,7 @@
               <br/>
               <br/>
               {% render_field question_form.question class+="form-control" attr="required":textarea rows="4" %}
+              <br/>
 						</div>
 					</form>
 				</div>

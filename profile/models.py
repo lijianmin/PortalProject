@@ -292,9 +292,29 @@ class PublicUserProfile(models.Model):
     #More to be added. E.g. various medical related data
     userprofile = models.OneToOneField(UserProfile)
 
-    #Semi-colon separated field
+    race = models.CharField(max_length=100)
+
+    sexual_history_options = ((1, 'Not Sexually Active'),(2, 'Homosexual'),(3, 'Heterosexual'),(4, 'Bisexual'))
+    sexual_history = models.IntegerField(choices = sexual_history_options, default=1)
+
+    current_medical_conditions = models.TextField()
+
+    lactose_intolerant_options = ((1,'Yes'),(2,'No'))
+    lactose_intolerant = models.IntegerField(choices = lactose_intolerant_options, default=1)
+
+    smoking_options = ((1,'Yes'),(2,'No'))
+    smoking = models.IntegerField(choices = smoking_options, default=1)
+    smoking_packs = models.CharField(max_length = 4)
+    smoking_years = models.CharField(max_length = 4)
+
+    alcohol_intake_options = ((1,'<7 drinks a week'),(2,'8-14 drinks a week'),(3,'>15 drinks a week'))
+    alcohol_intake = models.IntegerField(choices = alcohol_intake_options, default=1)
+
+    relative_cancer_options = ((1,'None'),(2,'Grandfather'),(3,'Grandmother'),(4,'Father'),(5,'Mother'),(6,'Sibling'))
+    relative_with_cancer = models.IntegerField(choices = relative_cancer_options, default=1)
+    cancer_desc = models.TextField()
+
     allergies = models.TextField()
 
     height = models.FloatField()
-
     weight = models.FloatField()

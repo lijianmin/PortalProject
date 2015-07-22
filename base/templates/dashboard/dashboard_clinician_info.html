@@ -23,11 +23,11 @@
             <h4><span class="glyphicon glyphicon-time"></span> Basic Practice Information & Medical Interests</h4>
             <hr/>
             <div class="form-group form-inline">
-              <label>Medical Practice Registration No </label>
-              {% render_field p_clinicianprofile_form.medical_reg_no type="text" class+="form-control" editable=false %}
+              <label>MCR No </label>
+              {{ p_clinicianprofile_form.medical_reg_no | attr:"readonly=readonly" | add_class:"form-control" }}
               &nbsp
               <label>Date Registered </label>
-              {% render_field p_clinicianprofile_form.registered_date type="text" class+="form-control" %}
+              {{ p_clinicianprofile_form.registered_date | attr:"readonly=readonly" | add_class:"form-control" }}
             </div>
 
             <div class="form-group form-inline">

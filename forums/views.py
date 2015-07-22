@@ -24,9 +24,10 @@ def forum_pre_landing(request):
 def main(request):
 
     forums = Forum.objects.order_by('title')
-    specialties = Specialty.objects.order_by('title')
+    specialties = Specialty.objects.filter(hot_topic=False).order_by('title')
+    hot_topics  = Specialty.objects.filter(hot_topic=True).order_by('title')
 
-    return render(request, 'forums/forums_listing.html', {'forums':forums, 'specialties':specialties})
+    return render(request, 'forums/forums_listing.html', {'forums':forums, 'specialties':specialties, 'hot_topics':hot_topics})
 
 # Cross Site Request Forgery Protection
 def add_csrf(request, ** kwargs):

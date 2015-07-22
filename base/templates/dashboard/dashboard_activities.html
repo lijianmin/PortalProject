@@ -1,10 +1,13 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% block dashboardfunction %}
+{% load portal_tags %}
 <br/>
 <div id="page-content-wrapper">
   <div class="page-content inset">
       <div class="col-md-8 col-sm-12 col-sm-offset-2">
         <h1>Your Activities<span class="sub_icon glyphicon glyphicon-tasks"></span></h1>
+
+        {% ifusergroup Clinician %}
         <h3 align="left">Wassup Peeps! <small>Total: {{ user_posts.count }}</small></h3>
         <table class="table table-hover" style="font-size:14px;">
             <tr>
@@ -22,6 +25,7 @@
             {% endfor %}
 
         </table>
+        {% endifusergroup %}
 
         <br/>
 

@@ -12,9 +12,6 @@
     <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
     <div class="form-group">
 
-      {% if booked %}
-        <p>Thanks!</p>
-      {% else %}
       <h3 align=justify>Book an appointment with Dr. {{ doctor_user.first_name}} {{ doctor_user.last_name}}</h3>
       <hr/>
       <form action="{% url 'save_appointment' doctor_id %}" method="POST">
@@ -25,12 +22,14 @@
         <label for="voting" class="control-label">Your Email*:</label>
         {% render_field appt_form.email_address class+="form-control" attr="required" %}
         <br/>
+        <label for="voting" class="control-label">Date and Time (in format YYYY-MM-DD HH:MM)*:</label>
+        {% render_field appt_form.booking_datetime class+="form-control" attr="required" %}
+        <br/>
         <label for="voting" class="control-label">Your Feedback*:</label>
         {% render_field appt_form.remarks class+="form-control" attr="required":textarea rows="4" %}
         <br/>
         <button type="submit" class="btn btn-default">Book now!</button>
       </form>
-      {% endif %}
 
       <hr/>
       <p><small>You will receive an email confirmation after the booking has been successfully made.</small></p>
