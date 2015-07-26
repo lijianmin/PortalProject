@@ -30,7 +30,6 @@ ROBOTS_USE_SITEMAP = False
 LOGIN_URL = '/login/'
 
 # Application definition
-
 INSTALLED_APPS = (
 	'suit',
 	'django_admin_bootstrapped',

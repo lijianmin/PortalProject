@@ -16,8 +16,11 @@
         <br/>
 			</div>
 			<div style="row">
+
 				<div class="col-md-8 col-sm-12">
-					<div id="carousel" class="carousel slide" data-ride="carousel">
+
+          {% if threads %}
+        	<div id="carousel" class="carousel slide" data-ride="carousel">
 						<ol class="carousel-indicators">
 							<li data-target="#carousel" data-slide-to="0" class="active"></li>
 							<li data-target="#carousel" data-slide-to="1"></li>
@@ -92,6 +95,11 @@
             {% endfor %}
 
     		  </div>
+          {% else %}
+            <br/>
+            <br/>
+            <h3 align=center>None has shared their experience yet. Be the first? <br/>Towards your right! <span class="glyphicon glyphicon-arrow-right"></span></h3>
+          {% endif %}
         </div>
 
 				<div class="col-md-4 col-sm-12">
@@ -101,6 +109,7 @@
               <h3 class="panel-title">Share Your Experience</h3>
             </div>
             <div class="panel-body">
+              <p>Note: This will be available for public viewing</p>
               <form action="{% url 'new_thread' pk %}" method="POST">
                 {% csrf_token %}
                   <div class="form-group">
@@ -132,7 +141,7 @@
                     {% render_field question_form.experience class+="form-control" attr="required" rows="5" cols="30" %}
                   </div>
       						<div class="form-group">
-      							<div class="col-sm-offset-5 col-sm-2">
+      							<div class="col-sm-offset-2 col-sm-2">
       								<button type="submit" class="btn btn-default">Submit Your Experience</button>
                       <br/>
                       <br/>
@@ -141,7 +150,10 @@
       				</form>
             </div><!--panel body-->
           </div><!--panel-->
-
+          <div class="row">
+            <hr/>
+            <p align=justify style="font-size:14px; color:grey"><b>Note:</b> Suggestions offered by doctors on <b>Wassuphealth!</b> are of advisory nature i.e., for educational and informational purposes only. Content posted on, created for, or compiled by <b>Wassuphealth!</b> is not intended or designed to replace your doctor's independent judgment about any symptom, condition, or the appropriateness or risks of a procedure or treatment for a given person.</h5>
+          </div>
 				</div>
 
 			</div>

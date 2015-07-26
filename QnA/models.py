@@ -13,7 +13,7 @@ class Specialty(models.Model):
     title = models.CharField(max_length=100)
 
     hot_topic = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return self.title
 
@@ -77,6 +77,10 @@ class Question(models.Model):
     # 3) multiple answer field which consists of UUID, PK, doctor, actual answer
 
     question_UUID = UUIDField(blank=True, null=True)
+
+    private     = models.BooleanField(default=False)
+
+    tag_profile = models.BooleanField(default=False)
 
     question    = models.TextField()
 

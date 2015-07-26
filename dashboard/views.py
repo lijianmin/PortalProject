@@ -120,8 +120,6 @@ def edit_healthinfo(request):
             p_user_healthprofile_form.save()
             saved = True
 
-            return HttpResponseRedirect(reverse("healthinfo"))
-
         else:
             print(p_user_healthprofile_form.errors)
 

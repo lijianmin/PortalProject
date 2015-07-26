@@ -17,7 +17,7 @@ class BaseModelForm(forms.ModelForm):
 class QuestionForm(BaseModelForm):
     class Meta:
         model = Question
-        fields = ('question',)
+        fields = ('question', 'tag_profile', 'private')
         help_texts = {
             'question':'Question to doctor here',
         }

@@ -47,10 +47,43 @@ class UserProfileForm(BaseModelForm):
         fields = ('country','gender','zip_code','birthday','home_address','mobile_no')
 
 class PublicUserProfileForm(BaseModelForm):
+    """
+    #More to be added. E.g. various medical related data
+    userprofile = models.OneToOneField(UserProfile)
 
+    race = models.CharField(max_length=100, default="")
+
+    sexual_history_options = ((1, 'Not Sexually Active'),(2, 'Homosexual'),(3, 'Heterosexual'),(4, 'Bisexual'))
+    sexual_history = models.IntegerField(choices = sexual_history_options, default=1)
+
+    current_medical_conditions = models.TextField(default="")
+
+    lactose_intolerant_options = ((1,'Yes'),(2,'No'))
+    lactose_intolerant = models.IntegerField(choices = lactose_intolerant_options, default=1)
+
+    smoking_options = ((1,'Yes'),(2,'No'))
+    smoking = models.IntegerField(choices = smoking_options, default=1)
+    smoking_packs = models.CharField(max_length = 4, default=0)
+    smoking_years = models.CharField(max_length = 4, default=0)
+
+    alcohol_intake_options = ((1,'<7 drinks a week'),(2,'8-14 drinks a week'),(3,'>15 drinks a week'))
+    alcohol_intake = models.IntegerField(choices = alcohol_intake_options, default=1)
+
+    relative_cancer_options = ((1,'None'),(2,'Grandfather'),(3,'Grandmother'),(4,'Father'),(5,'Mother'),(6,'Sibling'))
+    relative_with_cancer = models.IntegerField(choices = relative_cancer_options, default=1)
+    cancer_desc = models.TextField(default="")
+
+    allergies = models.TextField(default="")
+
+    height = models.FloatField()
+    weight = models.FloatField()
+    """
     class Meta:
         model = PublicUserProfile
-        fields = (  'allergies', 'height', 'weight', )
+        fields = (  'allergies', 'height', 'weight', 'race', 'sexual_history',
+                    'current_medical_conditions', 'lactose_intolerant', 'smoking',
+                    'smoking_packs', 'smoking_years', 'alcohol_intake',
+                    'relative_with_cancer', 'cancer_desc',)
 
 class ClinicianUserProfileForm(BaseModelForm):
 

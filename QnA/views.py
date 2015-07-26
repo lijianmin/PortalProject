@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 
 from portal.models 					import category
-from profile.models					import User, UserProfile, ClinicianProfile
+from profile.models					import User, UserProfile, ClinicianProfile, PublicUserProfile
 from QnA.models						import Question, Answer, Specialty
 
 from QnA.forms 						import QuestionForm, AnswerForm
@@ -31,7 +31,7 @@ from QnA.forms 						import QuestionForm, AnswerForm
 def show_specialty(request, specialty_id):
 
     title = Specialty.objects.get(pk=specialty_id).title
-    qns = Question.objects.filter(status='ANSWERED').filter(specialty_id=specialty_id).order_by("upvote").reverse()
+    qns = Question.objects.filter(status='ANSWERED',specialty_id=specialty_id, private=False).order_by("upvote").reverse()
     question_form = QuestionForm()
 
     related_specialists = ClinicianProfile.objects.filter(medical_interests__contains = title)
@@ -53,6 +53,9 @@ def show_specialty_question(request, question_id):
     question 		= get_object_or_404(Question, id=question_id)
     answer 			= Answer.objects.filter(question_id=question_id)
 
+    userprofile         = question.posted_by.userprofile
+    publicuserprofile   = get_object_or_404(PublicUserProfile, id=userprofile.publicuserprofile.id)
+
     specialty 		= Specialty.objects.get(pk=question.specialty_id)
     specialty_title = specialty.title
     specialty_pk 	= specialty.id
@@ -63,7 +66,8 @@ def show_specialty_question(request, question_id):
 			'qna/doc_question_answers.html',
 			add_csrf(request, Question=question, Answer=answer,
             answer_form=answer_form, specialty_title=specialty_title,
-            specialty_id=specialty_pk, question_id=question_id),
+            specialty_id=specialty_pk, question_id=question_id,
+            publicuserprofile=publicuserprofile),
 			RequestContext(request))
 
 @login_required

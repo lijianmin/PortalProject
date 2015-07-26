@@ -19,17 +19,71 @@
 
             {% csrf_token %}
 
-            <h4>Your Health Information</h4>
-            <hr/>
             <div class="form-group">
-              <label>Height: </label>
+              <h4>More about you</h4>
+              <hr/>
+              <label>Race: </label>
+              {% render_field p_user_healthprofile_form.race type="text" class+="form-control" %}
+              <br/>
+              <label>Height (CM): </label>
               {% render_field p_user_healthprofile_form.height type="text" class+="form-control" %}
               <br/>
-              <label>Weight: </label>
+              <label>Weight (KG): </label>
               {% render_field p_user_healthprofile_form.weight type="text" class+="form-control" %}
               <br/>
+              <br/>
+              <h4>Your Health Information</h4>
+              <hr/>
               <label>Known Allergies: </label>
-              {% render_field p_user_healthprofile_form.allergies type="text" class+="form-control"  rows=5%}
+              {% render_field p_user_healthprofile_form.allergies type="text" class+="form-control"  rows=5 %}
+              <br/>
+              <label>Existing Medical Conditions: </label>
+              {% render_field p_user_healthprofile_form.current_medical_conditions type="text" class+="form-control"  rows=5 %}
+              <br/>
+              <label>Sexual History: </label>
+              {% render_field p_user_healthprofile_form.sexual_history class+="form-control" %}
+              <br/>
+              <label>Are you lactose intolerant? </label>
+              {% render_field p_user_healthprofile_form.lactose_intolerant class+="form-control" %}
+              <br/>
+              <label>What is your alcohol intake like? </label>
+              {% render_field p_user_healthprofile_form.alcohol_intake class="form-control" %}
+              <br/>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Smoking History</h3>
+                </div>
+                <div class="panel-body">
+                  <label>Are you smoking? </label>
+                  {% render_field p_user_healthprofile_form.smoking class+="form-control" %}
+                  <br/>
+
+                  <div class="form-group form-inline">
+                    <label>How many packs per day? </label>
+                    {% render_field p_user_healthprofile_form.smoking_packs class="form-control" %}
+                    &nbsp
+                    <label>Years of smoking? </label>
+                    {% render_field p_user_healthprofile_form.smoking_years class="form-control" %}
+                    <br/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Cancer History</h3>
+                </div>
+                <div class="panel-body">
+                    <label>Do you have a relative with cancer? </label>
+                    {% render_field p_user_healthprofile_form.relative_with_cancer class="form-control" %}
+                    <br/>
+                    <label>If yes, what cancer did he/she get? </label>
+                    {% render_field p_user_healthprofile_form.cancer_desc class="form-control" rows=1 %}
+                    <br/>
+                </div>
+              </div>
+
             </div>
 
             <br/>

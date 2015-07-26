@@ -15,8 +15,10 @@
 				<h1>Wassup Doc!<small> on {{ title }}</small></h1>
 			</div>
 			<div class="col-md-8 col-sm-12 container">
-        <h4 align="left">Answered Questions</h4>
+
         {% if qns %}
+
+          <h4 align="left">Answered Questions</h4>
 
           {% for qn in qns %}
 
@@ -37,21 +39,35 @@
           {% endfor %}
 
         {% else %}
-          <h5>No questions asked yet. Be the first?</h5>
+          <br/>
+          <br/>
+          <h3 align=center>No questions asked yet. Be the first? Towards your right! <span class="glyphicon glyphicon-arrow-right"></span></h3>
         {% endif %}
 
 			</div>
 			<div class="col-md-4 col-sm-12 container">
 				<div style="row">
+
           <form action="{% url 'save_question' specialty_id %}" method="POST">
             {% csrf_token %}
 						<div class="form-group">
-							<label for="voting" class="control-label">Ask a Question!</label>
-							<button type="submit" class="btn btn-default pull-right">Submit!</button>
-              <br/>
+							<h3 align="right">Ask a Question!</h3>
               <br/>
               {% render_field question_form.question class+="form-control" attr="required":textarea rows="4" %}
-              <br/>
+
+              <div class="form-group form-inline">
+                <br/>
+                <p align=center>
+                  <label for="private" class="control-label">Ask privately? </label>
+                  {% render_field question_form.private class+="form-control" %}
+                  &nbsp
+                  <label for="tag_profile" class="control-label">Tag profile? </label>
+                  {% render_field question_form.tag_profile class+="form-control" %}
+                  &nbsp
+                  <button type="submit" class="btn btn-default">Submit!</button>
+                </p>
+                <hr/>
+              </div>
 						</div>
 					</form>
 				</div>
@@ -81,6 +97,10 @@
 					</div>
 				</div>
 			</div>
+      <div class="row">
+        <hr/>
+        <p align=justify style="font-size:14px; color:grey"><b>Note:</b> Suggestions offered by doctors on <b>Wassuphealth!</b> are of advisory nature i.e., for educational and informational purposes only. Content posted on, created for, or compiled by <b>Wassuphealth!</b> is not intended or designed to replace your doctor's independent judgment about any symptom, condition, or the appropriateness or risks of a procedure or treatment for a given person.</h5>
+      </div>
 		</div>
 
 {% endblock %}

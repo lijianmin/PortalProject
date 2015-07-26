@@ -23,9 +23,9 @@
           <p align=justify>{{ thread.condition_desc }}</p>
           <h3>The Experience:</h3>
           <p align=justify>{{ thread.experience }}</p>
-          <p><b>Impact to Daily Life:</b> {{ thread.impact_scale }}/7</p>
-          <p><b>Side Effect after Medication:</b> {{ thread.side_effect_scale }}/7</p>
-          <p><b>Cost of Managing It:</b> {{ thread.manage_cost }}/5</p>
+          <p><b>Impact to Daily Life:</b> {{ thread.get_impact_scale_display }} out of 7</p>
+          <p><b>Side Effect after Medication:</b> {{ thread.get_side_effect_scale_display }} out of 7</p>
+          <p><b>Cost of Managing It:</b> {{ thread.get_manage_cost_display }}</p>
           <p><b>Diagnosed for:</b> {{ thread.diagnosis_duration}} years</p>
           <p align=right><i>Posted by <b>{{ thread.creator.username }}</b> on <b>{{ thread.created }}</b> under <b><a href="{% url 'forum' forum_pk %}">{{ thread.forum.title }}</a></b></i></p>
           <br/>
@@ -73,7 +73,7 @@
             {% endif %}
             on <b>{{ post.created }}</b>
             {% if user.is_authenticated %}
-              <p align="{% cycle 'right' 'left' %}"><a href="{% url 'post_vote' 'upvote' thread.pk post.pk %}"><b>This helps!</b></a> ({{ post.upvote }})</p>
+              <p align=right><a href="{% url 'post_vote' 'upvote' thread.pk post.pk %}"><button type="button" class="btn btn-sm btn-success"><b>This helps!</b> ({{ post.upvote }})</button></a></p>
             {% else %}
               <p align="{% cycle 'right' 'left' %}"><b>This helps!</b> ({{ post.upvote }})</p>
             {% endif %}

@@ -19,16 +19,62 @@
 			<div class="col-md-8 col-sm-12 container">
 
         <div class="row col-sm-12 col-md-12 container">
-          <h4 align="left"><b>Question:</b></h4>
-          <h3 align="justify">{{ Question.question }}</h3>
+          <h2 align="left">
+            <b>
+            Question
+            {% if Question.private %}
+              <small><span class="glyphicon glyphicon-lock"></span></small>
+            {% endif %}
+            </b>
+          </h2>
+          <p align="justify" style="font-size:20px">{{ Question.question }}</p>
           <br/>
-          <p align="left">Posted by <b>{{ Question.posted_by.username }}</b> on <b>{{ Question.timestamp }}</b> under <b><a href="{% url 'questions_specialty' specialty_id %}">{{ specialty_title }}</a></b></p>
+          <p align="right"><i>Posted by <b>{{ Question.posted_by.username }}</b> on <b>{{ Question.timestamp }}</b> under <b><a href="{% url 'questions_specialty' specialty_id %}">{{ specialty_title }}</a></b></i></p>
           {% if user.is_authenticated %}
-            <p align="{% cycle 'right' 'left' %}"><a href="{% url 'question_vote' 'upvote' Question.pk %}"><b>This helps!</b></a> ({{ Question.upvote }})</p>
+            <p align=right>
+            {% if user.userprofile.clinicianprofile and Question.tag_profile %}
+              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#healthprofile">Click for user's profile</button>
+            {% endif %}
+            {% if Answer %}
+              <a href="{% url 'question_vote' 'upvote' Question.pk %}"><button type="button" class="btn btn-sm btn-success"><b>This helps!</b> ({{ Question.upvote }})</button></a>
+            {% endif %}
           {% else %}
-            <p align="{% cycle 'right' 'left' %}"><b>This helps!</b> ({{ Question.upvote }})</p>
+            <p align=right><b>This helps!</b> ({{ Question.upvote }})</p>
           {% endif %}
         </div>
+
+        {% if user.is_authenticated %}
+          {% if user.userprofile.clinicianprofile and Question.tag_profile %}
+          <div id="healthprofile" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">{{ Question.posted_by.username }}'s Health Profile</h4>
+                </div>
+                <div class="modal-body">
+                  <p><b>Race:</b> {{ publicuserprofile.race }}</p>
+                  <p><b>Height:</b> {{ publicuserprofile.height }}cm</p>
+                  <p><b>Weight:</b> {{ publicuserprofile.weight }}KG</p>
+                  <p><b>Allergies:</b> {{ publicuserprofile.allergies }}</p>
+                  <p><b>Existing Medical Conditions:</b> {{ publicuserprofile.current_medical_conditions }}</p>
+                  <p><b>Sexual History?</b> {{ publicuserprofile.get_sexual_history_display }}</p>
+                  <p><b>Lactose Intolerant?</b> {{ publicuserprofile.get_lactose_intolerant_display }}</p>
+                  <p><b>Smoking?</b> {{ publicuserprofile.get_smoking_display }}</p>
+                  <p><b>Alcohol Intake?</b> {{ publicuserprofile.get_alcohol_intake_display }}</p>
+                  <p><b>Relative with Cancer?</b> {{ publicuserprofile.get_relative_with_cancer_display }}</p>
+                  <p><b>Which cancer?</b> {{ publicuserprofile.cancer_desc }}</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
 
         <div style="row">
           <div class="col-sm-12 col-sm-12 container">
@@ -56,6 +102,7 @@
 
         {% if Answer %}
 
+          <h4>Responses:</h4>
           {% for ans in Answer %}
             <div style="row">
 					    <p class="{% cycle 'leftspeech' 'rightspeech' %} col-xs-12">
@@ -81,7 +128,9 @@
         {% else %}
 
           <div style="row">
-            <h4>No answers yet. You will be the first!</h4>
+            <br/>
+            <br/>
+            <h4 align=center>No answers yet.</h4>
           </div>
 
         {% endif %}

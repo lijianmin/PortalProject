@@ -1,4 +1,4 @@
-/*
+/*   
  * Template Name: Velocity - Responsive Website Template for Products
  * Version: 1.5
  * Author: Xiaoying Riley at 3rd Wave Media
@@ -214,7 +214,7 @@ select {
   display: inline-block;
   text-align: center;
   line-height: 1.4;
-  max-width: 200px;
+  max-width: 155px;
   background: #28a5a8;
   -webkit-border-top-right-radius: 0;
   -webkit-border-bottom-right-radius: 4px;
@@ -1769,7 +1769,7 @@ select {
   color: #666666;
 }
 .blog-list .post .content .post-title {
-  margin-top: 1px;
+  margin-top: 0;
   font-size: 18px;
 }
 .blog-list .post .content .post-title a {
@@ -2314,7 +2314,6 @@ select {
 .access-section .form-group {
   position: relative;
 }
-/*
 .access-section .form-group.email:before {
   content: "\f007";
   font-family: FontAwesome;
@@ -2341,10 +2340,9 @@ select {
   top: 12px;
   color: #999999;
 }
-*/
 .access-section .form-control {
   font-size: 16px;
-  padding-left: 10px; /* originally 30px */
+  padding-left: 30px;
   font-size: 14px;
 }
 .access-section .form-control::-webkit-input-placeholder {
