@@ -15,6 +15,7 @@ from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from portal.models 					import article
 from dashboard.forms 				import *
+from django.contrib.auth.models     import Group
 
 from PIL                            import Image as PImage
 from os.path                        import join as pjoin
@@ -90,20 +91,29 @@ def commforums_save(request):
 
     return HttpResponseRedirect(reverse("forums.views.show_thread", args=[q.pk]))
 
-@login_required
+def has_group(user, group_name):
+    group = Group.objects.get(name=group_name)
+    return True if group in user.groups.all() else False
+
+#only public user
 def view_user_activities(request):
 
-    user_doc_qns = Question.objects.filter(posted_by=request.user)
-    user_forum_posts = Thread.objects.filter(creator=request.user)
+    if has_group(request.user,"User"):
+        user_doc_qns = Question.objects.filter(posted_by=request.user)
+        user_forum_posts = Thread.objects.filter(creator=request.user)
 
     return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns,'user_posts':user_forum_posts, })
 
 @login_required
+# only clinician user
 def view_all_activities(request):
 
-    user_doc_qns = Question.objects.all()
+    if has_group(request.user, "Clinician"):
+        #pending questions
+        user_doc_qns = Question.objects.filter(status='PENDING')
+        doc_answered_qns = Question.objects.filter(answer__answer_provided_by = request.user)
 
-    return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns, })
+    return render(request, 'dashboard/dashboard_activities.html', {'user_qns':user_doc_qns, 'doc_answered_qns':doc_answered_qns, })
 
 @login_required
 def edit_healthinfo(request):

@@ -1,31 +1,33 @@
 {% extends 'dashboard/dashboard_base.html' %}
 {% load humanize %}
 {% load widget_tweaks %}
+{% load portal_tags %}
 
 {% block dashboardfunction %}
 <br/>
-<div id="page-content-wrapper">
-  <h1>In a glance, <small>{{ user.username }}</small><span class="sub_icon glyphicon glyphicon-globe"></span></h1>
-  <br/>
-  <br/>
+<div id="page-content-wrapper" style="margin-top:100px;">
+
   <div class="page-content inset">
+
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
+        <h1>In a glance, <small>{{ user.username }}</small><span class="sub_icon glyphicon glyphicon-globe"></span></h1>
+        <br/>
       </div>
-      <div class="col-sm-5 col-sm-offset-1">
+      <div class="{% ifusergroup User %} col-sm-5 {% endifusergroup %} {% ifusergroup Clinician %} col-sm-10 {% endifusergroup %} col-sm-offset-1">
         <div class="box">
           <div class="icon">
             <div class="image"><i class="fa fa-flag"></i></div>
             <div class="info">
-              <h2 class="title">Latest News</h2>
+              <p style="font-size:25px"><b>Latest News</b></h3>
               <hr/>
               {% for article in articles %}
-                <h4>
-                  {{ article.title }}
+                <p style="font-size:20px;">
+                  <b>{{ article.title }}</b>
                   <br/>
-                  <small>By {{ article.author.username }}<br/>on {{ article.timestamp | naturaltime }}</small>
-                </h4>
-                <p>
+                  <span style="font-size:18px">By {{ article.author.username }}<br/>on {{ article.timestamp }}</span>
+                </p>
+                <p style="font-size:16px" align=justify>
                   {{ article.bodytext | safe | truncatechars_html:500 | striptags }}
                 </p>
                 <div class="more">
@@ -41,12 +43,13 @@
           <div class="space"></div>
         </div>
       </div>
+      {% ifusergroup User %}
       <div class="col-sm-5">
         <div class="box">
           <div class="icon">
             <div class="image"><i class="fa fa-flag"></i></div>
             <div class="info">
-              <h2 class="title">Ask a doctor!</h2>
+              <p class="title">Ask a doctor!</p>
               <hr/>
 
                 <form action="{% url 'save_doc_form' %}" method="POST">
@@ -70,7 +73,7 @@
           <div class="icon">
             <div class="image"><i class="fa fa-flag"></i></div>
             <div class="info">
-              <h2 class="title">Share an experience!</h2>
+              <p class="title">Share an experience!</p>
               <hr/>
               <p>
                 <form action="{% url 'save_comm_form' %}" method="POST">
@@ -117,7 +120,8 @@
           </div>
           <div class="space"></div>
         </div>
-      </div>
+      </div><!--col sm 5-->
+      {% endifusergroup %}
     </div>
   </div>
 </div>

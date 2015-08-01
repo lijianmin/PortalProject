@@ -90,7 +90,7 @@ class Question(models.Model):
 
     specialty	= models.ForeignKey(Specialty)
 
-    STATUS = Choices('PENDING','ANSWERED', 'CONCLUDED','ARCHIVED','CANCELLED')
+    STATUS = Choices('PENDING','ANSWERED','CONCLUDED','ARCHIVED','CANCELLED')
     status = StatusField()
 
     upvote      =   models.IntegerField(default=0)

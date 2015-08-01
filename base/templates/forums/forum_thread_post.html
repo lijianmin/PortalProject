@@ -75,7 +75,7 @@
             {% if user.is_authenticated %}
               <p align=right><a href="{% url 'post_vote' 'upvote' thread.pk post.pk %}"><button type="button" class="btn btn-sm btn-success"><b>This helps!</b> ({{ post.upvote }})</button></a></p>
             {% else %}
-              <p align="{% cycle 'right' 'left' %}"><b>This helps!</b> ({{ post.upvote }})</p>
+              <p align="{% cycle 'right' 'left' %}"><b>This helps! <span class="glyphicon glyphicon-thumbs-up"></span></b> ({{ post.upvote }})</p>
             {% endif %}
 					</div>
           <hr/>

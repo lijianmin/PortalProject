@@ -64,8 +64,8 @@ class Thread(models.Model):
     medication = models.TextField(default="")
     experience = models.TextField(default="")
 
-    def __str__(self):
-        return self.creator + " - " + self.title
+    #def __str__(self):
+    #    return self.creator + " - " + self.title
 
     def num_posts(self):
         return self.post_set.count()

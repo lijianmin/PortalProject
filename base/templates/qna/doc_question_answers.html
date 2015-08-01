@@ -33,10 +33,10 @@
           {% if user.is_authenticated %}
             <p align=right>
             {% if user.userprofile.clinicianprofile and Question.tag_profile %}
-              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#healthprofile">Click for user's profile</button>
+              <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#healthprofile"><span class="glyphicon glyphicon-modal-window"></span> Click for user's profile</button>
             {% endif %}
             {% if Answer %}
-              <a href="{% url 'question_vote' 'upvote' Question.pk %}"><button type="button" class="btn btn-sm btn-success"><b>This helps!</b> ({{ Question.upvote }})</button></a>
+              <a href="{% url 'question_vote' 'upvote' Question.pk %}"><button type="button" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> <b>This helps!</b> ({{ Question.upvote }})</button></a>
             {% endif %}
           {% else %}
             <p align=right><b>This helps!</b> ({{ Question.upvote }})</p>

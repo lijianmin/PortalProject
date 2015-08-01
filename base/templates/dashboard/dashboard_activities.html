@@ -3,17 +3,19 @@
 {% load portal_tags %}
 <br/>
 <div id="page-content-wrapper">
-  <div class="page-content inset">
+
+  <div class="page-content inset"  style="margin-top:100px;">
+
       <div class="col-md-8 col-sm-12 col-sm-offset-2">
         <h1>Your Activities<span class="sub_icon glyphicon glyphicon-tasks"></span></h1>
 
-        {% ifusergroup Clinician %}
+        {% ifusergroup User %}
         <h3 align="left">Wassup Peeps! <small>Total: {{ user_posts.count }}</small></h3>
         <table class="table table-hover" style="font-size:14px;">
             <tr>
               <th width="15%">Forum</th>
               <th width="65%">Your Post</th>
-              <th width="20%">Date Posted</th>
+              <th width="20%">Posted On</th>
             </tr>
 
             {% for post in user_posts %}
@@ -25,17 +27,17 @@
             {% endfor %}
 
         </table>
-        {% endifusergroup %}
 
         <br/>
 
         <h3 align="left">Wassup Doc! <small>Total: {{ user_qns.count }}</small></h3>
         <table class="table table-hover" style="font-size:14px;">
             <tr>
-              <th width="15%">Specialty</th>
+              <th width="12%">Specialty</th>
               <th width="5%"><span class="glyphicon glyphicon-lock"></span></th>
+              <th width="5%"><span class="glyphicon glyphicon-modal-window"></span></th>
               <th width="55%">Question</th>
-              <th width="15%">Date Posted</th>
+              <th width="13%">Posted On</th>
               <th width="10%">Status</th>
             </tr>
 
@@ -43,6 +45,7 @@
             <tr>
               <td>{{ qn.specialty }}</td>
               <td>{% if qn.private %}<span class="glyphicon glyphicon-lock"></span>{% endif %}</td>
+              <td>{% if qn.tag_profile %}<span class="glyphicon glyphicon-modal-window"></span>{% endif %}</td>
               <td><a href="{% url 'get_question' qn.pk %}" target="blank">{{ qn.question }}</a></td>
               <td>{{ qn.timestamp }}</td>
               {% if qn.status = 'ANSWERED' %}
@@ -55,8 +58,102 @@
         </table>
         <br/>
         <br/>
+        {% endifusergroup %}
+
+        {% ifusergroup Clinician %}
+        <br/>
+
+        <ul class="nav nav-tabs" id="docactivities">
+          <li class="active"><a href="#answered_questions" data-toggle="tab">Your Answered Questions</a></li>
+          <li><a href="#pending_questions" data-toggle="tab">Pending Questions</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+          <div class="tab-pane active" id="answered_questions">
+
+            <br/>
+            <h4 align="center">You have answered <u>{{ doc_answered_qns.count }}</u> questions.</h4>
+            <br/>
+            <table class="table table-hover" style="font-size:14px;">
+                <tr>
+                  <th width="10%">Specialty</th>
+                  <th width="5%"><span class="glyphicon glyphicon-lock"></span></th>
+                  <th width="5%"><span class="glyphicon glyphicon-modal-window"></span></th>
+                  <th width="52%">Question</th>
+                  <th width="14%">Posted On</th>
+                  <th width="14%">Status</th>
+                </tr>
+
+                {% for qn in doc_answered_qns %}
+                  <tr>
+                    <td>{{ qn.specialty }}</td>
+                    <td>{% if qn.private %}<span class="glyphicon glyphicon-lock"></span>{% endif %}</td>
+                    <td>{% if qn.tag_profile %}<span class="glyphicon glyphicon-modal-window"></span>{% endif %}</td>
+                    <td>
+                        <a href="{% url 'get_question' qn.pk %}" target="blank">{{ qn.question }}</a>
+                        <br/>
+                        <br/>
+                        {% if qn.upvote > 0 %}
+                          <p align="right"><i><b>{{ qn.upvote }}</b> people found your response helpful.</i></p>
+                        {% endif %}
+                    </td>
+                    <td>{{ qn.timestamp }}</td>
+                    <td>{{ qn.status }}</td>
+                  </tr>
+                {% endfor %}
+
+            </table>
+
+          </div><!--tab pane answered questions-->
+
+          <div class="tab-pane" id="pending_questions">
+
+            <br/>
+            <h4 align="center">There are <u>{{ user_qns.count }}</u> pending questions. Help someone today!</h4>
+            <br/>
+            <table class="table table-hover" style="font-size:14px;">
+                <tr>
+                  <th width="12%">Specialty</th>
+                  <th width="5%"><span class="glyphicon glyphicon-lock"></span></th>
+                  <th width="5%"><span class="glyphicon glyphicon-modal-window"></span></th>
+                  <th width="63%">Question</th>
+                  <th width="20%">Posted On</th>
+                </tr>
+
+                {% for qn in user_qns %}
+                  {% if qn.status == "PENDING" %}
+                  <tr>
+                    <td>{{ qn.specialty }}</td>
+                    <td>{% if qn.private %}<span class="glyphicon glyphicon-lock"></span>{% endif %}</td>
+                    <td>{% if qn.tag_profile %}<span class="glyphicon glyphicon-modal-window"></span>{% endif %}</td>
+                    <td><a href="{% url 'get_question' qn.pk %}" target="blank">{{ qn.question }}</a></td>
+                    <td>{{ qn.timestamp }}</td>
+                  </tr>
+                  {% endif %}
+                {% endfor %}
+
+            </table>
+
+          </div><!--tab pane pending questions-->
+
+        </div>
+
+        {% endifusergroup %}
+
+        <br/>
+        <br/>
 
       </div>
+
     </div>
-</div>
+
+  </div>
+
+  <script>
+  $('#docactivities a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  </script>
 {% endblock %}
