@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load widget_tweaks %}
 {% load portal_tags %}
+{% load staticfiles %}
 
 {% block dashboardfunction %}
 <br/>
@@ -10,11 +11,11 @@
   <div class="page-content inset">
 
     <div class="row">
-      <div class="col-sm-10 col-sm-offset-1">
+      <div class="col-md-11 col-sm-11">
         <h1>In a glance, <small>{{ user.username }}</small><span class="sub_icon glyphicon glyphicon-globe"></span></h1>
         <br/>
       </div>
-      <div class="{% ifusergroup User %} col-sm-5 {% endifusergroup %} {% ifusergroup Clinician %} col-sm-10 {% endifusergroup %} col-sm-offset-1">
+      <div class="{% ifusergroup User %} col-sm-5 {% endifusergroup %} {% ifusergroup Clinician %} col-sm-10 {% endifusergroup %}">
         <div class="box">
           <div class="icon">
             <div class="image"><i class="fa fa-flag"></i></div>
@@ -45,6 +46,32 @@
       </div>
       {% ifusergroup User %}
       <div class="col-sm-5">
+        <div class="box">
+
+              	<div class="icon">
+									<div class="image"><i class="fa fa-user-md"></i></div>
+									<div class="info">
+										<h3 class="title">Doctors</h3>
+										<ul class="list-unstyled scrollable">
+										  <li class="doctor">
+											<img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+											<img class="img-responsive caduceus" src="{% static 'assets/images/Caduceus-logo.png' %}" alt="" />
+											<span class="name"> Dr. dickbutt </span>
+											<span class="spec"> Neuroscience </span>
+											<span class="location"> Africa </span>
+										  </li>
+										  <li class="doctor">
+											<img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+											<img class="img-responsive caduceus" src="{% static 'assets/images/Caduceus-logo.png' %}" alt="" />
+											<span class="name"> Dr. Ernest </span>
+											<span class="spec"> Gynaecology </span>
+											<span class="location"> Singapore </span>
+										  </li>
+										</ul>
+									</div>
+								</div>
+								<div class="space"></div>
+			  </div>
         <div class="box">
           <div class="icon">
             <div class="image"><i class="fa fa-flag"></i></div>
@@ -92,7 +119,7 @@
         						</div>
         					  <div class="form-group">
         							<label class="control-label">Is it costly to manage?</label><br>
-                      {% render_field comm_question_form.manage_cost id="rating3" class+="rating" attr="required" %}
+                      {% render_field comm_question_form.manage_cost id="rating3" class="rating" attr="required" %}
         						</div>
         						<div class="form-group">
         							<label class="control-label">How long have you been diagnosed?</label><br>

@@ -1,82 +1,86 @@
-{% extends 'common/common_base.html' %}
-{% block title %}
+{% extends 'common/common_base.html' %} {% block title %}
 <a href="{% url 'news' %}">Wassuphealth!
-</a>
-{% endblock %}
-{% block wsh_content %}
+</a> {% endblock %} {% block wsh_content %} {% load staticfiles %} {% load widget_tweaks %} {% load humanize %}
 
-  {% load staticfiles %}
-  {% load widget_tweaks %}
-  {% load humanize %}
+<link rel="stylesheet" href="{% static 'assets/css/toggle-switch.css' %}">
+<!-- ******BLOG LIST****** -->
+<div class="blog container">
+  <br/>
+  <br/>
+  <br/>
+  <div class="col-md-5 col-md-offset-3">
+    <label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = '/'; }, 500); ">
+      <input type="checkbox">
+      <span>
+        <span>News</span>
+        <span>Conditions</span>
+      </span>
+      <a></a>
+    </label>
+  </div>
+  <br/>
+  <br/>
+  <br/>
+  <div class="row">
+    <div class="blog-list blog-category-list">
 
-      <link rel="stylesheet" href="{% static 'assets/css/toggle-switch.css' %}">
-        <!-- ******BLOG LIST****** -->
-  <div class="blog container">
-			<br/>
-      <br/>
-      <br/>
-      <div class="col-md-5 col-md-offset-3">
-			<label class="switch-light switch-candy" onclick="setTimeout( function() { window.location.href = '/'; }, 500); ">
-				<input type="checkbox">
-				<span>
-					<span>News</span>
-					<span>Conditions</span>
-				</span>
-				<a></a>
-			</label>
-			</div>
-      <br/>
-      <br/>
-      <br/>
-            <div class="row">
-                <div class="blog-list blog-category-list">
+      {% for article in articles %}
 
-                  {% for article in articles %}
+      <article class="post col-md-10 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
+        <div class="post-inner">
+          <figure class="post-thumb">
+            <a href="blog-single.html">
+              <img class="img-responsive" src="{% static 'assets/images/blog/post-5-thumb.jpg' %}" alt="" />
+            </a>
+          </figure>
+          <!--//post-thumb-->
+          <div class="content">
+            <h3 class="post-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
+            <div class="meta">
+              <ul class="meta-list list-inline">
+                <li class="post-time">{{ article.timestamp | naturaltime }}</li>
+                <li class="post-author"> by <a href="#">{{ article.author }}</a></li>
+              </ul>
+              <!--//meta-list-->
+            </div>
+            <!--meta-->
+            <div class="post-entry">
+              <p>{{ article.bodytext | safe | truncatechars_html:500 | striptags }}</p>
+              <a class="read-more" href="{{ article.get_absolute_url }}">Read more <i class="fa fa-long-arrow-right"></i></a>
+            </div>
+          </div>
+          <!--//content-->
+        </div>
+        <!--//post-inner-->
+      </article>
+      <!--//post-->
 
-                    <article class="post col-md-10 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-xs-offset-0">
-                        <div class="post-inner">
-                            <figure class="post-thumb">
-                                <a href="blog-single.html"><img class="img-responsive" src="{% static 'assets/images/blog/post-5-thumb.jpg' %}" alt="" /></a>
-                            </figure><!--//post-thumb-->
-                            <div class="content">
-                                <h3 class="post-title"><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></h3>
-                                <div class="meta">
-                                    <ul class="meta-list list-inline">
-                                    	<li class="post-time">{{ article.timestamp | naturaltime }}</li>
-                                    	<li class="post-author"> by <a href="#">{{ article.author }}</a></li>
-                                	</ul><!--//meta-list-->
-                                </div><!--meta-->
-                                <div class="post-entry">
-                                    <p>{{ article.bodytext | safe | truncatechars_html:500 | striptags }}</p>
-                                    <a class="read-more" href="{{ article.get_absolute_url }}">Read more <i class="fa fa-long-arrow-right"></i></a>
-                                </div>
-                            </div><!--//content-->
-                        </div><!--//post-inner-->
-                    </article><!--//post-->
+      {% endfor %}
 
-                  {% endfor %}
+    </div>
+    <!--//blog-list-->
+  </div>
+  <!--//row-->
+  <div class="pagination-container text-center">
 
-                </div><!--//blog-list-->
-            </div><!--//row-->
-            <div class="pagination-container text-center">
+    {% if articles.has_previous %}
+    <li class="left">
+      <a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
+    </li>
+    {% endif %} {% if articles.has_next %}
+    <li class="right">
+      <a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
+    </li>
+    {% endif %}
 
-                {% if articles.has_previous %}
-                   <li class="left">
-                     <a href="?page={{ articles.previous_page_number }}" class="button tiny">Newer Articles</a>
-                   </li>
-                {% endif %}
+  </div>
+  <!--//pagination-container-->
 
-                {% if articles.has_next %}
-                  <li class="right">
-                    <a href="?page={{ articles.next_page_number }}" class="button tiny">Older Articles</a>
-                  </li>
-                {% endif %}
+  <br/>
 
-            </div><!--//pagination-container-->
-
-            <br/>
-
-        </div><!--//blog-->
-    </div><!--//wrapper-->
+</div>
+<!--//blog-->
+</div>
+<!--//wrapper-->
 
 {% endblock %}

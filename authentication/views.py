@@ -29,6 +29,7 @@ def user_login(request):
 	# Like before, obtain the context for the user's request.
 	#context = RequestContext(request)
     login_error = False
+    next_url = ""
 
 	# If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
@@ -36,6 +37,8 @@ def user_login(request):
 		# This information is obtained from the login form.
         email = request.POST.get('email', False)
         password = request.POST.get('password', False)
+        next_url = request.POST.get('next_url')
+        print(next_url)
 
 		# Use Django's machinery to attempt to see if the username/password
 		# combination is valid - a User object is returned if it is.
@@ -51,11 +54,8 @@ def user_login(request):
 				# We'll send the user back to the homepage.
                 login(request, user)
 
-                if request.POST.get('next'):
-                    print('test')
-                    return HttpResponseRedirect(request.POST.get('next'))
-                else:
-                    return HttpResponseRedirect(reverse("dashboard.views.index"))
+                print('going to dashboard')
+                return HttpResponseRedirect(reverse("dashboard.views.index"))
 
             else:
 				# An inactive account was used - no logging in!

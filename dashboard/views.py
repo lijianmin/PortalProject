@@ -10,12 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator          import Paginator, EmptyPage, PageNotAnInteger
 from django.conf 					import settings
 
-from profile.models					import UserProfile
+from profile.models					import UserProfile, ClinicianProfile
 from forums.models					import Forum, Thread, Post
 from QnA.models 					import Specialty, Question
 from portal.models 					import article
 from dashboard.forms 				import *
 from django.contrib.auth.models     import Group
+from appointments.models            import Appointment
 
 from PIL                            import Image as PImage
 from os.path                        import join as pjoin
@@ -241,3 +242,33 @@ def submit_feedback(request):
         'dashboard/dashboard_feedback.html',
         {'submitted':submitted,},
         RequestContext(request))
+
+@login_required
+def get_all_appointments(request):
+
+    r_user = request.user.userprofile
+
+    if has_group(request.user,"User"): #User
+        appointments = Appointment.objects.filter(user=r_user)
+    elif has_group(request.user,"Clinician"): #Clinician
+        appointments = Appointment.objects.filter(doctor=r_user.clinicianprofile)
+
+    return render(request, 'dashboard/dashboard_appointments.html', {'appointments':appointments,})
+
+@login_required
+def view_appointment(request, appt_id):
+
+    if has_group(request.user,"User"):
+        appt = get_object_or_404(Appointment, pk=appt_id)
+
+    return render(request, 'dashboard/dashboard_apptview.html', {'appt':appt, })
+
+@login_required
+def delete_appointment(request, appt_id):
+    
+    return render("delete appointment")
+
+@login_required
+def edit_appointment(request):
+
+    return render("edit appointment")

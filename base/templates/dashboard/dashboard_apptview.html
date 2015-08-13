@@ -1,0 +1,97 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block dashboardfunction %}
+{% load portal_tags %}
+{% load staticfiles %}
+
+<br/>
+<div id="page-content-wrapper">
+
+  <div class="page-content inset"  style="margin-top:100px;">
+
+    <div class="row">
+
+      <div class="col-md-11 col-sm-11">
+        <h1>Your Appointment in Detail<span class="sub_icon glyphicon glyphicon-time"></span></h1>
+        <hr/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <p><b>Description of Condition</b></p>
+        <p align=justify>{{ appt.remarks }}</p>
+        <p><b>Location of Clinic</b></p>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <div style="overflow:hidden;height:550px;width:650px;">
+          <div id="gmap_canvas" style="height:550px;width:650px;"></div>
+          <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+        </div>
+        <div style="text-align:right;width:600px;font-family:arial;font-size:10px;color:#555">©
+          <a style="text-decoration:none;color:#555;cursor:default;" href="http://www.themecircle.net" id="get-map-data" class="google-map-code">The Breslin</a>
+        </div>
+        <script type="text/javascript">
+          function init_map(){
+            var myOptions = {zoom:14,center:new google.maps.LatLng(40.805478,-73.96522499999998),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(40.805478, -73.96522499999998)});infowindow = new google.maps.InfoWindow({content:"<b>The Breslin</b><br/>2880 Broadway<br/> New York" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
+        </script>
+        <br/>
+        <p><b>Appointment ID</b></p>
+        <p>{{ appt.appointment_UUID | upper }}</p>
+        <br/>
+        <br/>
+      </div>
+
+      <div class="col-md-3 col-sm-12">
+        <div class="panel  panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">General Information</h3>
+          </div>
+          <div class="panel-body">
+            <div class="profile-userpic">
+              <p align=center><b>Your Appointment With</b></p>
+              <p><img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" /></p>
+              <p align=center>Dr. {{ appt.doctor.userprofile.user.first_name }} {{ appt.doctor.userprofile.user.last_name }}</p>
+              <hr/>
+              <p align=center><b>Your Appointment Will Be On</b></p>
+              <p align=center>{{ appt.booking_datetime }}</p>
+              <hr/>
+              <p align=center><b>Created On</b> {{ appt.created_datetime }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Actions</h3>
+          </div>
+          <div class="panel-body">
+            <p align=center><a href="{% url 'get_all_appointments' %}">See all appointments</a></p>
+            <p align=center>Edit Appointment</p>
+            <p align=center><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelappt">Cancel Appointment</button></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+    <div id="cancelappt" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Cancellation of Appointment</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to cancel this appointment?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel Appointment</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

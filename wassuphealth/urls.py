@@ -71,17 +71,18 @@ urlpatterns = patterns('',
     url(r'^dashboard/profile/upload/$', 'dashboard.views.profile_avatar_upload', name="profile_avatar"),
     url(r'^dashboard/feedback/$', 'dashboard.views.feedback', name='dfeedback'),
     url(r'^dashboard/feedback/submit/$', 'dashboard.views.submit_feedback', name='d_save_feedback'),
-    #url(r'^dashboard/appointments/$','dashboard.views.get_all_appointments',name='get_all_appointments')
+    url(r'^dashboard/appointments/edit/$', 'dashboard.views.edit_appointment', name='edit_appointment'),
+    url(r'^dashboard/appointments/delete/$', 'dashboard.views.delete_appointment', name='delete_appointment'),
+    url(r'^dashboard/appointments/all/$', 'dashboard.views.get_all_appointments', name='get_all_appointments'),
+    url(r'^dashboard/appointments/view/(\d+)/$', 'dashboard.views.view_appointment', name='view_appointment'),
 
     # appointments
     url(r'^appointments/book/doctor/(\d+)/$', 'appointments.views.book_appointment', name='book_appointment'),
     url(r'^appointments/save/(\d+)/$', 'appointments.views.save_appointment', name='save_appointment'),
-    url(r'^appointments/edit/$', 'appointments.views.edit_appointment', name='edit_appointment'),
-    url(r'^appointments/delete/$', 'appointments.views.delete_appointment', name='delete_appointment'),
-    url(r'^appointments/viewall/$', 'appointments.views.get_all_appointments', name='get_all_appointments'),
 
     # Profile
     url(r'^doctors/view/(\d+)/$', 'profile.views.view_doctor_profile', name='view_doctor'),
+url(r'^doctors/', 'profile.views.view_doctors', name='doc_dir'),
 
     # Feedback
     url(r'^feedback/$','feedback.views.index', name='feedback'),

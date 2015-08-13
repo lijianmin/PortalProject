@@ -1,5 +1,5 @@
 .blog-page{
-	background: #FFF;
+	background: #DCDCDC;
 }
 
 .row{
@@ -134,7 +134,7 @@
 @media (max-width:767px) {
 #wrapper {
     padding-left: 70px;
-    transition: all .4s ease 0s;
+    transition: all .4s ease 0s; 
 }
 #sidebar-wrapper {
     left: 70px;

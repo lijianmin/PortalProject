@@ -49,7 +49,11 @@
                                                 <input type="checkbox"> Remember me
                                             </label>
                                         </div><!--//checkbox-->
+                                        {% if next %}
+                                        <input type="hidden" name="next_url" value="{{ next }}">
+                                        {% endif %}
                                     </form>
+
                                 </div><!--//form-container-->
                                 <div class="social-btns col-md-5 col-sm-12 col-xs-12 col-md-offset-1 col-sm-offset-0 col-sm-offset-0">
                                     <div class="divider"><span>Or</span></div>

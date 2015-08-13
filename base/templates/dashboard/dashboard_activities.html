@@ -6,58 +6,76 @@
 
   <div class="page-content inset"  style="margin-top:100px;">
 
-      <div class="col-md-8 col-sm-12 col-sm-offset-2">
+      <div class="col-md-11 col-sm-11">
         <h1>Your Activities<span class="sub_icon glyphicon glyphicon-tasks"></span></h1>
 
         {% ifusergroup User %}
-        <h3 align="left">Wassup Peeps! <small>Total: {{ user_posts.count }}</small></h3>
-        <table class="table table-hover" style="font-size:14px;">
-            <tr>
-              <th width="15%">Forum</th>
-              <th width="65%">Your Post</th>
-              <th width="20%">Posted On</th>
-            </tr>
+        <br/>
+        <ul class="nav nav-tabs" id="useractivities">
+          <li class="active"><a href="#wassuppeeps" data-toggle="tab">Wassup Peeps!</a></li>
+          <li><a href="#wassupdoc" data-toggle="tab">Wassup Doc!</a></li>
+        </ul>
 
-            {% for post in user_posts %}
-              <tr>
-                <td>{{ post.forum }}</td>
-                <td><a href="{% url 'thread' post.pk %}" target="blank">{{ post.experience }}</a></td>
-                <td>{{ post.created }}</td>
-              </tr>
-            {% endfor %}
+        <div class="tab-content table-responsive">
 
-        </table>
+          <div class="tab-pane active" id="wassuppeeps">
+            <br/>
+            <h3 align=center>You have shared <u>{{ user_posts.count }}</u> experiences.</h3>
+            <br/>
+            <table class="table table-hover" style="font-size:14px;">
+                <tr>
+                  <th width="15%">Forum</th>
+                  <th width="65%">Your Post</th>
+                  <th width="20%">Posted On</th>
+                </tr>
+
+                {% for post in user_posts %}
+                  <tr>
+                    <td>{{ post.forum }}</td>
+                    <td><a href="{% url 'thread' post.pk %}" target="blank">{{ post.experience }}</a></td>
+                    <td>{{ post.created }}</td>
+                  </tr>
+                {% endfor %}
+
+            </table>
+          </div>
+
+          <div class="tab-pane" id="wassupdoc">
+            <br/>
+            <h3 align=center>You have asked <u>{{ user_qns.count }}</u> questions.</h3>
+            <br/>
+            <table class="table table-hover" style="font-size:14px;">
+                <tr>
+                  <th width="12%">Specialty</th>
+                  <th width="5%"><span class="glyphicon glyphicon-lock"></span></th>
+                  <th width="5%"><span class="glyphicon glyphicon-modal-window"></span></th>
+                  <th width="55%">Question</th>
+                  <th width="13%">Posted On</th>
+                  <th width="10%">Status</th>
+                </tr>
+
+                {% for qn in user_qns %}
+                <tr>
+                  <td>{{ qn.specialty }}</td>
+                  <td>{% if qn.private %}<span class="glyphicon glyphicon-lock"></span>{% endif %}</td>
+                  <td>{% if qn.tag_profile %}<span class="glyphicon glyphicon-modal-window"></span>{% endif %}</td>
+                  <td><a href="{% url 'get_question' qn.pk %}" target="blank">{{ qn.question }}</a></td>
+                  <td>{{ qn.timestamp }}</td>
+                  {% if qn.status = 'ANSWERED' %}
+                  <td><b>{{ qn.status }}</b></td>
+                  {% else %}
+                  <td>{{ qn.status }}</td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+          </div>
+
+        </div>
 
         <br/>
-
-        <h3 align="left">Wassup Doc! <small>Total: {{ user_qns.count }}</small></h3>
-        <table class="table table-hover" style="font-size:14px;">
-            <tr>
-              <th width="12%">Specialty</th>
-              <th width="5%"><span class="glyphicon glyphicon-lock"></span></th>
-              <th width="5%"><span class="glyphicon glyphicon-modal-window"></span></th>
-              <th width="55%">Question</th>
-              <th width="13%">Posted On</th>
-              <th width="10%">Status</th>
-            </tr>
-
-            {% for qn in user_qns %}
-            <tr>
-              <td>{{ qn.specialty }}</td>
-              <td>{% if qn.private %}<span class="glyphicon glyphicon-lock"></span>{% endif %}</td>
-              <td>{% if qn.tag_profile %}<span class="glyphicon glyphicon-modal-window"></span>{% endif %}</td>
-              <td><a href="{% url 'get_question' qn.pk %}" target="blank">{{ qn.question }}</a></td>
-              <td>{{ qn.timestamp }}</td>
-              {% if qn.status = 'ANSWERED' %}
-              <td><b>{{ qn.status }}</b></td>
-              {% else %}
-              <td>{{ qn.status }}</td>
-              {% endif %}
-            </tr>
-            {% endfor %}
-        </table>
         <br/>
-        <br/>
+
         {% endifusergroup %}
 
         {% ifusergroup Clinician %}

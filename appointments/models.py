@@ -1,5 +1,7 @@
 from django.db                      import models
 from django_extensions.db.fields 	import UUIDField
+from model_utils.fields             import StatusField
+from model_utils                    import Choices
 from django.conf                    import settings
 from profile.models					import User, UserProfile, PublicUserProfile, ClinicianProfile
 
@@ -16,5 +18,16 @@ class Appointment(models.Model):
     #Change to appointment id of format <year><month><day>-000X where X starts from 1
     appointment_UUID    = UUIDField(blank=True, null=True)
 
-    #image upload in future
     #acknowledged
+    acknowledged        = models.BooleanField(default=False)
+
+    #status
+    STATUS = Choices('PENDING','COMPLETED','CANCELLED','FOLLOW UP')
+    status = StatusField()
+
+    last_updated_datetime = models.DateTimeField(auto_now_add=True, default="1999-01-01 00:00")
+
+    def cancelled(self):
+        self.timestamp = datetime.datetime.now()
+        self.status = self.STATUS.CANCELLED
+        super(Question, self).save()

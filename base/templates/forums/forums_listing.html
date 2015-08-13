@@ -29,7 +29,7 @@
 
             {% regroup forums by title|slice:":1" as forums_list %}
 
-              <dl class="dl-vertical">
+              <dl>
                 {% for forum in forums_list %}
                 <dt>{{ forum.grouper }}
                   <dt>

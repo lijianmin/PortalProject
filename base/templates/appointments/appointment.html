@@ -1,40 +1,54 @@
 {% extends 'common/common_base.html' %}
 {% block title %}
 <a href="#">Wassuphealth!
-  <span class="sub">Appointment Booking</span>
+  <span class="sub">Appointments</span>
 </a>
 {% endblock %}
 {% load widget_tweaks %}
 {% block wsh_content %}
 <div class="container">
-  <div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
-	<div class="row">
-    <div class="form-box col-md-8 col-sm-12 col-xs-12 col-md-offset-2 col-sm-offset-0 xs-offset-0">
-    <div class="form-group">
+    <div class="hidden-xs hidden-sm" style="margin-top:100px;"></div>
 
-      <h3 align=justify>Book an appointment with Dr. {{ doctor_user.first_name}} {{ doctor_user.last_name}}</h3>
-      <hr/>
-      <form action="{% url 'save_appointment' doctor_id %}" method="POST">
-        {% csrf_token %}
-        <label for="voting" class="control-label">Your Contact*:</label>
-        {% render_field appt_form.contact_no class+="form-control" attr="required" %}
-        <br/>
-        <label for="voting" class="control-label">Your Email*:</label>
-        {% render_field appt_form.email_address class+="form-control" attr="required" %}
-        <br/>
-        <label for="voting" class="control-label">Date and Time (in format YYYY-MM-DD HH:MM)*:</label>
-        {% render_field appt_form.booking_datetime class+="form-control" attr="required" %}
-        <br/>
-        <label for="voting" class="control-label">Remarks (if any)*:</label>
-        {% render_field appt_form.remarks class+="form-control" attr="required":textarea rows="4" %}
-        <br/>
-        <button type="submit" class="btn btn-default">Book now!</button>
-      </form>
-
-      <hr/>
-      <p><small>You will receive an email confirmation after the booking has been successfully made.</small></p>
-    </div><!--form-group-->
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <br/>
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+      <div style="overflow:hidden;height:450px;width:550px;">
+        <div id="gmap_canvas" style="height:450px;width:550px;"></div>
+        <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+      </div>
+      <div style="text-align:right;width:600px;font-family:arial;font-size:10px;color:#555">©
+        <a style="text-decoration:none;color:#555;cursor:default;" href="http://www.themecircle.net" id="get-map-data" class="google-map-code">The Breslin</a>
+      </div>
+      <script type="text/javascript">
+        function init_map(){
+          var myOptions = {zoom:14,center:new google.maps.LatLng(40.805478,-73.96522499999998),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(40.805478, -73.96522499999998)});infowindow = new google.maps.InfoWindow({content:"<b>The Breslin</b><br/>2880 Broadway<br/> New York" });google.maps.event.addListener(marker, "click", function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
+      </script>
     </div>
-  </div><!--/row-->
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="form-group">
+        <h3 align=justify>Book an appointment with Dr. {{ doctor_user.first_name}} {{ doctor_user.last_name}}</h3>
+        <hr/>
+        <form action="{% url 'save_appointment' doctor_id %}" method="POST">
+          {% csrf_token %}
+          <label for="voting" class="control-label">Your Contact*:</label>
+          {% render_field appt_form.contact_no class+="form-control" attr="required" %}
+          <br/>
+          <label for="voting" class="control-label">Your Email*:</label>
+          {% render_field appt_form.email_address class+="form-control" attr="required" %}
+          <br/>
+          <label for="voting" class="control-label">Date and Time (in format YYYY-MM-DD HH:MM)*:</label>
+          {% render_field appt_form.booking_datetime class+="form-control" attr="required" %}
+          <br/>
+          <label for="voting" class="control-label">Description of Condition (if any)*:</label>
+          {% render_field appt_form.remarks class+="form-control" attr="required":textarea rows="4" %}
+          <br/>
+          <button type="submit" class="btn btn-default">Book now!</button>
+        </form>
+        <hr/>
+        <p><small>You will receive an email confirmation after the booking has been successfully made.</small></p>
+      </div><!--form-group-->
+    </div>
+
 </div>
 {% endblock %}

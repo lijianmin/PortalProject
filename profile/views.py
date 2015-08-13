@@ -16,6 +16,13 @@ def main(request):
 		'docdirectory/doc_profile_2.html',
 		RequestContext(request))
 
+def view_doctors(request):
+
+    clinicians = ClinicianProfile.objects.all()
+
+    return render_to_response('profile/doc_dir.html', {'clinicians':clinicians, }, RequestContext(request))
+
+
 def view_doctor_profile(request, doctor_profile_id):
 
     clinician_profile = get_object_or_404(ClinicianProfile, id=doctor_profile_id)

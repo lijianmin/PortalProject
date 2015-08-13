@@ -23,6 +23,7 @@ def add_csrf(request, ** kwargs):
     d.update(csrf(request))
     return d
 
+@login_required
 def book_appointment(request, doctor_id):
 
     doctor_details = get_object_or_404(ClinicianProfile, id=doctor_id)
@@ -54,18 +55,3 @@ def save_appointment(request, doctor_id):
             print(appt_form.errors)
 
     return render_to_response('appointments/appointment_confirmation.html', {'appt':appt,'doctor':doctor_details,}, RequestContext(request))
-
-@login_required
-def get_all_appointments(request):
-
-    return render("get all appointments")
-
-@login_required
-def delete_appointment(request):
-
-    return render("delete appointment")
-
-@login_required
-def edit_appointment(request):
-
-    return render("edit appointment")

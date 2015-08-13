@@ -1,0 +1,92 @@
+{% extends 'common/common_base.html' %} {% load staticfiles %} {% block title %}
+<a href="{% url 'forums' %}">Wassuphealth!
+  <span class="sub">Doctor Directory</span>
+</a> {% endblock %} {% block wsh_content %}
+<div class="container">
+
+  <div class="hidden-xs hidden-sm" style="margin-top:70px;"></div>
+  <div class="row">
+
+    <div class="col-md-9">
+      <h2>Viewing All Doctors
+        <span class="glyphicon glyphicon-sunglasses"></span>
+      </h2>
+    </div>
+
+  </div>
+  <br/>
+  <div class="col-md-9 col-xs-12 col-sm-12">
+
+    <!-- Clinician profile summary-->
+    {% for clinician in clinicians %}
+    <div class="row">
+      <div class="col-md-2" style="padding:10px;">
+        <div class="image">
+          <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+          <button type="button" class="btn btn-link btn-sm">Message</button>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <!--<h3 class="title"><strong>Dr. {{ user_details.first_name }} {{ user_details.last_name }}</strong></h3>-->
+        <h3 class="title">
+          <strong>Dr. {{ clinician.userprofile.user.first_name }} {{ clinician.userprofile.user.last_name }} <small>{{ clinician.get_medical_careergrade_display }}</small> </strong>
+        </h3>
+        <p style="font-size:12px;">{{ clinician.degree_type }}, {{ clinician.grad_school }} {{ clinician.grad_year }}</p>
+        <p align=justify>
+          <b>About</b>
+          <br/>
+          {{ clinician.writeup_text | safe }}
+        </p>
+        <p>
+          <b>Clinic</b>
+          <br/>{{ clinician.clinic_of_practice.name }}, {{ clinician.clinic_of_practice.address }}
+        </p>
+        <p align=justify>
+          <b>Specialty</b>
+          <br/> {{ clinician.get_clinical_specialty_display }}
+          <br/>
+        </p>
+        <p align=justify>
+          <b>Medical Interests</b>
+          <br/>{{ clinician.medical_interests }}
+          <br/>
+        </p>
+        <p>
+          <a href="{% url 'view_doctor' clinician.id %}"><button type="button" class="btn btn-info btn-sm">View More...</button></a>
+          <a href="{% url 'book_appointment' clinician.id %}"><button type="button" class="btn btn-primary btn-sm">Book An Appointment</button></a>
+        </p>
+      </div>
+    </div>
+    <hr/>
+    <!--end of clinician profile summary-->
+    {% endfor %}
+  </div>
+  <div class="col-md-3 col-xs-12 col-sm-12">
+    <div class="form-inline">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Search">
+      &nbsp
+      <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+    <br/>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Popular Doctors</h3>
+      </div>
+      <div class="panel-body">
+        Dr. Tan Ser Kiat, SGH
+        <br/> Dr. Chong Tuck Hwa, GP
+        <br/> Dr. Koh Poh Koon, PAP
+        <br/> Dr. Ng Eng Hen, MID
+      </div>
+    </div>
+    <br/>
+    <h4>Browse by Specialty</h4>
+    <hr/> Family Medicine
+    <br/> Geriatrics
+    <br/> Gynaecology & Obstetrics
+    <br/>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block dashboardfunction %}
+{% load portal_tags %}
+{% load staticfiles %}
+
+<br/>
+<div id="page-content-wrapper">
+
+  <div class="page-content inset"  style="margin-top:100px;">
+
+      <div class="col-md-11 col-sm-11">
+
+        <h1>Your Appointments<span class="sub_icon glyphicon glyphicon-time"></span></h1>
+
+        <br/>
+        <ul class="nav nav-tabs" id="appointments">
+          <li class="active"><a href="#pending_appointments" data-toggle="tab">Pending Appointments</a></li>
+          <li><a href="#cancelled_appointments" data-toggle="tab">Cancelled Appointments</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+          <div class="tab-pane active table-responsive" id="pending_appointments">
+            <br/>
+            {% ifusergroup User %}
+
+            <!--<div class="row" style="background-color:#dcdcdc; padding:5px;">
+              <div class="col-md-3"><b>Doctor</b></div>
+              <div class="col-md-3"><b>Appointment Time</b></div>
+              <div class="col-md-6"><b>Description of condition</b></div>
+            </div>
+            <br/>
+
+              {% for appt in appointments %}
+              <div class="row">
+                <div class="col-md-3">
+                  <p>
+                    <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+                    Dr. {{ appt.doctor.userprofile.user.first_name }} {{ appt.doctor.userprofile.user.last_name }}
+                  </p>
+                </div>
+                <div class="col-md-3">{{ appt.booking_datetime }}</div>
+                <div class="col-md-6">{{ appt.remarks | truncatechars_html:200 }}</div>
+              </div>
+              <br/>
+              {% endfor %}-->
+
+              <table class="table table-hover" style="font-size:14px;">
+                <tr>
+                  <th width="18%">Booked with</th>
+                  <th width="20%">Appointment</th>
+                  <th width="44%">Description of Condition</th>
+                  <th width="18%">Created on</th>
+                </tr>
+
+                {% for appt in appointments %}
+                  <tr>
+                    <td><img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" /> Dr. {{ appt.doctor.userprofile.user.first_name }} {{ appt.doctor.userprofile.user.last_name }}</td>
+                    <td>{{ appt.booking_datetime }}</td>
+                    <td><a href="{% url 'view_appointment' appt.id %}">{{ appt.remarks | truncatechars_html:200 }}</a></td>
+                    <td>{{ appt.created_datetime }}</td>
+                  </tr>
+                {% endfor %}
+
+              </table>
+            {% endifusergroup %}
+
+            {% ifusergroup Clinician %}
+            <table class="table table-hover" style="font-size:14px;">
+              <tr>
+                <th width="25%">Booked on</th>
+                <th width="20%">Booked by</th>
+                <th width="55%">Remarks</th>
+              </tr>
+
+              {% for appt in appointments %}
+                <tr>
+                  <td>{{ appt.booking_datetime }}</td>
+                  <td>{{ appt.user.user.first_name }} {{ appt.user.user.last_name }}</td>
+                  <td>{{ appt.remarks }}</td>
+                </tr>
+              {% endfor %}
+
+            </table>
+            {% endifusergroup %}
+
+          </div>
+
+          <div class="tab-pane" id="cancelled_appointments">
+            <p>Cancelled appointments</p>
+          </div>
+
+        </div>
+
+        <br/>
+        <br/>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+  $('#docactivities a').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  </script>
+{% endblock %}
