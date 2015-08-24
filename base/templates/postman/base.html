@@ -1,0 +1,18 @@
+{% extends "dashboard/dashboard_base.html" %}
+{% load i18n %}{% load postman_tags %}
+{% block title %}{% trans "Messaging" %}{% endblock %}
+{% block extrahead %}{{ block.super }}
+<link type="text/css" media="all" rel="stylesheet" href="
+{% load staticfiles %}{% static 'postman/css/postman.css' %}
+" />{% endblock %}
+{% block postman_menu %}
+
+    <ul class="nav nav-tabs" id="postman_menu">{% postman_unread as unread_count %}
+      <li class="presentation"><a href="{% url 'postman_inbox' %}">{% trans "Inbox" %}{% if unread_count %} <span class="badge">{{ unread_count }}</span>{% endif %}</a></li>
+      <li class="presentation"><a href="{% url 'postman_sent' %}">{% trans "Sent Messages" %}</a></li>
+      <!--<li class="presentation"><a href="{% url 'postman_write' %}">{% trans "Write" %}</a></li>-->
+      <li class="presentation"><a href="{% url 'postman_archives' %}">{% trans "Archives" %}</a></li>
+      <li class="presentation"><a href="{% url 'postman_trash' %}">{% trans "Trash" %}</a></li>
+    </ul>
+
+{% endblock %}

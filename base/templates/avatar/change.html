@@ -1,0 +1,48 @@
+{% extends "avatar/base.html" %}
+{% load i18n avatar_tags %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="row">
+      <h2>Manage Your Avatar</h2>
+      <p style="font-size:16px">Upload a photo (max res: 1024x1024 or 1MB in size) to identify yourself on the site!</p>
+      <br/>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-5">
+        <p align=center>
+          <b>{% trans "Your current avatar: " %}</b>
+          <br/>
+          <br/>
+          <img class="img-responsive img-circle" src="{% avatar_url user 200 %}" alt="" />
+        </p>
+      </div>
+      <div class="col-sm-12 col-md-7">
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Manage Your Avatar</div>
+            <div class="panel-body">
+              {% if not avatars %}
+                <p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+              {% else %}
+                <form method="POST" action="{% url 'avatar_change' %}">
+                  <p>
+                    {{ primary_avatar_form.as_p }}
+                  </p>
+                  <p>{% csrf_token %}<button class="btn btn-success" type="submit">{% trans "Choose new Default" %}</button></p>
+                </form>
+              {% endif %}
+              <hr/>
+              <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+                <div class="form-group form-inline">
+                  {{ upload_avatar_form.as_table }}
+                </div>
+                <p>{% csrf_token %}<button class="btn btn-primary" type="submit">{% trans "Upload New Image" %}</button></p>
+              </form>
+            </div>
+          </div>
+
+    </div>
+  </div>
+{% endblock %}

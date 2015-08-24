@@ -8,6 +8,7 @@
 
   {% load staticfiles %}
   {% load widget_tweaks %}
+  {% load avatar_tags %}
 
     <div class="container">
 			<div class="hidden-xs hidden-sm" style="margin-top:50px;"></div>
@@ -78,7 +79,7 @@
                 <br/>
     					</p>
     					<div class="col-xs-2 {% cycle '' 'pull-right' %}">
-                <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+                <img class="img-responsive img-circle" src="{% avatar_url thread.creator %}" alt="" />
                 <br/>
               </div>
     					<div class="col-xs-10">

@@ -1,5 +1,5 @@
-{% extends 'common/common_base.html' %} {% load staticfiles %} {% block title %}
-<a href="{% url 'forums' %}">Wassuphealth!
+{% extends 'common/common_base.html' %} {% load staticfiles %} {% block title %} {% load comments %} {% load widget_tweaks %} {% load profile_tags %} {% load avatar_tags %}
+<a href="{% url 'doc_dir' %}">Wassuphealth!
   <span class="sub">Doctor Profile</span>
 </a> {% endblock %} {% block wsh_content %}
 <div class="container">
@@ -14,7 +14,7 @@
       <div class="box">
         <div class="icon">
           <div class="image">
-            <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
+            <img class="img-responsive img-circle" src="{% avatar_url user_details 200 %}" alt="" />
           </div>
           <div class="info">
             <h3 class="title">
@@ -79,7 +79,55 @@
         </div>
         <div class="space"></div>
       </div>
+
+      <!--Comments-->
+
+      <div class="row">
+        <div class="col-xs-12 col-md-8">
+
+          {% get_comment_count for clinician_profile as comment_count %}
+          <h3>What people have to say on Dr. {{ user_details.first_name }} {{ user_details.last_name }}.
+            <small>{{ comment_count }} comments</small>
+          </h3>
+
+          <br/>
+
+          {% get_comment_list for clinician_profile as clinician_comments %}
+          {% for c in clinician_comments %}
+          <div class="row">
+            <h4>Rated {{ c.rating }}/5 &nbsp<small>{{ c.submit_date }} by <b>By {{ c.user_name }}</b></small></h4>
+            <p style="font-size:16px;">{{ c.comment }}</p>
+            <hr/>
+          </div>
+          {% endfor %}
+
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h3>Write a comment</h3>
+          <hr/> {% if user.is_authenticated %} {% get_comment_form for clinician_profile as form %}
+          <div class="form-container">
+            <form action="{% comment_form_target %}" method="POST">
+              {% csrf_token %}
+              <label for="comment">Comments</label>
+              {% render_field form.comment class+="form-control" rows=5 placeholder="Comments here..." %}
+              {% render_field form.honeypot class+="form-control" style="display:none;" %}
+              {{ form.content_type }} {{ form.object_pk }} {{ form.timestamp }} {{ form.security_hash }}
+              <br/>
+              <input type="hidden" name="next" value="{% url 'view_doctor' clinician_profile.id %}" />
+              <div class="form-group form-inline">
+                <label for="rating">Rating</label>
+                {% render_field form.rating class+="form-control" placeholder="Rating" %}
+              </div>
+              <button type="submit" id="id_submit" class="btn btn-primary">Add comment</button>
+            </form>
+          </div>
+          {% else %}
+          <p>Please login to leave a comment</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 {% endblock %}

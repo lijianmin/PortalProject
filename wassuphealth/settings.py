@@ -47,7 +47,10 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.humanize',
     'django_extensions',
+	'django_comments',
 	'taggit',
+	'avatar',
+	'postman',
 	'base',
     'portal',
 	'registration',
@@ -59,6 +62,7 @@ INSTALLED_APPS = (
 	'QnA',
 	'djconfig',
 	'widget_tweaks',
+	'rating'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,7 +95,7 @@ WSGI_APPLICATION = 'wassuphealth.wsgi.application'
 
 DATABASES = {
     'default': {
-		'ENGINE': 'django.db.backends.mysql',
+		'ENGINE': 'mysql.connector.django',
         'NAME': 'wassuphealth',
         'USER': 'root',
         'PASSWORD': 'root',
@@ -104,16 +108,25 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
+# CUSTOM COMMENT APP
+COMMENTS_APP = 'rating'
+
+# USER MODEL
 AUTH_USER_MODEL = 'profile.User'
+
+# avatar
+AVATAR_GRAVATAR_DEFAULT = 'mm'
+
+# postman
+POSTMAN_DISALLOW_ANONYMOUS = True
+POSTMAN_SHOW_USER_AS = 'get_full_name'
+POSTMAN_DISALLOW_MULTIRECIPIENTS = True
+POSTMAN_AUTO_MODERATE_AS = True
 
 # EMAIL
 EMAIL_USE_TLS = True
@@ -126,18 +139,14 @@ NOTIFY_EMAIL = 'jianmin@wassuphealth.com'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 MEDIA_ROOT = '/Applications/MAMP/htdocs/wsh/images/'
 MEDIA_URL = 'http://127.0.0.1:8888/wsh/images/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 STATICFILES_DIRS = (
  '/Users/Jianmin/django_projects/healthportal/wassuphealth/media',)
-
 
 TEMPLATE_DIRS = (
 	"base/templates/",

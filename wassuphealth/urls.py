@@ -75,6 +75,11 @@ urlpatterns = patterns('',
     url(r'^dashboard/appointments/delete/$', 'dashboard.views.delete_appointment', name='delete_appointment'),
     url(r'^dashboard/appointments/all/$', 'dashboard.views.get_all_appointments', name='get_all_appointments'),
     url(r'^dashboard/appointments/view/(\d+)/$', 'dashboard.views.view_appointment', name='view_appointment'),
+    url(r'^messages/', include('postman.urls')),
+    url(r'^avatar/', include('avatar.urls')),
+
+    # comments
+    url(r'^comments/', include('django_comments.urls')),
 
     # appointments
     url(r'^appointments/book/doctor/(\d+)/$', 'appointments.views.book_appointment', name='book_appointment'),
@@ -82,7 +87,7 @@ urlpatterns = patterns('',
 
     # Profile
     url(r'^doctors/view/(\d+)/$', 'profile.views.view_doctor_profile', name='view_doctor'),
-url(r'^doctors/', 'profile.views.view_doctors', name='doc_dir'),
+    url(r'^doctors/', 'profile.views.view_doctors', name='doc_dir'),
 
     # Feedback
     url(r'^feedback/$','feedback.views.index', name='feedback'),

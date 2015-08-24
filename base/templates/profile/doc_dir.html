@@ -1,5 +1,5 @@
-{% extends 'common/common_base.html' %} {% load staticfiles %} {% block title %}
-<a href="{% url 'forums' %}">Wassuphealth!
+{% extends 'common/common_base.html' %} {% load staticfiles %} {% block title %} {% load avatar_tags %}
+<a href="{% url 'doc_dir' %}">Wassuphealth!
   <span class="sub">Doctor Directory</span>
 </a> {% endblock %} {% block wsh_content %}
 <div class="container">
@@ -22,8 +22,8 @@
     <div class="row">
       <div class="col-md-2" style="padding:10px;">
         <div class="image">
-          <img class="img-responsive img-circle" src="{% static 'assets/images/people/profile-s-1.png' %}" alt="" />
-          <button type="button" class="btn btn-link btn-sm">Message</button>
+          <img class="img-responsive img-circle" src="{% avatar_url clinician.userprofile.user 70 %}" alt="" />
+          <button type="button" class="btn btn-link btn-sm"><a href="{% url 'postman_write' clinician.userprofile.user.email %}">Message</a></button>
         </div>
       </div>
       <div class="col-md-10">
@@ -75,8 +75,8 @@
       <div class="panel-body">
         Dr. Tan Ser Kiat, SGH
         <br/> Dr. Chong Tuck Hwa, GP
-        <br/> Dr. Koh Poh Koon, PAP
-        <br/> Dr. Ng Eng Hen, MID
+        <br/> Dr. Ernest Chin, NUHS
+        <br/> Dr. Li Jianmin, JHS
       </div>
     </div>
     <br/>
