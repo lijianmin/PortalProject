@@ -1,13 +1,10 @@
 from django.conf.urls 					import patterns, include, url
 from django.contrib 					import admin
-from django.conf                        import settings
 from django.conf.urls.static            import static
 from portal 							import views
 from django.contrib.staticfiles.urls    import staticfiles_urlpatterns
-
-#sitemaps = {
-#	'posts': PostSitemap,
-#}
+from postman_attachments.forms          import FullReplyAttachmentForm, FullWriteAttachmentForm
+from postman.views                      import *
 
 #wires of the site
 urlpatterns = patterns('',
@@ -75,7 +72,20 @@ urlpatterns = patterns('',
     url(r'^dashboard/appointments/delete/$', 'dashboard.views.delete_appointment', name='delete_appointment'),
     url(r'^dashboard/appointments/all/$', 'dashboard.views.get_all_appointments', name='get_all_appointments'),
     url(r'^dashboard/appointments/view/(\d+)/$', 'dashboard.views.view_appointment', name='view_appointment'),
-    url(r'^messages/', include('postman.urls')),
+
+    # dashboard == postman
+
+    url(r'^write/(?:(?P<recipients>[^/#]+)/)?$',
+        WriteView.as_view(form_class=FullWriteAttachmentForm),
+        name='pm_write'),
+
+    url(r'^reply/(?P<message_id>[\d]+)/$',
+        ReplyView.as_view(form_class=FullReplyAttachmentForm),
+        name='pm_reply'),
+
+    url(r'^messages/',include('postman.urls')),
+
+    # dashboard == avatar
     url(r'^avatar/', include('avatar.urls')),
 
     # comments

@@ -36,10 +36,8 @@
       <label>Description </label>
       {% render_field form.body type="text" class+="form-control" rows=10 %}
       <br/>
-      {% if form.files %}
       <label>Attachments *</label>
       {% render_field form.files type="file" multiple="multiple" class+="form-control" %}
-      {% endif %}
     </div>
 
     <button class="btn btn-block btn-cta-primary" type="submit">{% trans "Send" %}</button>

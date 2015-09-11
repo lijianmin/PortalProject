@@ -48,9 +48,12 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django_extensions',
 	'django_comments',
+	'maintenancemode',
 	'taggit',
 	'avatar',
 	'postman',
+	'postman_attachments',
+	'multiupload',
 	'base',
     'portal',
 	'registration',
@@ -71,6 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'maintenancemode.middleware.MaintenanceModeMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -112,6 +116,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# MAINTENANCE MODE
+MAINTENANCE_MODE = False
 
 # CUSTOM COMMENT APP
 COMMENTS_APP = 'rating'

@@ -1,3 +1,4 @@
+<!-- Overrided Version -->
 {% extends "postman/base.html" %}
 {% load i18n %}{% load postman_tags %} {% load widget_tweaks %}
 {% block content %}
@@ -15,7 +16,22 @@
         <span class="pm_subject"><u>{{ message.subject }}</u></span>
         {% if message.is_rejected %}  <div class="pm_status">{% trans "Rejected" %}{% if message.moderation_reason %}{% trans ":" %} {{ message.moderation_reason }}{% endif %}</div>{% endif %}
       </div>
-      <div class="panel-body pm_body">{{ message.body|linebreaksbr }}</div>
+      <div class="panel-body pm_body">
+        {{ message.body|linebreaksbr }}
+        {% if message.attachment_set.all %}
+          <div class="pm_attachments">
+            <br/>
+            <span><b>Attachments</b></span>
+            <ul>
+              {% for a in message.attachment_set.all %}
+                <li><a href="http://127.0.0.1:8888/WSH/images/attachments/{{ a.attachment.title }}" target="_blank">{{ a.attachment.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% else %}
+          <p><br/><i>No attachments available</i></p>
+        {% endif %}
+      </div>
     </div>
 
     {% if forloop.last %}
@@ -30,7 +46,7 @@
           {% endif %}
         </span>
         {% if reply_to_pk %}
-          <a href="{% url 'postman_reply' reply_to_pk %}?next={{ next_url|urlencode }}">{% trans "Reply" %}</a>
+          <a href="{% url 'pm_reply' reply_to_pk %}?next={{ next_url|urlencode }}">{% trans "Reply" %}</a>
         {% endif %}
       </form>
     </div>

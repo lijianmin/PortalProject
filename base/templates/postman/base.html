@@ -10,7 +10,7 @@
     <ul class="nav nav-tabs" id="postman_menu">{% postman_unread as unread_count %}
       <li class="presentation"><a href="{% url 'postman_inbox' %}">{% trans "Inbox" %}{% if unread_count %} <span class="badge">{{ unread_count }}</span>{% endif %}</a></li>
       <li class="presentation"><a href="{% url 'postman_sent' %}">{% trans "Sent Messages" %}</a></li>
-      <!--<li class="presentation"><a href="{% url 'postman_write' %}">{% trans "Write" %}</a></li>-->
+      <!--<li class="presentation"><a href="{% url 'pm_write' %}">{% trans "Write" %}</a></li>-->
       <li class="presentation"><a href="{% url 'postman_archives' %}">{% trans "Archives" %}</a></li>
       <li class="presentation"><a href="{% url 'postman_trash' %}">{% trans "Trash" %}</a></li>
     </ul>
